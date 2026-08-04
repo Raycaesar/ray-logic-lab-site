@@ -1,0 +1,91 @@
+---
+import { supportConfig } from '../config/support';
+
+interface Props {
+  lang: 'zh' | 'en';
+}
+
+const { lang } = Astro.props;
+const isZh = lang === 'zh';
+
+const paymentLinks = [
+  {
+    label: 'Ko-fi',
+    url: supportConfig.kofiUrl,
+  },
+  {
+    label: 'Buy Me a Coffee',
+    url: supportConfig.buyMeACoffeeUrl,
+  },
+  {
+    label: isZh ? '国际支付' : 'International payment',
+    url: supportConfig.stripeUrl,
+  },
+].filter((item) => item.url.trim() !== '');
+
+const qrCodes = [
+  {
+    label: isZh ? '微信支持' : 'WeChat',
+    src: supportConfig.wechatQr,
+  },
+  {
+    label: isZh ? '支付宝支持' : 'Alipay',
+    src: supportConfig.alipayQr,
+  },
+].filter((item) => item.src.trim() !== '');
+
+const hasSupportOptions =
+  paymentLinks.length > 0 || qrCodes.length > 0;
+---
+
+{
+  hasSupportOptions && (
+    <aside class="support-card" aria-labelledby="support-heading">
+      <h2 id="support-heading">
+        {isZh ? '支持这项工作' : 'Support this work'}
+      </h2>
+
+      <p>
+        {
+          isZh
+            ? '如果这篇文章对你有帮助，可以支持本站维护、文献整理和公开学术项目。'
+            : 'If this article was useful, you may support the maintenance of this site, source research, and public scholarship.'
+        }
+      </p>
+
+      {
+        paymentLinks.length > 0 && (
+          <div class="support-links">
+            {paymentLinks.map((item) => (
+              <a
+                class="support-button"
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        qrCodes.length > 0 && (
+          <div class="support-qr-grid">
+            {qrCodes.map((item) => (
+              <figure>
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  loading="lazy"
+                />
+                <figcaption>{item.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )
+      }
+    </aside>
+  )
+}

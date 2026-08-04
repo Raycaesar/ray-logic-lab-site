@@ -12,14 +12,16 @@ tags:
 series: 网站说明
 draft: false
 featured: true
+translationKey: about-this-blog
+translationStatus: original
+support: false
+revisionNote: "这是本站博客系统建立后的首版说明。"
 author: Rui Zhu
 ---
 
-# 为什么建立 Ray Logic Lab Notes
-
 这个博客用于发表逻辑学、中国逻辑史、逻辑教育和相关学术问题的研究札记。
 
-文章分为以下几类：
+文章主要分为以下几类：
 
 1. 文本考证；
 2. 逻辑史研究；
