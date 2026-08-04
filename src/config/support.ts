@@ -1,13 +1,13 @@
 /**
  * Optional support links for blog posts.
  *
- * Leave a value empty to hide that payment method.
- * Files such as QR-code images should be placed under public/support/.
+ * Empty values are hidden automatically.
+ * QR-code images are stored under public/support/.
  */
 export const supportConfig = {
   kofiUrl: '',
   buyMeACoffeeUrl: '',
   stripeUrl: '',
-  wechatQr: '',
-  alipayQr: '',
+  wechatQr: '/public/support/wechat-qr.jpg',
+  alipayQr: '/public/support/alipay-qr.jpg',
 } as const;

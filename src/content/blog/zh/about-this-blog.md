@@ -14,7 +14,7 @@ draft: false
 featured: true
 translationKey: about-this-blog
 translationStatus: original
-support: false
+support: true
 revisionNote: "这是本站博客系统建立后的首版说明。"
 author: Rui Zhu
 ---

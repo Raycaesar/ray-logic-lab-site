@@ -25,67 +25,162 @@ const paymentLinks = [
 
 const qrCodes = [
   {
-    label: isZh ? '微信支持' : 'WeChat',
+    label: isZh ? '微信' : 'WeChat',
     src: supportConfig.wechatQr,
   },
   {
-    label: isZh ? '支付宝支持' : 'Alipay',
+    label: isZh ? '支付宝' : 'Alipay',
     src: supportConfig.alipayQr,
   },
 ].filter((item) => item.src.trim() !== '');
 
 const hasSupportOptions =
   paymentLinks.length > 0 || qrCodes.length > 0;
+
+const dialogId = `support-dialog-${lang}`;
 ---
 
 {
   hasSupportOptions && (
-    <aside class="support-card" aria-labelledby="support-heading">
-      <h2 id="support-heading">
-        {isZh ? '支持这项工作' : 'Support this work'}
-      </h2>
-
+    <aside
+      class="support-note"
+      aria-label={isZh ? '支持本站' : 'Support this site'}
+    >
       <p>
         {
-          isZh
-            ? '如果这篇文章对你有帮助，可以支持本站维护、文献整理和公开学术项目。'
-            : 'If this article was useful, you may support the maintenance of this site, source research, and public scholarship.'
+          isZh ? (
+            <>
+              如果这篇文章对你有帮助，可以支持本站维护、文献整理和公开学术项目。
+              欢迎
+              <button
+                type="button"
+                class="support-trigger"
+                aria-haspopup="dialog"
+                aria-controls={dialogId}
+                data-support-open
+              >
+                打赏
+              </button>
+              。
+            </>
+          ) : (
+            <>
+              If this article was useful, you may support the maintenance
+              of this site, source research, and public scholarship.
+              You are welcome to
+              <button
+                type="button"
+                class="support-trigger"
+                aria-haspopup="dialog"
+                aria-controls={dialogId}
+                data-support-open
+              >
+                support this work
+              </button>
+              .
+            </>
+          )
         }
       </p>
 
-      {
-        paymentLinks.length > 0 && (
-          <div class="support-links">
-            {paymentLinks.map((item) => (
-              <a
-                class="support-button"
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-        )
-      }
+      <dialog
+        id={dialogId}
+        class="support-dialog"
+        aria-labelledby={`${dialogId}-title`}
+      >
+        <div class="support-dialog-panel">
+          <div class="support-dialog-header">
+            <h2 id={`${dialogId}-title`}>
+              {isZh ? '打赏与支持' : 'Support this work'}
+            </h2>
 
-      {
-        qrCodes.length > 0 && (
-          <div class="support-qr-grid">
-            {qrCodes.map((item) => (
-              <figure>
-                <img
-                  src={item.src}
-                  alt={item.label}
-                  loading="lazy"
-                />
-                <figcaption>{item.label}</figcaption>
-              </figure>
-            ))}
+            <form method="dialog">
+              <button
+                type="submit"
+                class="support-dialog-close"
+                aria-label={isZh ? '关闭弹窗' : 'Close dialog'}
+              >
+                ×
+              </button>
+            </form>
           </div>
-        )
-      }
+
+          <p class="support-dialog-description">
+            {
+              isZh
+                ? '感谢你对本站维护、文献整理和公开学术写作的支持。'
+                : 'Thank you for supporting the maintenance of this site, source research, and public scholarship.'
+            }
+          </p>
+
+          {
+            paymentLinks.length > 0 && (
+              <div class="support-links">
+                {paymentLinks.map((item) => (
+                  <a
+                    class="support-button"
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            )
+          }
+
+          {
+            qrCodes.length > 0 && (
+              <div class="support-qr-grid">
+                {qrCodes.map((item) => (
+                  <figure>
+                    <img
+                      src={item.src}
+                      alt={`${item.label}${isZh ? '收款码' : ' payment QR code'}`}
+                      loading="lazy"
+                    />
+                    <figcaption>{item.label}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )
+          }
+
+          <form method="dialog" class="support-dialog-footer">
+            <button type="submit" class="support-dialog-done">
+              {isZh ? '关闭' : 'Close'}
+            </button>
+          </form>
+        </div>
+      </dialog>
     </aside>
   )
 }
+
+<script>
+  document.querySelectorAll('[data-support-open]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const dialogId = trigger.getAttribute('aria-controls');
+
+      if (!dialogId) return;
+
+      const dialog = document.getElementById(dialogId);
+
+      if (dialog instanceof HTMLDialogElement) {
+        dialog.showModal();
+      }
+    });
+  });
+
+  document.querySelectorAll('.support-dialog').forEach((dialog) => {
+    dialog.addEventListener('click', (event) => {
+      if (
+        event.target === dialog &&
+        dialog instanceof HTMLDialogElement
+      ) {
+        dialog.close();
+      }
+    });
+  });
+</script>
