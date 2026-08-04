@@ -1,16 +1,24 @@
-import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
 
 export async function GET(context) {
-	const posts = await getCollection('blog');
-	return rss({
-		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
-		site: context.site,
-		items: posts.map((post) => ({
-			...post.data,
-			link: `/blog/${post.id}/`,
-		})),
-	});
+  const posts = (
+    await getCollection('blog', ({ data }) => data.draft !== true)
+  ).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+
+  return rss({
+    title: 'Ray Logic Lab',
+    description:
+      'Logic, history of logic, Chinese logic, and research notes.',
+    site: context.site,
+
+    items: posts.map((post) => ({
+      title: post.data.title,
+      description: post.data.description,
+      pubDate: post.data.pubDate,
+      link: `/${post.data.lang}/blog/${post.data.slug}/`,
+    })),
+  });
 }

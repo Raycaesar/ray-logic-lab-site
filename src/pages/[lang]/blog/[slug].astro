@@ -1,0 +1,75 @@
+---
+import {
+  getCollection,
+  render,
+  type CollectionEntry,
+} from 'astro:content';
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => {
+    return data.draft !== true;
+  });
+
+  return posts.map((post) => ({
+    params: {
+      lang: post.data.lang,
+      slug: post.data.slug,
+    },
+    props: {
+      post,
+    },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+
+const { Content } = await render(post);
+
+const locale =
+  post.data.lang === 'zh'
+    ? 'zh-CN'
+    : 'en-GB';
+---
+
+<BaseLayout
+  title={`${post.data.title} | Ray Logic Lab`}
+  description={post.data.description}
+  lang={post.data.lang}
+>
+  <article>
+    <header>
+      <h1>{post.data.title}</h1>
+
+      <p class="post-meta">
+        {new Intl.DateTimeFormat(locale).format(post.data.pubDate)}
+      </p>
+
+      {
+        post.data.updatedDate && (
+          <p class="post-meta">
+            {post.data.lang === 'zh' ? '更新：' : 'Updated: '}
+            {new Intl.DateTimeFormat(locale).format(
+              post.data.updatedDate,
+            )}
+          </p>
+        )
+      }
+
+      <div class="tags">
+        {
+          post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))
+        }
+      </div>
+    </header>
+
+    <Content />
+  </article>
+</BaseLayout>
