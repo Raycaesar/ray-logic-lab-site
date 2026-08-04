@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
   // 部署到 Cloudflare 后，再替换为实际站点地址。
-  site: 'https://ray-logic-lab-preview.pages.dev',
+  site: 'https://ray-logic-lab-site.pages.dev',
 
   trailingSlash: 'always',
 
