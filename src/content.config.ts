@@ -2,6 +2,13 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+const translationStatus = z.enum([
+  'original',
+  'human',
+  'ai-draft',
+  'reviewed',
+]);
+
 const blog = defineCollection({
   loader: glob({
     base: './src/content/blog',
@@ -24,7 +31,11 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
 
-    translationOf: z.string().optional(),
+    translationKey: z.string().optional(),
+    translationStatus: translationStatus.default('original'),
+
+    support: z.boolean().default(false),
+    revisionNote: z.string().optional(),
 
     author: z.string().default('Rui Zhu'),
   }),

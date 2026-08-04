@@ -6,6 +6,7 @@ import {
 } from 'astro:content';
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SupportCard from '../../../components/SupportCard.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => {
@@ -28,38 +29,109 @@ interface Props {
 }
 
 const { post } = Astro.props;
-
 const { Content } = await render(post);
 
-const locale =
-  post.data.lang === 'zh'
-    ? 'zh-CN'
-    : 'en-GB';
+const isZh = post.data.lang === 'zh';
+const otherLang = isZh ? 'en' : 'zh';
+const locale = isZh ? 'zh-CN' : 'en-GB';
+
+const allPublishedPosts = await getCollection(
+  'blog',
+  ({ data }) => data.draft !== true,
+);
+
+const translationKey =
+  post.data.translationKey ?? post.data.slug;
+
+const alternatePost = allPublishedPosts.find((candidate) => {
+  const candidateKey =
+    candidate.data.translationKey ??
+    candidate.data.slug;
+
+  return (
+    candidate.id !== post.id &&
+    candidate.data.lang === otherLang &&
+    candidateKey === translationKey
+  );
+});
+
+const alternateHref = alternatePost
+  ? `/${alternatePost.data.lang}/blog/${alternatePost.data.slug}/`
+  : undefined;
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+
+const statusLabels = isZh
+  ? {
+      original: '原文',
+      human: '人工译稿',
+      'ai-draft': 'AI 草稿',
+      reviewed: '已校订译稿',
+    }
+  : {
+      original: 'Original',
+      human: 'Human translation',
+      'ai-draft': 'AI draft',
+      reviewed: 'Reviewed translation',
+    };
+
+const translationStatusLabel =
+  statusLabels[post.data.translationStatus];
 ---
 
 <BaseLayout
   title={`${post.data.title} | Ray Logic Lab`}
   description={post.data.description}
   lang={post.data.lang}
+  alternateHref={alternateHref}
 >
-  <article>
-    <header>
-      <h1>{post.data.title}</h1>
+  <article class="blog-post">
+    <a class="back-link" href={`/${post.data.lang}/blog/`}>
+      {isZh ? '← 返回博客' : '← Back to blog'}
+    </a>
 
-      <p class="post-meta">
-        {new Intl.DateTimeFormat(locale).format(post.data.pubDate)}
-      </p>
-
+    <header class="article-header">
       {
-        post.data.updatedDate && (
-          <p class="post-meta">
-            {post.data.lang === 'zh' ? '更新：' : 'Updated: '}
-            {new Intl.DateTimeFormat(locale).format(
-              post.data.updatedDate,
-            )}
+        post.data.series && (
+          <p class="article-kicker">
+            {post.data.series}
           </p>
         )
       }
+
+      <h1>{post.data.title}</h1>
+
+      <p class="article-description">
+        {post.data.description}
+      </p>
+
+      <div class="article-meta">
+        <span>
+          {isZh ? '作者：' : 'By '}
+          {post.data.author}
+        </span>
+
+        <span>
+          {isZh ? '发表：' : 'Published: '}
+          {formatDate(post.data.pubDate)}
+        </span>
+
+        {
+          post.data.updatedDate && (
+            <span>
+              {isZh ? '更新：' : 'Updated: '}
+              {formatDate(post.data.updatedDate)}
+            </span>
+          )
+        }
+
+        <span>{translationStatusLabel}</span>
+      </div>
 
       <div class="tags">
         {
@@ -70,6 +142,83 @@ const locale =
       </div>
     </header>
 
-    <Content />
+    <aside class="translation-panel">
+      {
+        alternatePost ? (
+          <>
+            <strong>
+              {
+                isZh
+                  ? '本文已有英文版本。'
+                  : 'A Chinese version of this article is available.'
+              }
+            </strong>
+
+            <a href={alternateHref}>
+              {
+                isZh
+                  ? '阅读英文版本'
+                  : 'Read the Chinese version'
+              }
+            </a>
+          </>
+        ) : (
+          <>
+            <strong>
+              {
+                isZh
+                  ? '英文版本尚未完成。'
+                  : 'A Chinese version is not yet available.'
+              }
+            </strong>
+
+            <a href={`/${otherLang}/blog/`}>
+              {
+                isZh
+                  ? '查看英文博客'
+                  : 'View the Chinese blog'
+              }
+            </a>
+          </>
+        )
+      }
+    </aside>
+
+    <div class="article-content">
+      <Content />
+    </div>
+
+    {
+      post.data.revisionNote && (
+        <section class="revision-note">
+          <h2>
+            {isZh ? '修订说明' : 'Revision note'}
+          </h2>
+
+          <p>{post.data.revisionNote}</p>
+        </section>
+      )
+    }
+
+    {
+      post.data.support && (
+        <SupportCard lang={post.data.lang} />
+      )
+    }
+
+    <nav
+      class="article-footer-nav"
+      aria-label={
+        isZh ? '文章底部导航' : 'Article footer navigation'
+      }
+    >
+      <a href={`/${post.data.lang}/blog/`}>
+        {isZh ? '← 返回博客列表' : '← Back to all posts'}
+      </a>
+
+      <a href="/">
+        {isZh ? '返回个人主页' : 'Homepage'}
+      </a>
+    </nav>
   </article>
 </BaseLayout>

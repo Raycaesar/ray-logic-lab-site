@@ -6,12 +6,14 @@ interface Props {
   title: string;
   description?: string;
   lang?: 'zh' | 'en';
+  alternateHref?: string;
 }
 
 const {
   title,
   description = '',
   lang = 'zh',
+  alternateHref,
 } = Astro.props;
 
 const isZh = lang === 'zh';
@@ -20,6 +22,13 @@ const otherLang = isZh ? 'en' : 'zh';
 const canonicalURL = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : Astro.url;
+
+const languageSwitchHref =
+  alternateHref ?? `/${otherLang}/blog/`;
+
+const alternateURL = Astro.site
+  ? new URL(languageSwitchHref, Astro.site)
+  : new URL(languageSwitchHref, Astro.url);
 ---
 
 <!doctype html>
@@ -35,7 +44,21 @@ const canonicalURL = Astro.site
     <meta name="description" content={description} />
 
     <link rel="canonical" href={canonicalURL} />
+
+    <link
+      rel="alternate"
+      hreflang={isZh ? 'zh-CN' : 'en'}
+      href={canonicalURL}
+    />
+
+    <link
+      rel="alternate"
+      hreflang={otherLang === 'zh' ? 'zh-CN' : 'en'}
+      href={alternateURL}
+    />
+
     <link rel="sitemap" href="/sitemap-index.xml" />
+
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -46,7 +69,10 @@ const canonicalURL = Astro.site
 
   <body>
     <header class="site-header">
-      <nav class="site-nav" aria-label={isZh ? '主导航' : 'Main navigation'}>
+      <nav
+        class="site-nav"
+        aria-label={isZh ? '主导航' : 'Main navigation'}
+      >
         <a class="site-name" href="/">Rui Zhu / 祝瑞</a>
 
         <div class="nav-links">
@@ -57,8 +83,13 @@ const canonicalURL = Astro.site
           </a>
 
           <a
-            href={`/${otherLang}/blog/`}
-            aria-label={isZh ? 'Switch to English blog' : '切换到中文博客'}
+            class="language-link"
+            href={languageSwitchHref}
+            aria-label={
+              isZh
+                ? 'Switch to English'
+                : '切换到中文'
+            }
           >
             {isZh ? 'EN' : '中文'}
           </a>

@@ -10,59 +10,154 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as 'zh' | 'en';
+const otherLang = lang === 'zh' ? 'en' : 'zh';
+const isZh = lang === 'zh';
 
 const posts = (
   await getCollection('blog', ({ data }) => {
     return data.draft !== true && data.lang === lang;
   })
 ).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) =>
+    b.data.pubDate.valueOf() -
+    a.data.pubDate.valueOf(),
 );
 
-const pageTitle = lang === 'zh' ? '博客' : 'Blog';
-const pageDescription =
-  lang === 'zh'
-    ? '逻辑学、中国逻辑史、逻辑教育和研究札记。'
-    : 'Notes on logic, the history of logic, logic education, and related research.';
+const pageTitle = isZh ? '博客' : 'Blog';
+
+const pageDescription = isZh
+  ? '逻辑学、中国逻辑史、逻辑教育和相关研究札记。'
+  : 'Notes on logic, the history of logic, logic education, and related research.';
+
+const locale = isZh ? 'zh-CN' : 'en-GB';
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+
+const statusLabels = isZh
+  ? {
+      original: '原文',
+      human: '人工译稿',
+      'ai-draft': 'AI 草稿',
+      reviewed: '已校订译稿',
+    }
+  : {
+      original: 'Original',
+      human: 'Human translation',
+      'ai-draft': 'AI draft',
+      reviewed: 'Reviewed translation',
+    };
 ---
 
 <BaseLayout
   title={`${pageTitle} | Ray Logic Lab`}
   description={pageDescription}
   lang={lang}
+  alternateHref={`/${otherLang}/blog/`}
 >
-  <header>
-    <h1>{pageTitle}</h1>
-    <p>{pageDescription}</p>
-  </header>
+  <section class="blog-index">
+    <header class="blog-intro">
+      <p class="blog-kicker">Ray Logic Lab Notes</p>
+      <h1>{pageTitle}</h1>
+      <p>{pageDescription}</p>
 
-  <ul class="post-list">
+      <div class="blog-actions">
+        <a class="text-button" href="/">
+          {isZh ? '← 返回个人主页' : '← Back to homepage'}
+        </a>
+
+        <a class="text-button" href="/rss.xml">
+          RSS
+        </a>
+      </div>
+
+      <p class="post-count">
+        {
+          isZh
+            ? `已发表 ${posts.length} 篇文章`
+            : `${posts.length} published ${
+                posts.length === 1 ? 'article' : 'articles'
+              }`
+        }
+      </p>
+    </header>
+
     {
-      posts.map((post) => (
-        <li>
-          <article>
-            <h2>
-              <a href={`/${lang}/blog/${post.data.slug}/`}>
-                {post.data.title}
-              </a>
-            </h2>
+      posts.length > 0 ? (
+        <ul class="post-list">
+          {posts.map((post) => (
+            <li>
+              <article class="post-card">
+                <div class="post-card-heading">
+                  <h2>
+                    <a href={`/${lang}/blog/${post.data.slug}/`}>
+                      {post.data.title}
+                    </a>
+                  </h2>
 
-            <p class="post-meta">
-              {new Intl.DateTimeFormat(
-                lang === 'zh' ? 'zh-CN' : 'en-GB',
-              ).format(post.data.pubDate)}
-            </p>
+                  <span class="status-badge">
+                    {statusLabels[post.data.translationStatus]}
+                  </span>
+                </div>
 
-            <p>{post.data.description}</p>
+                <p class="post-description">
+                  {post.data.description}
+                </p>
 
-            <div class="tags">
-              {post.data.tags.map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
-          </article>
-        </li>
-      ))
+                <div class="post-details">
+                  <span>{formatDate(post.data.pubDate)}</span>
+
+                  {post.data.updatedDate && (
+                    <span>
+                      {isZh ? '更新：' : 'Updated: '}
+                      {formatDate(post.data.updatedDate)}
+                    </span>
+                  )}
+
+                  {post.data.series && (
+                    <span>
+                      {isZh ? '系列：' : 'Series: '}
+                      {post.data.series}
+                    </span>
+                  )}
+                </div>
+
+                <div class="tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-state">
+          <h2>
+            {isZh ? '尚未发表文章' : 'No articles yet'}
+          </h2>
+
+          <p>
+            {
+              isZh
+                ? '文章发布后会自动出现在这里。'
+                : 'Published articles will appear here automatically.'
+            }
+          </p>
+
+          <a href={`/${otherLang}/blog/`}>
+            {
+              isZh
+                ? '查看英文博客'
+                : 'View the Chinese blog'
+            }
+          </a>
+        </div>
+      )
     }
-  </ul>
+  </section>
 </BaseLayout>
