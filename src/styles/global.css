@@ -478,3 +478,166 @@ a:hover {
     margin-top: 0.45rem;
   }
 }
+
+/* SUPPORT MODAL START */
+
+.support-note {
+  margin-top: 2.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.support-note p {
+  margin: 0;
+}
+
+.support-trigger {
+  appearance: none;
+  display: inline;
+  margin: 0 0.16em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.support-trigger:hover,
+.support-trigger:focus-visible {
+  color: var(--accent);
+}
+
+.support-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.support-dialog {
+  width: min(92vw, 660px);
+  max-height: 88vh;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
+}
+
+.support-dialog::backdrop {
+  background: rgba(2, 6, 23, 0.78);
+  backdrop-filter: blur(5px);
+}
+
+.support-dialog-panel {
+  padding: clamp(1.2rem, 4vw, 1.8rem);
+}
+
+.support-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.support-dialog-header h2 {
+  margin: 0;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    "Noto Serif SC",
+    serif;
+  font-size: 1.45rem;
+}
+
+.support-dialog-header form {
+  margin: 0;
+}
+
+.support-dialog-close {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.support-dialog-close:hover,
+.support-dialog-close:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.support-dialog-description {
+  margin: 0.65rem 0 1.2rem;
+  color: var(--muted);
+}
+
+.support-dialog .support-qr-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.2rem;
+}
+
+.support-dialog .support-qr-grid figure {
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.support-dialog .support-qr-grid img {
+  display: block;
+  width: min(100%, 230px);
+  margin: 0 auto;
+}
+
+.support-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.3rem;
+}
+
+.support-dialog-done {
+  padding: 0.48rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.support-dialog-done:hover,
+.support-dialog-done:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 560px) {
+  .support-dialog .support-qr-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .support-dialog {
+    width: calc(100vw - 1.2rem);
+    max-height: calc(100vh - 1.2rem);
+  }
+}
+
+/* SUPPORT MODAL END */
