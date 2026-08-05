@@ -3,7 +3,7 @@ title: "Shen Youding’s Early Derivation of S5 from S4 + B"
 description: "An examination of Shen Youding’s proof, its historical context, and its logical significance."
 pubDate: 2026-08-08
 lang: en
-slug: shen-youting-and-s5
+routeSlug: shen-youting-and-s5
 tags:
   - Shen Youding
   - modal logic

@@ -3,7 +3,7 @@ title: "沈有鼎关于 S4 + B 推出 S5 的早期证明"
 description: "对沈有鼎相关证明、历史背景和逻辑意义的考察。"
 pubDate: 2026-08-05
 lang: zh
-slug: shen-youting-s5
+routeSlug: shen-youting-s5
 tags:
   - 沈有鼎
   - 模态逻辑

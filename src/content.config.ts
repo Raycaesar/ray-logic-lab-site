@@ -13,6 +13,10 @@ const blog = defineCollection({
   loader: glob({
     base: './src/content/blog',
     pattern: '**/*.{md,mdx}',
+    generateId: ({ entry }) =>
+      entry
+        .replace(/\.(md|mdx)$/, '')
+        .replaceAll('/', '--'),
   }),
 
   schema: z.object({
@@ -23,7 +27,7 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
 
     lang: z.enum(['zh', 'en']),
-    slug: z.string(),
+    routeSlug: z.string(),
 
     tags: z.array(z.string()).default([]),
     series: z.string().optional(),
