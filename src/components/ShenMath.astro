@@ -1,0 +1,43 @@
+---
+/**
+ * KaTeX renderer for historically annotated MDX.
+ * Keep TeX inside JSX String.raw templates to avoid MDX/acorn interpreting {..}
+ * as JavaScript expressions. Does not change mathematical content.
+ */
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+
+interface Props {
+  tex: string;
+  display?: boolean;
+}
+const { tex, display = false } = Astro.props;
+const html = katex.renderToString(tex, {
+  displayMode: display,
+  throwOnError: false,
+  strict: 'ignore',
+  trust: false,
+  output: 'htmlAndMathml',
+  macros: {
+    '\\strictif': '\\prec',
+    '\\equive': '\\equiv_s',
+  },
+});
+---
+{display ? (
+  <div class="shen-math-display" role="math" set:html={html} />
+) : (
+  <span class="shen-math-inline" role="math" set:html={html} />
+)}
+
+<style>
+  .shen-math-display {
+    margin: 1.3rem 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: center;
+    padding-block: .3rem;
+  }
+  .shen-math-inline { display: inline; }
+</style>

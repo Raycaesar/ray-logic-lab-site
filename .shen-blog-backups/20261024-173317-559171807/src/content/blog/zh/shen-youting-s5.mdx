@@ -1,0 +1,1412 @@
+---
+title: "沈有鼎、S5 与模态逻辑的代数语义"
+description: "从刘易斯附录二中归于沈有鼎的 C10+C12 推出 C11 的句法证明，讲到汤璪真、麦金西与塔斯基如何把同一组形式结构转写为矩阵、拓扑和闭包代数。"
+pubDate: 2026-08-05
+updatedDate: 2026-08-22
+lang: zh
+routeSlug: shen-youting-s5
+tags:
+  - 沈有鼎
+  - 模态逻辑
+  - 代数语义
+  - 中国逻辑史
+series: 中国逻辑史
+draft: false
+featured: false
+translationKey: shen-youting-s5
+translationStatus: original
+support: true
+revisionNote: "这是一份保留较多技术细节的中文长篇底稿，重点补充沈有鼎证明与 1938—1948 年代数、拓扑语义发展的关系。正式发布前可再压缩篇幅。"
+author: Rui Zhu
+---
+
+import ShenProofStepper from '../../../components/ShenProofStepper.astro';
+import ShenAlgebraFigure from '../../../components/ShenAlgebraFigure.astro';
+import ShenHistoryFigure from '../../../components/ShenHistoryFigure.astro';
+import ShenModalFrameLab from '../../../components/ShenModalFrameLab.astro';
+import ShenReaderPoll from '../../../components/ShenReaderPoll.astro';
+import ShenMath from '../../../components/ShenMath.astro';
+
+
+
+## 按语
+如果我告诉你，沈有鼎是第一个证明模态逻辑 <ShenMath tex={String.raw`S4 + B`} /> 推出 <ShenMath tex={String.raw`S5`} />的人，你会感到惊讶吗？
+
+告诉我你的反映：
+
+A. 惊讶，没想到沈有鼎在模态逻辑方面有这样的贡献。
+B. 这有什么大不了的，这个推导在模态逻辑不是很显然吗？
+C. 是吗，这在模态逻辑史应该有记载吧？
+D. 我不认识沈有鼎，也不清楚这个推导。
+
+<ShenReaderPoll />
+
+
+我第一次注意到沈有鼎这项工作，是大概17年在奥克兰大学图书馆里。我在一堆没人碰的旧书书架上乱翻，翻到 C. I. Lewis和 C. H. Langford 合著的 Symbolic Logic 时。正好看到附录二里有个中国人名字，旁边有一条很短的脚注：
+
+> “the proof of (14), p. 498, is due to Y. T. Shen (Shen Yuting).”
+
+
+即：第 498 页证明（14）归功于沈有鼎。
+
+<ShenHistoryFigure
+  src="/src/images/shen-s5/appendix2.png"
+  alt="Lewis 与 Langford 1932 年第二附录关于沈有鼎证明的脚注"
+  caption="《Symbolic Logic》第二附录，第 492 页：Lewis 明确把第 498 页证明（14）归于 Shen Yuting。"
+  credit="Lewis and Langford, Symbolic Logic, 1932, Appendix II, p. 492"
+/>
+
+
+
+仔细阅读了一下，发现这其实是证明了在严格蕴含系统里加入一个严格蕴含版本的 公理 B 和 4 就可以推出公理 5。
+
+我当时对模态逻辑史和中国逻辑史都没有过专门的研究，因此不能排除上面的选项B，即这个推理可能意义有限；其次我当时在国外，手头没有足够的中文资料帮我确定国内对此是否已有论述，也就无法排除C。于是这个问题放了很多年，我本来也只打算把这个问题作为以后上课给学生的习题。
+
+不过，2024年回国后，我可以看到中文文献了。我经过搜集整理资料确定了国内没有人仔细讨论这个问题。但我还需要排除选项B。一个有趣的事实是，[《斯坦福哲学百科全书》的“模态逻辑”条目](https://plato.stanford.edu/entries/logic-modal/#DeoLog)写着：
+
+> “It is interesting to note that S5 can be formulated equivalently by adding (B) to S4.”
+
+当然，这还不够，我需要试验一下。2025年 LORI 会议在西安交通大学举办。在第一天用餐时，我故意与约翰·范本特姆和刘奋荣一桌。然后试探的问他们，“你们知道谁是第一个证明 S4 + B 推出  S5 的人吗？” 约翰说不知道，我恳请他大胆猜一下。他猜 C I Lewis。我说非常接近，因为 Lewis 记录了这个证明。但当我告诉他是沈有鼎时，约翰十分惊讶，表现得难以置信，我也是当时确定了这个内容有研究和传播的价值。于是在那之后，我迅速开始整理文献，撰写文章。第一期的文章被AWPL 2026接收，我在2026年4月在西南大学的AWPL会议上做了口头报告。之后，文章被邀请投稿到会议的专刊上。我已于8月提交。不过因为文章是英文的，而这个历史事实如果没有中文文献，那实在是十分可惜的。尤其对于沈有鼎和中国近现代逻辑史的研究者，沈先生在求学时的这个工作是绝对值得被铭记，传播并写在史书上的。
+
+因此，我打算把我研究的情况，放在博客上。这里的内容会比提交的英文稿件更加全面，但不会像论文那样正式。欢迎大家阅读，反馈。如果这篇文章对您的研究有帮助，欢迎打赏。
+
+## 文章结构
+
+沈有鼎先生的证明是纯句法的。如果只列出句法证明，其实内容很少。这个证明的意义很难得到显现。但要真正理解这个证明的难度和价值，就需要了解
+
+>严格蕴含系统,尤其是支持沈有鼎证明的几个重要定理，
+>模态词归约,尤其是Oskar Becker提出的 C10、C11、C12 三条候选公理
+>代数、拓扑语义的发展，这里的关键是汤璪真，McKinsey和Tarski在早期代数/拓扑语义的工作，尤其是McKinsey 1941年的文章，与沈有鼎的证明关联颇深。
+
+本文的结构大致如下：
+
+第1章介绍严格蕴含系统的背景和内容，以1932年的 symbolic logic 系统为主，通过该书的附录2，介绍S1到S3这三个系统，同时给出三个后面将用到的系统内定理。内定理的证明会写在附录。
+
+第2章主要介绍Oskar Becker 1930年的文章，文章给出了三条严格蕴含公理C10, C11 和 C12用以归约模态词，而S4和S5就是在这些公理下提出的，其中国S4 = S1+ C10 而S5 = S1+ C11 = S1+ C10 +C12 。有趣的是Becker认为S1+ C11能把模态归约到6个，而S1+ C10 +C12能归约到10个。这当然是错误的，而这个错误正是沈有鼎的证明纠正的。
+
+第3章给出沈有鼎证明的过程，对沈有鼎证明的反向也给与展现，这样就足以建立起 S1+ C11 = S1+ C10 +C12 这个等式。沈有鼎证明过程中得到的可能模态算子幂等律 <ShenMath tex={String.raw`\Diamond\Diamond p \equive \Diamond p`} /> 非常重要,将在代数语义发展中发挥重要作用。
+
+
+第4章介绍附录二里Lewis提到的另外两位与沈有鼎工作相关的两位逻辑学家的工作。一位是波兰的Wajsberg,他独立提出了一个等价于S5的系统；另一位是William T Parry, Whitehead的博士生，沈有鼎在哈佛的好朋友。Parry是分析蕴含这一逻辑领域的创始人，他在严格蕴含逻辑领域有着诸多贡献，而且在他1939年的重要文章中，他也确认了沈有鼎证明的优先性。
+
+第5章开始介绍代数语义的发展，这里的关键是Kuratowski 1922, 汤璪真 1939 和 McKinsey 1941这三篇文章。中间也会穿插一些文章，讲讲严格蕴含和模态逻辑在当时有哪些相应的发展。
+
+第6章开始会脱离英文稿件内容。我会比较大胆地分析，为何沈有鼎的证明会被很少谈起。我个人认为这和公理B对应的代数性质有关。而关系语义出现后，沈有鼎的句法证明在语义层面看着非常明显。
+
+第7章比较轻松，这里会更多谈论沈有鼎与模态逻辑的中文文献。这里很奇怪，沈有鼎明明做出了一个很有分量的结果。但他从不和人提起。后来的一些他人的回忆文章只是泛泛地说“沈先生30年代就研究解决过模态逻辑问题”，但从来没说清楚，问题到底是什么。包括沈有鼎对模态逻辑到底什么态度，这都值得我们挖掘。
+
+第8章会整体介绍一下上面各个逻辑学家后来的命运。尤其Parry在临终前依然记着沈有鼎的工作。着实令人感动。
+
+当然，这篇文章最重要也最有技术含量的内容是以下两方面：一方面，沈有鼎通过纯粹的句法方法证明了S1 + C10 + C12 推出 S1 + C11；另一方面，这项工作的结果后来确实进入了 S4、S5 的代数语义发展史。个人推荐，对严格蕴含发展史以及沈有鼎证明的技术细节以及代数语义发展史感兴趣的读者可以仔细阅读第1章到第6章。如果只对历史和人物感兴趣，可以只读第7章和第8章。
+
+## 一、严格蕴含
+
+### 1. 《符号逻辑概览》（1918）
+
+一切从 C. I. Lewis 1918 年的 *A Survey of Symbolic Logic*（《符号逻辑概览》）说起。
+
+这本书我觉得很值得读，尤其是第一章梳理代数逻辑传统的内容很有价值。它的第一章从 Leibniz 开始，一路梳理 Ploucquet、Lambert、Holland、Castillon、Hamilton 和他的学生 Thomson、George Bentham、Bayne、De Morgan、Boole、Jevons、Peirce、MacColl、Schröder、Ladd-Franklin 等人的工作。很多名字很陌生，但在 Lewis 的叙述里，从十七世纪到二十世纪初的代数逻辑传统基本没有中断，而是一条相当连续的发展线。[Lewis 1918](#ref-lewis1918)
+
+这里增加刘易斯的照片和《符号逻辑概览》的目录图  
+
+当然，Lewis 也很清楚，当时另一条路线，Frege、Peano、Russell 和 Whitehead 所代表的逻辑主义路线，重新发明了关系逻辑。Lewis 作为美国人，而且 James 是他的博论导师之一，他可能更偏向 Boole—Schröder—Peirce 这一条代数逻辑传统，但他自己在严格蕴含上的工作，却很大程度是在回应 Russell 和 Whitehead 的 *Principia Mathematica*（《数学原理》）。Lewis 1924年之后和 Whitehead 在哈佛大学做了同事。但写这本书时还没有。
+
+Lewis 认为《数学原理》的实质蕴含（material implication）不算作真正的“蕴含”。作为一种在二值逻辑的演算，
+
+<ShenMath display tex={String.raw`
+p\supset q
+`} />
+
+只要求“不出现 <ShenMath tex={String.raw`p`} /> 真而 <ShenMath tex={String.raw`q`} /> 假”这一种情况。如果我们把它直接读作自然语言里的“<ShenMath tex={String.raw`p`} /> 蕴含 <ShenMath tex={String.raw`q`} />”，就会出现：
+
+- 一个假命题实质蕴含任何命题；
+- 一个真命题被任何命题实质蕴含。
+
+Lewis 认为这似乎不是我们平常说“<ShenMath tex={String.raw`p`} /> 蕴含 <ShenMath tex={String.raw`q`} />”时所想表达的那种关系。Lewis 要找的是一种更合适（“proper”）的蕴含即**严格蕴含**，作为实质蕴含演算的扩张。其基本观念是：
+
+<ShenMath display tex={String.raw`
+p\text{严格蕴含} q
+\quad\text{当且仅当}\quad
+p\text{ 真而 }q\text{ 假是不可能的。}
+`} />
+
+
+#### 1.1 概览系统
+
+Lewis 认为在真假二值以外加入“不可能性”概念，我们能得到五个真值（“truth-values”），分别是：
+
+1. <ShenMath tex={String.raw`p`} />：<ShenMath tex={String.raw`p`} /> 是真的；
+2. <ShenMath tex={String.raw`-p`} />：<ShenMath tex={String.raw`p`} /> 是假的；
+3. <ShenMath tex={String.raw`\sim p`} />：<ShenMath tex={String.raw`p`} /> 是不可能的；
+4. <ShenMath tex={String.raw`-\sim p`} />：<ShenMath tex={String.raw`p`} /> 并非不可能，即 <ShenMath tex={String.raw`p`} /> 是可能的；
+5. <ShenMath tex={String.raw`\sim -p`} />：<ShenMath tex={String.raw`p`} /> 为假是不可能的，即 <ShenMath tex={String.raw`p`} /> 是必然真的。
+
+**所谓五值，在今天的术语中更接近五种基本模态的意思，而非一个五值的矩阵语义（五值真值表）。Dugunji 1940 证明了，Lewis 的 S1 到 S5 都没有有穷矩阵语义。** 
+
+这一时期，塔斯基语义尚未确立。语义学的主流是翻译语义，很多符号的解释依赖语言解读。对象语言、元语言、语义值、模态状态这些层次在当时并没有像今天这样被彻底区分开。这点以后还会提到。到了 1932 年 Lewis 自己讨论 Boolean algebra 对模态词的解释时，就已经碰到“一个代数元素”和“关于这个元素的元语言断言”混在一起的问题；再后来 Quine 对 Lewis 式模态逻辑的 use/mention 批评，也正好打在这个概念断层上。
+
+
+#### 1.2 Lewis 1918 年的基本语言
+
+1918 年的系统以如下观念为基础：
+
+- 命题：<ShenMath tex={String.raw`p,q,r,\ldots`} />；
+- 普通否定：<ShenMath tex={String.raw`-p`} />，即“<ShenMath tex={String.raw`p`} /> 是假的”；
+- 不可能性：<ShenMath tex={String.raw`\sim p`} />，即“<ShenMath tex={String.raw`p`} /> 是不可能的”；
+- 逻辑积（合取）：<ShenMath tex={String.raw`pq`} />，即“<ShenMath tex={String.raw`p`} /> 和 <ShenMath tex={String.raw`q`} />”；
+- 严格等价：Lewis 使用 <ShenMath tex={String.raw`=`} /> 作为所谓 defining relation。
+
+Lewis 在此基础上定义了一整套“严格”和“实质”关系。
+
+| 概念 | 解释 | 记法 |
+|---|---|---|
+| 一致/相容（consistency） | <ShenMath tex={String.raw`p`} /> 与 <ShenMath tex={String.raw`q`} /> 同真并非不可能 | <ShenMath tex={String.raw`(p\circ q) = -\sim （pq）`} /> |
+| 严格蕴含 | <ShenMath tex={String.raw`p`} /> 真且 <ShenMath tex={String.raw`q`} /> 假是不可能的 | <ShenMath tex={String.raw`p\strictif q = \sim（p-q）`} /> |
+| 实质蕴含 | 并非 <ShenMath tex={String.raw`p`} /> 真且 <ShenMath tex={String.raw`q`} /> 假 | <ShenMath tex={String.raw`p\supset q = -(p -q)`} /> |
+| 严格析取 | <ShenMath tex={String.raw`p`} /> 真 或 <ShenMath tex={String.raw`q`} /> 真 是 必然的 | 后文不单独使用 |
+| 实质析取 | <ShenMath tex={String.raw`p`} /> 真 或 <ShenMath tex={String.raw`q`} /> 真 | <ShenMath tex={String.raw`p\vee q = -(-p -q)`} /> |
+| 严格等价 | 双向严格蕴含 | <ShenMath tex={String.raw`(p = q) = (p\strictif q)(q\strictif p)`} /> |
+
+其中 consistency 对应后来的 "可能" 模态词比如 
+
+<ShenMath tex={String.raw`
+\Diamond p
+`} />
+
+可以写作 <ShenMath tex={String.raw`p \circ p`} />。因为语义学的原因，从今天的角度来解读，这里的 consistency 存在歧义。这和严格蕴含的解释有关。如果只把严格蕴含看作一个对象语言中的普通联结词，它可以看作是实质蕴涵子系统的一致性。但严格蕴含也时常被看作推演（deducibility），这就是系统里的一致性概念。这里最好把严格蕴含和现代的证明论系统做出区分。
+
+另外，Lewis 的 <ShenMath tex={String.raw`=`} /> 既做定义，又表示严格等价。这不太利于我们后面的句法证明表示。 McKinsey 1941 在处理 Lewis 系统时，已经特地把定义等号和严格等价符号分开。[McKinsey 1941](#ref-mckinsey1941) 我们后面也这样做。
+
+我们用 <ShenMath display tex={String.raw`
+A:=B
+`} />
+
+表示定义，而
+
+<ShenMath display tex={String.raw`
+A\equiv_s B
+`} />
+
+表示严格等价。
+
+#### 1.3 1918 年的公设
+
+Lewis 1918 年的严格蕴含系统有八条公设。这里仍然用一个经过整理的现代排版来写，但保留其原有结构：
+
+<ShenMath display tex={String.raw`
+\begin{array}{ll}
+A1 & pq\strictif qp,\\[2mm]
+A2 & qp\strictif p,\\[2mm]
+A3 & p\strictif pp,\\[2mm]
+A4 & p(qr)\strictif q(pr),\\[2mm]
+A5 & p\strictif -(-p),\\[2mm]
+A6 & (p\strictif q)(q\strictif r)\strictif(p\strictif r),\\[2mm]
+A7 & \sim p\strictif -p,\\[2mm]
+A8^\ast & (p\strictif q)\equiv_s(\sim q\strictif\sim p).
+\end{array}
+`} />
+
+这里最后一条 <ShenMath tex={String.raw`A8^{\ast}`} /> 带星号，因为**这是 1918 年版本后来出问题的公设**。1920 年以后 Lewis 不再保留这个完整的等价式，而只保留其中一个方向。我们后面将会看到。
+
+Lewis 同时规定了三类 proof operations：
+
+1. **Substitution（替换）**：可以把任意命题统一代入命题变元；而严格等价的表达式也可以彼此替换；
+2. **Inference（推断）**：从 <ShenMath tex={String.raw`p`} /> 和 <ShenMath tex={String.raw`p\strictif q`} /> 可以推出 <ShenMath tex={String.raw`q`} />；
+3. **Production（合取/联立）**：分别得到 <ShenMath tex={String.raw`p`} /> 与 <ShenMath tex={String.raw`q`} /> 后，可以得到 <ShenMath tex={String.raw`pq`} />。
+
+
+ 命题变元的**统一替换** 和 严格等价式的**替换**同时作为系统的初始规则是刘易斯系统的特征。这一点与我们现在的模态逻辑不同，第二个替换往往是推出规则。
+
+
+### 2. Post 的批评：<ShenMath tex={String.raw`A8^\ast`} /> 让严格蕴含塌回实质蕴含
+
+Lewis 的 1918 系统很快就出了问题。
+
+E. L. Post 指出，原来的 <ShenMath tex={String.raw`A8^\ast`} />
+
+<ShenMath display tex={String.raw`
+(p\strictif q)\equiv_s(\sim q\strictif\sim p)
+`} />
+
+会让严格蕴含坍缩成实质蕴涵。
+
+Lewis 自己在 1920 年专门发表了一篇只有三页的短文 *Strict Implication—An Emendation* 来承认和修正这个错误。文章第一段就说，是 Post 批评他 1918 年的系统里有一个问题。[Lewis 1920](#ref-lewis1920)
+
+完整的 <ShenMath tex={String.raw`A8^\ast`} /> 可以拆成两个方向：
+
+<ShenMath display tex={String.raw`
+(p\strictif q)\strictif(\sim q\strictif\sim p),
+`} />
+
+和
+
+<ShenMath display tex={String.raw`
+(\sim q\strictif\sim p)\strictif(p\strictif q).
+`} />
+
+问题出在第二个方向。Post 发现，一旦把这个方向和 Lewis 其余公设放在一起，就能证明
+
+<ShenMath display tex={String.raw`
+-p\equiv_s\sim p.
+`} />
+
+也就是说：
+
+> “<ShenMath tex={String.raw`p`} /> 是假的”和“<ShenMath tex={String.raw`p`} /> 是不可能的”严格等价。
+
+
+Lewis 提出严格蕴含概念，本就是为了区分“事实上假”和“逻辑上不可能”。如果二者等价，那严格蕴含这个概念是多余的。
+
+
+
+#### 2.1 Post 的原始证明
+
+ 这里增加Post的照片 
+
+
+完整逐行证明我准备放在本文后面的技术附录里，因为它强烈依赖 Lewis 1918 年的编号、定义和老式替换记号。如果硬塞在正文这里，读者大概还没见到沈有鼎就已经逃跑了。但证明的思想必须知道：**Post 不是用后来 Kripke 语义给 Lewis 找了一个反模型，而是直接在 Lewis 自己的句法机器里把系统推塌了。**
+
+
+#### 2.2 Lewis 修复
+
+修法其实很简单：把坏掉的反方向删掉，只保留
+
+<ShenMath display tex={String.raw`
+A8:\qquad
+(p\strictif q)\strictif(\sim q\strictif\sim p).
+`} />
+
+这样就得到后来 1932 年 Appendix II 里所谓的 A-set。用后来 Lewis 的命名，这条路线对应的系统就是
+
+<ShenMath display tex={String.raw`
+S3.
+`} />
+
+这里可以对名称做个梳理，以免后面混淆：
+
+- **1918 原版 Survey system**：含错误的双向 <ShenMath tex={String.raw`A8^\ast`} />；
+- **1920 修正版 Survey system**：只保留单向 <ShenMath tex={String.raw`A8`} />；
+- **1932 Appendix II 的 A-set**：系统化整理后的版本，后来称为 <ShenMath tex={String.raw`S3`} />。
+
+
+Oscar Becker 1930 年的工作正是在这条系统传统上展开的。也就是说，他的工作基于 <ShenMath tex={String.raw`S3`} />。
+
+顺便说一下，虽然在今天 <ShenMath tex={String.raw`S4,S5`} /> 名气更大，但 <ShenMath tex={String.raw`S3`} /> 在1950年前受到地追捧更多。Parry 1939 年那篇研究模态词归约的重要论文，题目就直接叫 *Modalities in the Survey System of Strict Implication*。[Parry 1939](#ref-parry1939) 
+
+
+### 3. 1932 年：S1、S2 与重新整理后的 Lewis 系统
+
+1932 年，Lewis 和 C. H. Langford 出版了 *Symbolic Logic*。对于本文来说，最重要的是书末的 Appendix II。
+
+这个附录里有两套公设：
+
+- A-set：和修正后的 Survey system / <ShenMath tex={String.raw`S3`} />；
+- B-set：*Symbolic Logic* Chapter VI 里的系统。
+
+B-set 一共有九个公设， B1--B9。只取 B1--B7 得到 <ShenMath tex={String.raw`S1`} />；在 <ShenMath tex={String.raw`S1`} /> 上加入 B8 得到 <ShenMath tex={String.raw`S2`} />。[Lewis & Langford 1932](#ref-lewislangford1932)
+
+
+
+
+#### 3.1 先统一记号
+
+1932 年 Lewis 的写法和之前有了变化。具体体现在<ShenMath tex={String.raw`\sim`} /> 开始指代否定，而不是不可能。不可能被直接用<ShenMath tex={String.raw`\sim\Diamond`} />组合表示。我依然区分等号的两种意义，同时使用括号而不是点号作为分隔符：
+
+- 命题变元：<ShenMath tex={String.raw`p,q,r,\ldots`} />；
+- 否定：<ShenMath tex={String.raw`\sim p`} />；
+- 逻辑积（合取）：<ShenMath tex={String.raw`pq`} />，即 <ShenMath tex={String.raw`p\land q`} />；
+- 自协调（可能）：<ShenMath tex={String.raw`\Diamond p`} />。
+
+定义：
+
+<ShenMath display tex={String.raw`
+p\vee q:=\sim(\sim p\sim q),
+\tag{D1}
+`} />
+
+<ShenMath display tex={String.raw`
+p\strictif q:=\sim\Diamond(p\sim q),
+\tag{D2}
+`} />
+
+<ShenMath display tex={String.raw`
+p\equiv_s q:=(p\strictif q)(q\strictif p).
+\tag{D3}
+`} />
+
+所以
+
+<ShenMath display tex={String.raw`
+p\strictif q
+`} />
+
+仍然表达那个最初的直觉：
+
+> <ShenMath tex={String.raw`p`} /> 真而 <ShenMath tex={String.raw`q`} /> 假是不可能的。
+
+而
+
+<ShenMath display tex={String.raw`
+p\equiv_s q
+`} />
+
+和之前一样，表示
+
+<ShenMath display tex={String.raw`
+p\strictif q
+\quad\text{并且}\quad
+q\strictif p.
+`} />
+
+
+
+
+
+#### 3.2 S1 与 S2 的公设
+
+下面这八条就是本文真正需要的 B-set 主体：
+
+| 公设 | 公式 | 直观作用 |
+|---|---|---|
+| B1 | <ShenMath tex={String.raw`pq\strictif qp`} /> | 合取交换 |
+| B2 | <ShenMath tex={String.raw`pq\strictif p`} /> | 从合取取出左项 |
+| B3 | <ShenMath tex={String.raw`p\strictif pp`} /> | 幂等扩张 |
+| B4 | <ShenMath tex={String.raw`(pq)r\strictif p(qr)`} /> | 合取结合律的一个方向 |
+| B5 | <ShenMath tex={String.raw`p\strictif\sim\sim p`} /> | 双重否定的一个方向 |
+| B6 | <ShenMath tex={String.raw`(p\strictif q)(q\strictif r)\strictif(p\strictif r)`} /> | 严格蕴含传递 |
+| B7 | <ShenMath tex={String.raw`p(p\strictif q)\strictif q`} /> | 严格推断的内在化 |
+| B8 | <ShenMath tex={String.raw`\Diamond(pq)\strictif\Diamond p`} /> | 可能性投影 / consistency postulate |
+
+其中：
+
+<ShenMath display tex={String.raw`
+S1=B1+\cdots+B7,
+`} />
+
+而
+
+<ShenMath display tex={String.raw`
+S2=S1+B8.
+`} />
+
+B9 是一个带存在量词公设，本文讨论 <ShenMath tex={String.raw`S1`} /> 到 <ShenMath tex={String.raw`S5`} /> 的这条主线不需要它，所以不展开。
+
+至于 <ShenMath tex={String.raw`S3`} />，在 Appendix II 的整理下，可以看作在 <ShenMath tex={String.raw`S1`} /> 上加入
+
+<ShenMath display tex={String.raw`
+A8:\qquad
+(p\strictif q)
+\strictif
+(\sim\Diamond q\strictif\sim\Diamond p).
+`} />
+
+#### 3.3 四条推理规则
+
+1932 年的体系里，明确四条规则，这次把命题变元的统一替换和严格等价替换分开了。
+
+**Sa — Substitution（统一替换）**
+
+如果一个公式是定理，就可以统一地把其中命题变元替换为任意公式。
+
+比如从
+
+<ShenMath display tex={String.raw`
+p\strictif\Diamond p
+`} />
+
+可以令 <ShenMath tex={String.raw`p:=\Diamond p`} />，得到
+
+<ShenMath display tex={String.raw`
+\Diamond p\strictif\Diamond\Diamond p.
+`} />
+
+**Sb — Substitution of Equivalents（严格等价替换）**
+
+如果
+
+<ShenMath display tex={String.raw`
+A\equiv_s B
+`} />
+
+是定理，那么在一个定理内部出现的 <ShenMath tex={String.raw`A`} /> 可以被 <ShenMath tex={String.raw`B`} /> 替换，反过来也可以。
+
+
+
+**Ad — Adjunction（联立）**
+
+从定理 <ShenMath tex={String.raw`A`} /> 和定理 <ShenMath tex={String.raw`B`} /> 得到
+
+<ShenMath display tex={String.raw`
+AB.
+`} />
+
+**Smp — Strict Modus Ponens（严格分离规则）**
+
+从
+
+<ShenMath display tex={String.raw`
+A
+`} />
+
+和
+
+<ShenMath display tex={String.raw`
+A\strictif B
+`} />
+
+得到
+
+<ShenMath display tex={String.raw`
+B.
+`} />
+
+
+### 4. 沈有鼎证明之前，需要熟悉的定理
+
+Lewis 在第 498 页给出的沈有鼎证明非常短。但这是因为需要用到的一些定理已经被推出。如果没有从公设和规则开始，推出沈有鼎的结果需要至少45步以上。下面就是沈有鼎证明中要用到的定理：
+
+1. Proposition 12.2：严格反证的一个形式；
+
+<ShenMath display tex={String.raw`
+(\sim p\strictif q)
+\equiv_s
+(\sim q\strictif p).
+\tag{12.2}
+`} />
+
+它是严格蕴含版本的一种 contraposition / antilogism 原理。
+
+2. Proposition 12.3：双重否定的严格等价；
+
+
+<ShenMath display tex={String.raw`
+p\equiv_s\sim\sim p.
+\tag{12.3}
+`} />
+
+Lewis 的 B5 只直接给出一个方向：
+
+<ShenMath display tex={String.raw`
+p\strictif\sim\sim p.
+`} />
+
+另一个方向不是公设，需要借助 12.2 和其它公设推出
+
+3. Proposition 18.4：真严格蕴含可能。
+
+<ShenMath display tex={String.raw`
+p\strictif\Diamond p.
+\tag{18.4}
+`} />
+
+
+在模态逻辑中，这是公理 T 的一个对偶形式。但 Lewis 不是在 Kripke reflexive frame 上证明它；他是在 <ShenMath tex={String.raw`S1`} /> 里，纯句法推出来的。所以，我们这里最好不叫他“自反”公理。它的直观意思就是“真 p”命题严格蕴含“可能 p”命题
+
+4. 另外还有一个 **Proposition 19.82** ，它没在沈的证明中，但它会在第五章讲 McKinsey 和代数语义时发挥作用。
+
+
+<ShenMath display tex={String.raw`
+(\Diamond p\vee\Diamond q)
+\equiv_s
+\Diamond(p\vee q).
+\tag{19.82}
+`} />
+
+这个定理的证明 需要 B8，所以属于 <ShenMath tex={String.raw`S2`} />。
+
+
+### 6. 第一章小结：
+
+Lewis 1918 年发明严格蕴含，是因为他认为实质蕴含虽然是一个完全合法的二值真值函数，却没有抓住 ordinary inference 中“真正蕴含”的内涵联系。
+
+他的第一次公理化尝试有问题：Post 发现原 <ShenMath tex={String.raw`A8^\ast`} /> 的反方向会把坍缩“不可能”与“假”。
+
+Lewis 1920 年删掉坏的方向，留下后来 <ShenMath tex={String.raw`S3`} /> 的核心公设。1932 年，他和 Langford 重写严格蕴含,在附录二中正式定义 <ShenMath tex={String.raw`S1`} />、<ShenMath tex={String.raw`S2`} />、<ShenMath tex={String.raw`S3`} />、<ShenMath tex={String.raw`S4`} />、<ShenMath tex={String.raw`S5`} />。<ShenMath tex={String.raw`S1`} /> 的 三条定理会在沈有鼎的证明中发挥作用，而<ShenMath tex={String.raw`S2`} />的一条定理帮助了McKinsey 完成严格蕴含逻辑的代数化。
+
+
+### 第一章注记：Lewis、Ladd-Franklin，以及一些我觉得国内值得补的逻辑史
+
+C. I. Lewis 在蓝皮书中被誉为“现代模态逻辑的奠基人”。在模态逻辑课中，他留给我们的印象通常是
+
+> 模态逻辑句法时代的巨擎，但语义学时代后就不再是主流。
+
+这样表述不算错，但低估了他的学术影响力。
+
+实际上，Lewis 是美国二十世纪哲学和逻辑领域里一个教父式的人物。他的 strict implication 直接影响了 analytic implication、relevant implication、connexive logic 等一整条“什么才算真正 entailment”的研究；他的 conceptual pragmatism、关于 a priori、meaning 和 verification 的理论又进入美国分析哲学和实用主义传统。今天很多看上去互不相干的东西——模态逻辑、相干逻辑、某些非单调推理思想、意向性与意义理论、真理与知识问题——往回追经常都能碰到 Lewis。除此之外，他还有大量的伦理学和美学作品。
+
+所以我一直觉得，国内对 C. I. Lewis 的专门研究非常不足。
+
+Edwin Mares 近年来一直在系统整理 Lewis 及其学派的逻辑史。他 2024 年出版的 *The Logic of Entailment and its History* 已经有一整章专门讨论 “C. I. Lewis and His School”；他最近告诉我，他在写一本关于 Lewis 的书。大家共同期待。[Mares 2024](#ref-mares2024)
+
+另外一个我越来越觉得应该认真写的人，是 **Christine Ladd-Franklin（1847--1930）**。
+
+Roy T. Cook 在 2024 年 UNAM 的 *Feminist Approaches to Logic* workshop 上专门做过一个题目非常炸眼的报告：
+
+> *Did Christine Ladd-Franklin discover contemporary modal logic?*
+
+我在 UNILOG 2025 也听过他谈相关内容。他提出，Ladd-Franklin 的逻辑本身已经具有非常明显的模态成分；按照他报告中的分析，一种自然扩展甚至可以和后来某些标准模态系统联系起来。他的前期工作 *Understanding Christine Ladd-Franklin's Logic* 已经在 2025 年发表于 *Australasian Journal of Logic*。[Cook 2025](#ref-cook2025) 但核心论点，应该还在评议中，估计他需要说服很多人。
+
+Ladd-Franklin 本身的经历就足以拍一部电影。
+
+她是 Peirce 极少数真正意义上的学生，在逻辑上发展出著名的 **antilogism（反三段论）**。她 1882 年已经完成 Johns Hopkins 的博士要求，却因为当时大学对女性的制度性排斥没有获得博士学位；直到 1926 年，学校才正式把博士学位授予她。这个事实今天已经有很完整的档案材料。[Ladd-Franklin biography](#ref-laddfranklinbio)
+
+而她和中国逻辑史其实有着联系。
+
+沈有乾在美国学习期间在哥伦比亚大学上过 Ladd-Franklin 的课，后来在中文和英文中介绍过她的逻辑。关于 Ladd-Franklin 逻辑的现代研究甚至有作者说，就现有材料来看，沈有乾可能是她唯一可以明确追踪的逻辑学弟子；1927 年沈有乾还在 *Mind* 上发表 *The Ladd-Franklin Formula in Logic: The Antilogism*。[Shen 1927](#ref-shen1927)
+
+金岳霖后来在《逻辑》中介绍 Ladd-Franklin 时，也把沈有乾的分析放在一起讨论。
+
+按沈有乾自己的回忆，他在哈佛上学时，那里的老师把 Ladd-Franklin 称作当代的“亚里士多德”。这个评价当然很夸张，但至少说明一件事：她在当时不是一个今天教科书脚注里才勉强能找到的人物。从 C I Lewis的解读来看，蕴含的 contraposition 推理很大程度要归给 Ladd-Franklin。我比较好奇，其它证明论传统是否也受过她影响？
+
+更有意思的是，Ladd-Franklin 不只是逻辑学家。她后来在色觉、心理学、女性教育和女性学术权利方面都有重要工作，也是十九世纪末到二十世纪初美国女性学术史里的代表人物。
+
+增加Franklin和沈有乾画像
+
+然后这样一个人，在中文逻辑圈里没人认真研究。
+
+这就很有意思。
+
+国内有老师认为“现代逻辑”太难，不好教，不实用，坚持教传统逻辑。但真正处在传统三段论和现代代数逻辑交界处、难度又恰到好处的 Ladd-Franklin **Antilogism**，中文里反而几乎找不到认真技术分析它的文章。我在国外见到一大批学者，而且他们很多人研究 Ladd-Franklin根本就不为发文章，只是出于一种好奇和尊重。我在秘鲁UNILOG 2025时在逻辑史的workshop 申请讲沈有鼎。讲完后，有个巴西的老师非常兴奋地过来告诉我：Ray，你知不知道沈有鼎还研究过 Ladd-Franklin。我很惊讶，表示没听说过。他说：当时有个知名的中国人叫Eugene Shen, 他写过关于 Ladd-Franklin 的文章。有鼎，Eugene。这不就是他英文名嘛。你看，你叫Rui，你的英文名是Ray。不就对上了嘛。我一时有点相信了。不过我很快反映过来了。大概率是沈有乾。因为沈有乾学术路径和Ladd-Franklin 太像了，后来也是中国心理学界的先驱人物。而且我在搜索中还发现。搞混淆的不止他一个，academia上有篇文章就猜想 沈有鼎是沈有乾。但实际上，中文学术圈都知道，他们是兄弟。
+
+这么有意思的故事，为什么国内的逻辑史教科书从来没写过，也没人写英文文章澄清这一点。我觉得我们要做的事情还很多。
+
+本文当然还是讲沈有鼎。但如果以后有时间，我很想把 Ladd-Franklin—沈有乾这条线也单独写出来。
+
+## 第二章　贝克尔的“开放位置”：一位现象学家想把模态关进有限的格子
+
+假如我们今天问一位学过模态逻辑的学生：<ShenMath tex={String.raw`\Box\Box p`} /> 和 <ShenMath tex={String.raw`\Box p`} /> 在 S4 里有什么关系？他大概会立即想到公理 4，再加上 T，几行就可以说明两者等价。但请暂时把 Kripke 框架、可达关系和现代公理系统忘掉。我们现在要回到 1930 年，去看看另一个人面对同样的符号时，究竟看到了什么。
+
+这个人叫 **Oskar Becker（奥斯卡·贝克尔，1889—1964）**。我原本只是想把他写成一个犯了错误、然后被沈有鼎纠正的德国逻辑学家。读过他的原文，以及 Stefania Centrone 与 Pierluigi Minari 的研究以后，发现事情远没有这么简单。贝克尔的雄心大得多：他不只是想删掉公式里几层多余的 <ShenMath tex={String.raw`\Diamond`} /> 和 <ShenMath tex={String.raw`\Box`} />，而是试图把当时两种看上去很难相容的研究方式——形式逻辑和现象学——放进同一篇论文里。
+
+<ShenHistoryFigure src="" alt="奥斯卡·贝克尔的历史照片" caption="图 2.1　奥斯卡·贝克尔。照片由作者补入，建议核对照片年代与馆藏署名。" credit="[待补：档案或图片来源]" />
+
+### 2.1 胡塞尔的学生，数学家的训练，哲学家的野心
+
+贝克尔通常和海德格尔一起，被认为是胡塞尔最重要的学生之一。他并不是一个只会谈论“存在”与“意识”的哲学家：1914 年，他凭一项几何学研究取得数学博士学位；1922 年，他又在胡塞尔指导下完成涉及几何学现象学基础的教授资格论文。1927 年，他发表《数学的存在》（*Mathematische Existenz*）；1930 年发表我们关心的《论模态逻辑》（*Zur Logik der Modalitäten*）。这篇论文刊登在胡塞尔主持的《哲学与现象学研究年鉴》上。该年鉴此前也刊登过海德格尔的《存在与时间》及贝克尔自己的《数学的存在》。换言之，对当时读者来说，这不是一篇从哲学讨论中偶然掉出来的数学小品，而是一位现象学圈内学者试图直接处理形式逻辑难题的作品。参见 [Centrone 与 Minari 2022，第 1—3 页](https://doi.org/10.1007/978-3-030-87548-0)（下文简称 C&M）。
+
+贝克尔的写作计划可以拆成两条线：第一条是非常技术性的，考察 Lewis 的严格蕴涵系统里，反复叠加的模态到底能否缩减到有限类型；第二条则试图理解数学直觉主义所说的“证明”“构造”和“存在”，究竟在模态逻辑中意味着什么。即使今天把第二条全删掉，第一条仍会是一项实实在在的逻辑研究。但如果只保留第一条，我们又会看不懂贝克尔为何如此执着于某些公理。
+
+他的政治立场另有一段很不体面的历史。C&M 在专著开篇明确引用了纳粹党卫队保安部门对贝克尔政治忠诚的档案评语，表示与其政治立场保持距离。这件事不是无关紧要的八卦，不过我打算把它和 Wajsberg 的命运放在第八章再说：在这里，先让贝克尔的逻辑论证以它自己的面貌出场。
+
+### 2.2 从古代屋顶上的乌鸦，到 Lewis 的严格蕴涵
+
+C&M 有一节标题很有意思，叫作 *The Conditional, or The Crows on the Roofs*，可以译为“条件句，或者屋顶上的乌鸦”。他们引述了关于古代麦加拉—斯多亚学派争论条件句的一段掌故：据说连屋顶上的乌鸦都在聒噪，争论究竟什么样的蕴涵才算成立。这当然是一种文学性的说法；但争论本身绝非玩笑。
+
+如果只要求真值条件，<ShenMath tex={String.raw`p\to q`} /> 就是“不是 <ShenMath tex={String.raw`p`} />，或者 <ShenMath tex={String.raw`q`} />”。假话作为前件，真话作为后件，都足以使这个条件句为真。但要是我们关心的是前后件之间某种真正的推演联系，事情就复杂了。Lewis 正是在这道老问题上坚持：实质蕴涵可以有它的位置，但它不是严格蕴涵。
+
+贝克尔接过 Lewis 的工具，又把问题推进一步：如果“不可能”“可能”“必然”可以一遍遍作用到同一命题上，它们形成的逻辑强弱次序究竟是什么？可以像数的大小一样排列吗？
+
+为了避免混淆，我先说两件事。
+
+第一，贝克尔所讨论的是经过 1920 年修正的 Lewis *Survey* 系统，也就是**后来被称作 S3 的系统**；他在 1930 年并不可能使用 1932 年才固定下来的 S1—S5 命名。
+
+第二，贝克尔谈“模态的个数”，主要是在数一个命题前面的模态词串（比如 <ShenMath tex={String.raw`\Box\Diamond\Box`} />）经过严格等价归约后有多少基本类型，并不是在数整个语言有多少不同公式，更不是在数不同命题的真值配置。这几个“有限”需要严格区分。
+
+### 2.3 所谓“开放位置”：难道模态可以永远套下去？
+
+设 <ShenMath tex={String.raw`p`} /> 是一个命题。我们当然可以说 <ShenMath tex={String.raw`\Diamond p`} />，还可以说 <ShenMath tex={String.raw`\Diamond\Diamond p`} />、<ShenMath tex={String.raw`\Box\Diamond p`} />、<ShenMath tex={String.raw`\Diamond\Box\Diamond p`} />……句法上，写下第十层、第一百层毫无困难。问题是，它们在 Lewis 的演算中究竟有多少是可以证明等价的？
+
+贝克尔在 1930 年论文第 503 页一带把这种待解决处称作一个“开放的位置”（*eine offene Stelle*）。他希望通过引入额外原则让演算“闭合”，也就是给所有反复叠加的模态找出有限的基本形态。
+
+这里有个不能轻轻带过的错误：**贝克尔从模态可能无限叠加，推测相应系统不可判定，推理过头了。**哪怕不可约的模态词串真有无穷多个，也不能直接得出不存在判定算法；反过来，模态词串只有有限种，也不足以单独证明整个公式语言可判定。可判定性说的是：存在一个算法，对任意输入公式都在有限步骤内回答它是不是定理。
+
+今天已经知道 S3 是可判定的。C&M 2022 年专著不仅指出贝克尔的这一推断有问题，还在附录给出有关 S3 的语义、有限模型性质和可判定性讨论（附录 §§5.4—5.6）。这是评价贝克尔时应当写清楚的一处错误，而不是以为只要证明他数错了模态，判定问题就自动解决。
+
+但这种错误也有它的时代背景。1930 年前后，“什么算算法”本身尚未有后来 Church—Turing 意义上的标准形式刻画；用有限归约、标准形和形式化计算来理解逻辑问题，是当时一种很自然的思路。
+
+### 2.4 三个公理：C10、C11、C12
+
+贝克尔设计的三个关键原则，后来在 Lewis 与 Langford 的《符号逻辑》第二附录中被编号为 C10、C11、C12。这里仍然采用第一章的符号：<ShenMath tex={String.raw`A\prec B`} /> 是严格蕴涵，<ShenMath tex={String.raw`\Box A:=\sim\Diamond\sim A`} />。
+
+| Lewis 编号 | Becker 原编号 | 严格蕴涵形式 | 今天通常对应 |
+| --- | --- | --- | --- |
+| C10 | 1.92 | <ShenMath tex={String.raw`\Box p\prec\Box\Box p`} /> | 4 |
+| C11 | 1.9 | <ShenMath tex={String.raw`\Diamond p\prec\Box\Diamond p`} /> | 5 |
+| C12 | 1.91 | <ShenMath tex={String.raw`p\prec\Box\Diamond p`} /> | B |
+
+用普通蕴涵的现代记号看，这就是
+
+<ShenMath display tex={String.raw`
+4:\ \Box p\to\Box\Box p,\qquad
+5:\ \Diamond p\to\Box\Diamond p,\qquad
+B:\ p\to\Box\Diamond p.
+`} />
+
+不过，**上述对应不等于可以直接在 S1 里使用正规模态逻辑的所有规则。**贝克尔的原始公式外面是严格蕴涵，我们要证明的也是 Lewis 演算里的可推导关系。这是后面第三章技术证明必须坚持的边界。
+
+C10 说：如果 <ShenMath tex={String.raw`p`} /> 是必然的，那么“<ShenMath tex={String.raw`p`} /> 是必然的”本身也具有必然性；C11 说：如果 <ShenMath tex={String.raw`p`} /> 有可能，那么这种可能性是必然的；C12 说：如果 <ShenMath tex={String.raw`p`} /> 成立，那么 <ShenMath tex={String.raw`p`} /> 的可能性是必然的。三个公理只差一点点，表达的意思却不一样。
+
+贝克尔把 C12 叫作“布劳威尔公理”（*Brouwersche Axiom*）。这不是偶然冠上的人名。他要用直觉主义对证明的理解去说明一种从真到“双重不可能性”的推移。不过，我认为在博客里最好把他的**哲学动机**与后来公理 B 的**形式语义**分开：B 在正规模态逻辑中的框架对应是对称性；它不是布劳威尔直觉主义命题演算里的一个现成公理，也不意味着布劳威尔本人认可贝克尔的解释。原始讨论见 Becker 1930，第 513—514 页；英文注释见 C&M 2022，第 75—76 页。
+
+### 2.5 一套“六模态”，一套“十模态”
+
+贝克尔把必要、真实、可能，以及它们的否定或对偶，排列成逻辑强度等级。在他认为已经归约完毕的“六模态演算”里，一个命题前面的基本表达可以取为
+
+<ShenMath display tex={String.raw`
+\Box p,\quad p,\quad \Diamond p,\quad
+\neg\Box p,\quad \neg p,\quad \neg\Diamond p.
+`} />
+
+这些表达之间有清楚的蕴涵关系，例如
+
+<ShenMath display tex={String.raw`
+\Box p\ \Longrightarrow\ p\ \Longrightarrow\ \Diamond p.
+`} />
+
+另一方面，他还认为，如果采用 C10 与 C12 的组合，就会产生一套不同于前者的“十模态演算”。除了上述基本类型，还会出现类似
+
+<ShenMath display tex={String.raw`
+\Box\Diamond p,\quad \Diamond\Box p,
+\quad \Box\Diamond\neg p,
+\quad \neg\Box\Diamond p
+`} />
+
+这样的候选模态。贝克尔写下了十种，并试图研究其强弱关系。
+
+<ShenHistoryFigure src="" alt="Becker 1930 年关于模态词强弱关系的原始图表" caption="图 2.2　建议放入 Becker 1930 年原文第 513 页附近的模态强度图；旁边可配你 AWPL 论文中的重绘图。需要标明原图与现代重绘各自的来源。" credit="[待补：原文扫描与作者重绘]" />
+
+但是这里有个致命问题：如果 C10+C12 已经能够推出 C11，那么所谓十模态系统事实上满足六模态系统的关键归约公理；十个“基本模态”并没有证明真是十个不同的等价类。贝克尔恰好漏掉了这一点。沈有鼎发现的，就是那条藏在其中的推导。
+
+### 2.6 哥德尔比沈有鼎更早指出了方法上的漏洞，但没有留下同一条证明
+
+贝克尔的论文发表后，**Kurt Gödel（哥德尔）在 1931 年的一篇书评里提出过非常明确的批评**：贝克尔没有证明自己列出的几个系统真的不同，也没有证明六种或十种候选模态不能继续约化。哥德尔这一批评在逻辑史上十分值得注意，因为它所指出的是一种标准的形式系统研究规范：你不能只写出若干公理和一个归约表，就认定构造了彼此不同的系统。
+
+沈有鼎后来做的事情恰恰击中了哥德尔指出的缺口之一：他不是泛泛地说“贝克尔的证明不够”，而是在 Lewis 的演算内部实际构造了 <ShenMath tex={String.raw`C10+C12\vdash C11`} /> 的证明。
+
+不过也不要把二人关系讲得太戏剧化。现有材料只能证明哥德尔在 1931 年提出这类方法论质疑，以及 Lewis 在 1932 年明确把定理（14）的证明归于沈有鼎。**不能仅凭时间先后就写成“沈有鼎读了哥德尔的书评并决定回应”。**原始书评参见 [Gödel 1931，《贝克尔模态逻辑论文书评》](https://doi.org/10.1093/oso/9780195147209.003.0022)；C&M 2022 专门处理了书评中的相关争论。
+
+### 2.7 更大的背景：从布劳威尔到卡西尔，贝克尔的第二项野心
+
+如果只盯着那三个公式，读者可能以为《论模态逻辑》是一篇略微冗长的技术论文。事实上，它的后半部分是在一个非常热闹的哲学战场上写成的：**数学对象必须被构造出来才能存在吗？数学里的理想元素有没有正当性？直觉主义中的“可证明”，能不能用模态语言表达？**
+
+贝克尔借助胡塞尔的现象学、布劳威尔的直觉主义及海廷关于证明的工作，试图讨论这些问题；他还与 **Ernst Cassirer（恩斯特·卡西尔）** 围绕数学中的理想对象、存在和证明展开争论。C&M 为此安排了长篇分析（第 3 章），涉及 Husserl、Cassirer、Brouwer、Weyl 和 Hilbert。这些哲学家显然不是为了帮助学生在 <ShenMath tex={String.raw`\Diamond\Diamond p`} /> 前面少写一层菱形才出现的。
+
+今天读来有趣的一点是：贝克尔可能比哥德尔更早认真提出过把直觉主义解释进模态逻辑的方案，但给出真正有影响力的形式翻译的是哥德尔 1933 年的工作。说贝克尔“率先想到这条路”可以讨论；说他“已经完成了哥德尔翻译”，则不对。C&M 对此有十分明确的区分。
+
+我觉得这恰好使贝克尔成为一个比“犯了错误的反派角色”更值得写的人。他选中了重要的问题，却未把证明做完；他抓住了形式化方法的潜力，却又反复把哲学直觉当成形式结论。后来人有时从这些尝试中取走可以留下的东西，同时舍弃错误的部分。科学史经常就是这样前进的。
+
+### 2.8 Cresswell—Riche 2026：问题甚至比沈有鼎指出的更微妙
+
+这里必须补上你提供的 **Max Cresswell 与 Jacques Riche 2026 年新书** *Modal Logic in Europe: 1930–1959* 的一项重要结果。此书第 2 章的编辑评注 §2.3.1（印刷页码 63—65）不仅复述了沈有鼎的证明，还指出：
+
+> 在 **S3** 而不是只有 **S1** 的背景中，甚至可以从单独的 C12 导出 C10，继而得到 C11。
+
+Cresswell 和 Riche 借用 Parry 1939 年关于 *Survey* 系统的一项定理，给出这条更强的证明思路。换句话说，贝克尔当年真正研究的 S3 已经比沈有鼎证明所需的 S1 更强；在这一较强背景下，他对 C12 所能产生的归约效力估计得更不充分。
+
+务必注意两个不同主张：
+
+- **沈有鼎经 Lewis 明确署名的证明**：在较弱的 <ShenMath tex={String.raw`S1`} /> 背景下，<ShenMath tex={String.raw`C10+C12`} /> 可以推出 <ShenMath tex={String.raw`C11`} />。
+- **Cresswell—Riche 2026 年讨论的更强事实**：在较强的 <ShenMath tex={String.raw`S3`} /> 背景下，单独加入 <ShenMath tex={String.raw`C12`} /> 已经足以推出 <ShenMath tex={String.raw`C10`} />，继而推出 <ShenMath tex={String.raw`C11`} />。证明用到 Parry 1939 年关于 <ShenMath tex={String.raw`S3`} /> 的定理，所以不能默认为 <ShenMath tex={String.raw`S1`} /> 的结果。
+
+第二项结果**不能倒灌成沈有鼎本人证明过的更强定理**。它反而提醒我们研究模态逻辑史时多么需要在每一条公式旁边写清楚基础系统。另外，他们还指出，若换成更弱的 S2 背景，单独加入 B 的系统又不是同一回事。
+
+所以我想给贝克尔一个相对公平的评价：他的“十模态演算”站不住脚；他对 S3 不可判定的判断也不成立。但他发现和公开推动的问题相当重要，他对模态阶层、逻辑强弱和直觉主义翻译的思考，又确实刺激了后来的工作。沈有鼎证明的价值，不必以贬低整个贝克尔为代价。
+
+---
+
+## 第三章　沈有鼎究竟证明了什么？从一行脚注到完整的演算
+
+如果前一章读得有些累，这一章可以稍微松一口气。我们现在终于回到真正的主角：沈有鼎。与贝克尔几十页的长文相比，后来归在沈名下的关键证明短得有点惊人。短，不是因为它没有技术含量，而是因为 Lewis 的书已经把大部分基础设施铺好了。
+
+### 3.1 一个当时身在哈佛的中国研究生
+
+沈有鼎 1929—1931 年间在哈佛学习，所处环境包括 **Henry M. Sheffer**、**C. I. Lewis**、**Alfred North Whitehead** 以及后来同他讨论蕴涵问题的 **William T. Parry** 等人。说他属于这场逻辑研究交流的一部分，有文献依据；但如果具体说“沈有鼎一定上过 Lewis 某门课”或“贝克尔的原文是 Lewis 指定给他的”，目前仍需要课程登记、信件或回忆材料才能坐实。
+
+<ShenHistoryFigure src="" alt="沈有鼎在哈佛求学时期的照片或哈佛校园历史照片" caption="图 3.1　沈有鼎留学时期的历史背景。优先寻找可核查年代的沈本人照片；如无则使用哈佛旧校园图，并避免暗示他出现在照片中。" credit="[待补图片出处]" />
+
+一条确定无疑的证据，来自 Lewis 与 Langford 1932 年《符号逻辑》第二附录第 492 页的脚注：它明确将第 498 页的证明（14）归于 **Y. T. Shen (Shen Yuting)**。这里的名字并不是现代汉语拼音的 Shen Youding，而是当时使用的罗马字拼写。研究早期英文资料时，这两种拼写都得检索。
+
+我个人尤其喜欢这条史料，是因为它没有什么“伟大的东方智慧”之类的修辞，只是一本专业著作老老实实地指出，这个证明是某位研究生做的。史料越朴素，反倒越不容易任人改写。
+
+### 3.2 真正的难点不是 B，而是先取得可以嵌套替换的严格等价
+
+我们想证明的是
+
+<ShenMath display tex={String.raw`
+S1+C10+C12\vdash C11.
+`} />
+
+三个公式分别为
+
+<ShenMath display tex={String.raw`
+\begin{aligned}
+C10 &: \Box p\prec\Box\Box p,\\
+C12 &: p\prec\Box\Diamond p,\\
+C11 &: \Diamond p\prec\Box\Diamond p.
+\end{aligned}
+`} />
+
+从视觉上看，C12 和 C11 的右边完全一样，左边只差一层 <ShenMath tex={String.raw`\Diamond`} />。一个聪明的读者可能立刻想到：把 C12 的 <ShenMath tex={String.raw`p`} /> 替换成 <ShenMath tex={String.raw`\Diamond p`} /> 不就可以了吗？
+
+当然可以代入，但代入后的结果是
+
+<ShenMath display tex={String.raw`
+\Diamond p\prec\Box\Diamond\Diamond p.
+`} />
+
+**看到了吗？右边多出了一层 <ShenMath tex={String.raw`\Diamond`} />。**
+
+所以真正需要的不是“<ShenMath tex={String.raw`p`} /> 与 <ShenMath tex={String.raw`\Diamond p`} /> 差不多”，而是一个可以在 Lewis 规则 **Sb（严格等价替换）** 下使用的定理：
+
+<ShenMath display tex={String.raw`
+\Diamond\Diamond p\equiv_s\Diamond p
+`} />
+
+这个等价式就是整条证明的机关，也是它后来进入闭包代数史的关键。
+
+### 3.3 C10 怎样给出可能算子的幂等性
+
+从 C10 出发，利用第一章已经讲过的命题 12.2（严格反置）与 12.3（双重否定严格等价），可以得到
+
+<ShenMath display tex={String.raw`
+\Diamond\Diamond p\prec\Diamond p.
+\tag{C10.1a}
+`} />
+
+把这一步的技术细节全部写在正文里，许多人恐怕看到一半就会关掉网页。所以这里先交代证明策略，下面的小程序再逐步显示每一次代入。完整重构还可以放在原稿附录。
+
+另一方面，S1 中已有 Proposition 18.4：
+
+<ShenMath display tex={String.raw`
+p\prec\Diamond p.
+`} />
+
+把其中的 <ShenMath tex={String.raw`p`} /> 一致地换成 <ShenMath tex={String.raw`\Diamond p`} />，立刻得到反方向：
+
+<ShenMath display tex={String.raw`
+\Diamond p\prec\Diamond\Diamond p.
+`} />
+
+将两个方向合取，按严格等价的定义整理，便有
+
+<ShenMath display tex={String.raw`
+\boxed{\Diamond\Diamond p\equiv_s\Diamond p.}
+\tag{C10.1b}
+`} />
+
+我在这里用 **C10.1a** 和 **C10.1b** 两个编辑性编号，是为了区分单向严格蕴涵与双向严格等价。Lewis 原书把相关式子列在 C10.1 下，不能误写成沈有鼎额外提出了一个“名叫 C10.1b 的新公理”。
+
+为什么一定要得到 **严格等价**？因为最后要在一个更大的模态公式中，把 <ShenMath tex={String.raw`\Diamond\Diamond p`} /> 用 <ShenMath tex={String.raw`\Diamond p`} /> 替换。如果只有单向蕴涵，不能随便宣称可在任意嵌套上下文里做完全相同的替换。正是这一点，让这条证明保持了 Lewis 句法体系的严格性。
+
+### 3.4 把 C12 用到“已经可能的命题”上
+
+现在再看 C12：
+
+<ShenMath display tex={String.raw`
+p\prec\Box\Diamond p.
+`} />
+
+令 <ShenMath tex={String.raw`p:=\Diamond p`} />，得
+
+<ShenMath display tex={String.raw`
+\Diamond p\prec\Box\Diamond\Diamond p.
+`} />
+
+我们刚刚证明 <ShenMath tex={String.raw`\Diamond\Diamond p\equiv_s\Diamond p`} />。于是，在右侧更深的模态上下文中使用 Sb，消掉多余的一层可能算子：
+
+<ShenMath display tex={String.raw`
+\Diamond p\prec\Box\Diamond p.
+`} />
+
+这就是 C11。至此：
+
+<ShenMath display tex={String.raw`
+\boxed{S1+C10+C12\vdash C11.}
+`} />
+
+这也正是 Lewis 的证明（14）。
+
+到这里还不能把事情讲成“沈有鼎证明了 S4+B=S5 的所有方向”。严格说，**沈有鼎获得署名的是 C10、C12 推出 C11 的方向**；Lewis 在附录二的相邻条目（12）、（13）又给出了从 C11 分别回到 C10、C12 的推导。因此我们才有
+
+<ShenMath display tex={String.raw`
+S1+C11 = S1+C10+C12.
+`} />
+
+按照 Lewis 1932 年的定义，这给出了 S5 的两种呈现。署名的边界要讲清楚，才能凸显沈有鼎究竟做了什么。
+
+### 3.5 把纸上的证明变成读者可以点击的证明
+
+仓库中已经有 `ShenProofStepper.astro`。我建议这里直接保留它，而不是新写一套。读者打开网页时先看到压缩的数学骨架，想检查证明的人再点击“下一步”，每次只揭示一行依据。尤其应重点观察这两个动作：**先把 C10 转成双向严格等价，再对 C12 作模态化代入。**
+
+<ShenProofStepper />
+
+如果讲义或论文里已经提供了每一步的形式重构，博客的互动程序最好也保持同样的行号与理由。这样它不仅是一个视觉动画，还能承担“可核对的证明导航器”的功能。当然，逐行展示并不等于程序已经自动验证了每一条推导；它目前是有说明的交互呈现，并非机器核验的 proof checker。
+
+### 3.6 你觉得这一结论“一眼就能看出来”吗？
+
+今天我们往往把 4、B、5 直接看成可达关系的性质：传递性、对称性和欧几里得性。于是一个框架上从 <ShenMath tex={String.raw`wRv`} />、<ShenMath tex={String.raw`wRu`} /> 出发，利用对称性得到 <ShenMath tex={String.raw`vRw`} />，再用传递性推出 <ShenMath tex={String.raw`vRu`} />，就解释了“4 与 B 联合蕴涵 5”。
+
+这个语义观察十分简洁；但沈有鼎当时并不是用它证明的。为了让读者直观比较，可以在这一章末尾放一个小程序。你可以直接在三个世界之间添加或删除箭头，让网页实时判断相应的 4、B、5 条件是否成立。
+
+<ShenModalFrameLab />
+
+这里要专门强调一个细节：**对称 + 传递 ⇒ 欧几里得** 并不要求事先假设自反性。可是把系统整体称为 S5 时，通常还需要处理包含 T 的背景条件。程序会故意给出一个对称且传递、但不处处自反的例子，以免读者把某个框架蕴涵与完整逻辑系统的刻画混为一谈。
+
+### 3.7 沈有鼎的贡献究竟应该怎样评价
+
+我认为，最准确的表述既不是“沈有鼎已经发明了 S5 的语义学”，也不是“不过是今天小学生都会的一条公理关系”。
+
+他在当时的严格蕴涵演算内，补出了贝克尔缺失的公理依赖证明，使所谓十模态系统的独立性主张失去依据。这个证明的核心中间式，后来又在代数和拓扑语义中呈现为闭包算子的幂等律。它的技术含量依赖于**当时允许怎样推理**，而不是依赖于几十年后的教科书能否把结论压缩成两行。
+
+当然，我们还没有资格宣称“没有沈有鼎，S5 就不会出现”。这样的反事实既很难论证，也没有必要。逻辑史不缺奇迹故事，真正缺的是把谁证明了哪一条、在什么系统里证明、被谁记录下来这些细节逐项核对。
+
+---
+
+## 第四章　另一边的两位逻辑学家：Wajsberg、Parry，以及一封更早的信
+
+沈有鼎并不是一个人在做模态词归约。Lewis 1932 年第二附录有意思的地方，是它并排保存了几位年轻研究者的工作。有些人后来成了逻辑史上的重要名字，有些人几乎消失在战争与政治之中。我们先从一封 **1927 年的信**说起。
+
+### 4.1 Wajsberg：贝克尔发表论文之前，他已经想到了 C11 的方向
+
+**Mordchaj Wajsberg** 是波兰逻辑学家，活跃于华沙学派的数学逻辑研究中。Lewis 在 1932 年《符号逻辑》第二附录第 492 页记载，Wajsberg 在 **1927 年** 就通过来信向他寄送过用于比较系统的矩阵和相关证明，并勾勒了一个与后来加入 C11 的系统等价的演算。
+
+这意味着一件不该被遗漏的事实：**贝克尔 1930 年公开发表 C11 之前，Wajsberg 已经意识到对应原则的重要性。**他并非只是看到贝克尔论文后才想到类似结构。这一点由 Lewis 对那封信的明确叙述支持，也由 Cresswell—Riche 2026 年新书第 3 章重新强调。
+
+但注意另一面：目前这些材料并没有把 **C10+C12 推出 C11** 的那条特定证明归给 Wajsberg。Lewis 对沈有鼎的署名依然是明确而独立的。我们不应该因为追求“谁更早”，就把本来不同的成果挤成一场只有一个冠军的比赛。
+
+<ShenHistoryFigure src="" alt="Mordchaj Wajsberg 的照片或 1933 年论文首页" caption="图 4.1　建议优先使用 Wajsberg《Ein erweiterter Klassenkalkül》（1933）论文首页；历史人物照片需先确认身份。" credit="[待补图片出处]" />
+
+### 4.2 一本关于“类演算”的论文，怎么成了 S5 的早期语义？
+
+Wajsberg 1933 年发表的论文题为 *Ein erweiterter Klassenkalkül*（《一种扩充的类演算》）。光看标题，很难猜出这篇文章在模态逻辑史中的位置。它主要处理一种类演算，但其中用于表达“等于全集”的运算，使某些严格蕴涵和模态公式获得了代数式解释。
+
+粗略地说，可以设一个算子 <ShenMath tex={String.raw`J`} /> 满足：
+
+<ShenMath display tex={String.raw`
+J(X)=\begin{cases}
+1,&X=1,\\
+0,&X\ne 1.
+\end{cases}
+`} />
+
+这里 <ShenMath tex={String.raw`1`} /> 是全集，<ShenMath tex={String.raw`0`} /> 是空集。我们不必把这个例子直接当成后来 Kripke 意义上的“世界集合语义”；但它确实提供了评价相应公式是否恒真的代数结构。Wajsberg 通过特殊的标准形及归约方法研究这类公式。
+
+Cresswell—Riche 在第 3 章 §3.2 和 §3.3.3 中提出一个谨慎但很有意思的判断：**从某种意义上说，这是模态逻辑中最早的完备性证明之一**。之所以强调“从某种意义上说”，正因为它并不是 1960 年代那种以任意关系框架定义 S5 的现代形式，也不宜一句话盖棺定论为“所有模态逻辑的第一个语义完备性定理”。
+
+这里还有一处容易被混淆的差别：有限多个**模态词串**不等于任意固定变元数下只有有限多个不同**模态函数**。Cresswell—Riche 特别指出，S4 的基本模态词串数目有限，但不能由此直接推出每个有穷变元片段只含有限多个不同模态公式。Wajsberg 的标准形研究比简单数六个符号更深入。
+
+### 4.3 Parry：那位亲自记得沈有鼎证明的人
+
+相比 Wajsberg，**William T. Parry** 与沈有鼎的联系更直接。他同样处于哈佛的逻辑研究环境，也是严格蕴涵与后来所谓**分析蕴涵**（analytic implication）发展史中的重要人物。
+
+<ShenHistoryFigure src="" alt="William T. Parry 的照片或其 1939 年论文首页" caption="图 4.2　William T. Parry。若未找到可靠的个人照片，建议采用 1939 年《Modalities in the Survey System of Strict Implication》论文首页。" credit="[待补图片出处]" />
+
+Parry 1939 年发表了一篇题目非常贴切的论文：*Modalities in the Survey System of Strict Implication*。里面有不少今天读起来仍然很有价值的纯句法归约结果。而对本文来说，最重要的或许只是第 150 页注释 18 的一句话：
+
+> “The proof of this fact, by the way, was first pointed out to me by Mr. Y. T. Shen.”
+
+这句话意义很大。Lewis 的脚注告诉我们谁被认定为证明的作者；Parry 的脚注则表明，他本人当时就从沈有鼎那里得知过这个证明。**两份证言相互独立，证明不是后来中国研究者把某条匿名定理强行安到沈有鼎名下。**
+
+其实，我很想知道两人当年讨论这些问题时的具体场景。是在课后？在研究室？在餐桌？遗憾的是，这些细节目前没有证据。写历史必须容忍这种空白。不能因为觉得“两个年轻人在哈佛咖啡馆热烈争辩”很有画面感，就把想象当成事实。
+
+### 4.4 Parry 1939 年的另一个结果：原来 S3 也只有四十二种模态
+
+贝克尔认为 Lewis 的 *Survey* 系统中模态词可以无穷生成、无穷不可约。Parry 到 1939 年给出了一个完全不同的答案：经过恰当归约，S3 的基本模态数目是 **42**，而 S4 是 **14**。
+
+这里其实埋着一个很漂亮的历史反讽。贝克尔为了求得有限的系统，提出“六模态”和“十模态”；结果“十模态”根本不是他想象的独立系统，连他担心模态无限增殖的 S3 自己，也并没有他想象中的无穷多个不可约模态。
+
+不过我建议把 Parry 的工作看成补完早期问题链条的一环，而不简单说他“把贝克尔所有结论都推翻了”。贝克尔关于模态的排列和可比性还涉及另一层问题，Parry 的有限归约并不能让所有哲学问题自动消失。
+
+Cresswell—Riche 的新书还有一段极有用的“数学八卦”：他们指出，对 **S3+C12**，可以借助 Parry 的定理导出 C10，因此再取得 C11。这是第二章末尾提过的新强化结果。它说明 1930 年贝克尔原始基础系统里的结构，比 1932 年沈有鼎所需的最弱证明背景更加微妙。
+
+### 4.5 为什么叫“分析蕴涵”？从同真关系走向内容关系
+
+如果说 Lewis 不满意的是实质蕴涵太弱，那么 Parry 还想进一步问：即便一个命题的真在逻辑上保证另一个命题真，两者是否就存在我们愿意称作“分析地相关”的联系？
+
+例如，经典真值函数里，任意命题都蕴涵重言式。然而人们通常不会因为“今天下雨”就认为它与一个完全无关的数学重言式之间存在内容上的分析联系。Parry 所推动的分析蕴涵，就是要给蕴涵增加某种**内容条件**，避免把一切逻辑上必然的结论不加区分地视作前件的内在分析结果。它后来进入 relevant / relevance logic 的历史脉络，但不应简单宣称 Parry 已经拥有后来全部相关逻辑的理论。
+
+沈有鼎在哈佛与 Parry 讨论的，远不止 C10、C11、C12 这三个公理。Parry 在 1989 年回顾文章 *Analytic Implication: Its History, Justification and Varieties* 中谈到沈有鼎，对当年的思想交流给出极高评价，称自己从沈那里获得的比给予沈的更多。这条回忆提醒我们：脚注中的沈有鼎并非只交了一道算术式练习，而是当时一项持续的逻辑研究对话中的参与者。
+
+### 4.6 1972 年的另一份回声：沈有鼎还记得同 Parry 讨论模态
+
+有趣的是，几十年后沈有鼎致王浩的信里，又提到自己曾经和 Parry 讨论模态观念，并说自己后来关于逻辑—数学模态的认识已有很大发展。英文 AWPL 稿件已经讨论了这封 1972 年信，所引中文材料见《沈有鼎文集》相应页码。
+
+我认为，这份材料的史学价值不应被夸张。它不能证明沈有鼎几十年间一直秘密研究着某个完整的 S5 语义体系。但它确实足以反对一种简单印象：沈有鼎年轻时偶然做过一个模态逻辑问题，之后就彻底不感兴趣了。至少对他本人而言，与 Parry 的讨论仍然值得回忆。
+
+### 4.7 一本遗稿般的新书，把这批名字重新放到一起
+
+Cresswell—Riche 的 *Modal Logic in Europe: 1930–1959* 还有一段很私人化的序言。两位作者回忆，1983 年他们在蒙特利尔哲学大会等待 Kripke 的报告，观众席里突然有一位女士激动地站起来向 Kripke 发话，Max 低声告诉身边的人：“那是 Ruth Barcan。”这段趣闻不像正式论文，却十分生动地把早期模态逻辑的几代人物连接起来。
+
+更令人感慨的是，此书长期酝酿，直到 Max Cresswell 去世后才正式出版。序言说，Max 直到晚年仍在计划这项研究的续篇。全书收录了 Becker、Wajsberg、Feys、Bayart 的早期文献，并附上大量译注。它不仅为本文提供了新的数学分析，也使 Wajsberg 这样不太容易找到原文的逻辑学家重新能够被阅读。正式资料见 [出版社页面](https://doi.org/10.1007/978-3-032-23475-9)。
+
+这个故事也可以成为第八章的一个伏笔：我们现在讲的是模态词如何归约；到了最后，再回头看这些人各自的命运，会发现二十世纪远比一张漂亮的模态等级图复杂得多。
+
+---
+
+## 第五章　另一种语言：从库拉托夫斯基的闭包到汤璪真、麦金西和塔斯基
+
+终于要讲代数语义了。在此之前的几章里，模态词一直是写在公式前面的符号。<ShenMath tex={String.raw`\Diamond p`} /> 是一个新公式，<ShenMath tex={String.raw`\Diamond\Diamond p`} /> 又是一个更新的公式。证明的任务，是在 Lewis 允许的规则下，把这些公式联系起来。
+
+但如果我们不再把 <ShenMath tex={String.raw`\Diamond`} /> 看成一个单纯的句法符号，而是看成**某个集合上的运算**呢？那么沈有鼎需要多步推出的等价式，可能突然就变成一个我们非常熟悉的代数恒等式。这一章要讲的，就是这种语言转换究竟怎么发生的。
+
+<ShenAlgebraFigure kind="lineage" />
+
+### 5.1 一次闭包以后，为什么再闭包没有用？
+
+想象桌面上摆着一张画有若干点的纸。给出一个点集 <ShenMath tex={String.raw`A`} />，你想把那些虽然不一定属于 <ShenMath tex={String.raw`A`} />、但无论怎样放大都躲不开 <ShenMath tex={String.raw`A`} /> 的点一并收进来。得到的集合，叫作 <ShenMath tex={String.raw`A`} /> 的**闭包**（closure），记为 <ShenMath tex={String.raw`CA`} />。
+
+假如已经得到 <ShenMath tex={String.raw`CA`} />，再取一次闭包，显然不应该凭空增加什么：
+
+<ShenMath display tex={String.raw`
+CCA=CA.
+`} />
+
+这就是闭包算子的**幂等性**。它也是你看到 <ShenMath tex={String.raw`\Diamond\Diamond p\equiv_s\Diamond p`} /> 时应该立即想到的结构。
+
+早在 **1922 年**，波兰数学家 **Kazimierz Kuratowski（库拉托夫斯基）** 已经将拓扑闭包的核心性质公理化。设 <ShenMath tex={String.raw`B`} /> 是布尔代数，<ShenMath tex={String.raw`0`} /> 是最小元素，<ShenMath tex={String.raw`+`} /> 或 <ShenMath tex={String.raw`\lor`} /> 表示并或上确界，一个闭包算子 <ShenMath tex={String.raw`C`} /> 满足：
+
+<ShenMath display tex={String.raw`
+\begin{aligned}
+C(a\lor b)&=Ca\lor Cb,\\
+a&\leq Ca,\\
+C0&=0,\\
+CCa&=Ca.
+\end{aligned}
+`} />
+
+对应的内部算子（interior）定义为
+
+<ShenMath display tex={String.raw`
+Ia:=\neg C\neg a.
+`} />
+
+一个闭元素满足 <ShenMath tex={String.raw`Ca=a`} />；一个开元素满足 <ShenMath tex={String.raw`Ia=a`} />。在一般拓扑空间里，闭集未必开，开集也未必闭。这一点将成为 S4 与 S5 代数区别的核心。
+
+### 5.2 把可能性当成闭包，必要性就成为内部
+
+现在请大胆做一次翻译：
+
+<ShenMath display tex={String.raw`
+\Diamond a:=Ca,\qquad \Box a:=Ia.
+`} />
+
+在这套语言里，Lewis S1 的 Proposition 18.4，<ShenMath tex={String.raw`p\prec\Diamond p`} />，回顾性地对应 <ShenMath tex={String.raw`a\leq Ca`} />；S2 的 Proposition 19.82 则对应有限并保持律；而含 C10 的归约式
+
+<ShenMath display tex={String.raw`
+\Diamond\Diamond p\equiv_s\Diamond p
+`} />
+
+则恰好变成
+
+<ShenMath display tex={String.raw`
+CCa=Ca.
+`} />
+
+<ShenAlgebraFigure kind="laws" />
+
+我故意说“回顾性对应”，因为 1922 年的 Kuratowski 并没有在研究 Lewis 的 S4，Lewis 也不是照着 Kuratowski 的公理表发明严格蕴涵。历史上真正需要解释的，是这些形式结构如何在后来的数学工作中相遇，而不是强行假装几位逻辑学家同时掌握了同一个后世定义。
+
+### 5.3 汤璪真：把严格蕴涵带进布尔环和点集的中国逻辑学家
+
+这里出现本文第二位重要的中国学者：**汤璪真（Tsao-Chen Tang）**。如果说沈有鼎为 S5 的句法公理结构提供了关键证明，那么汤璪真则在另一个方向上，为 Lewis 的演算寻找代数和几何解释。
+
+汤璪真在 1936 年的论文中已经讨论严格蕴涵和布尔包含之间的关系。对两个布尔元素来说，<ShenMath tex={String.raw`a\leq b`} /> 等价于 <ShenMath tex={String.raw`a\land b=a`} />。于是人们自然会问：Lewis 的 <ShenMath tex={String.raw`p\prec q`} />，是否也可以和这种代数上的包含关系相联系？汤璪真恰好从这类问题出发，逐步走向一个更大胆的想法：给模态词设计真正的代数运算。
+
+<ShenHistoryFigure src="" alt="汤璪真照片或 1938 年论文首页" caption="图 5.1　汤璪真 1938 年《Algebraic Postulates and a Geometric Interpretation for the Lewis Calculus of Strict Implication》论文首页。建议使用作者照片及文章首页并列。" credit="[待补来源]" />
+
+1938 年，他在 *Bulletin of the American Mathematical Society* 发表 *Algebraic Postulates and a Geometric Interpretation for the Lewis Calculus of Strict Implication*（《刘易斯严格蕴涵演算的代数公设与几何解释》）。与其把这篇文章概括为“建立了 S4 的拓扑语义”，不如看一看它真正做了什么。
+
+汤璪真采用带单位元 <ShenMath tex={String.raw`1`} /> 的布尔环，并引入一元运算 <ShenMath tex={String.raw`x^{\infty}`} />。其两个形式条件可以写成
+
+<ShenMath display tex={String.raw`
+\begin{aligned}
+x^{\infty}x&=x^{\infty},\\
+(xy)^{\infty}&=x^{\infty}y^{\infty}.
+\end{aligned}
+`} />
+
+这里乘法 <ShenMath tex={String.raw`xy`} /> 是布尔代数的交。若在欧几里得平面的点集几何中解释 <ShenMath tex={String.raw`x^{\infty}`} />，它表示 <ShenMath tex={String.raw`x`} /> 的内部。然后定义
+
+<ShenMath display tex={String.raw`
+\Diamond x:=1-(1-x)^{\infty}.
+`} />
+
+这不正是“先补集、取内部、再补集”吗？也就是闭包。
+
+### 5.4 但是：汤璪真的形式代数，还不是完整的闭包代数
+
+这里必须做一个有点扫兴却十分重要的区分：**形式公设层**与**具体欧几里得点集模型层**不同。
+
+汤璪真给出的两条形式条件能够推出某些内部运算性质，但它们本身并未自动规定 <ShenMath tex={String.raw`1^{\infty}=1`} />。而如果 <ShenMath tex={String.raw`\Diamond0=1-1^{\infty}`} />，要使闭包保持空集，即 <ShenMath tex={String.raw`\Diamond0=0`} />，就恰好需要额外知道 <ShenMath tex={String.raw`1^{\infty}=1`} />。
+
+在实际欧几里得拓扑中，全集当然是开集，因此这一条件成立；但在抽象公设里，它还不能无条件使用。
+
+同理，不能因为某些 Lewis 公设能从汤璪真的代数体系推出，就断言他已经证明了那个代数体系与 Lewis 的全部演算**双向等价且完全**。1939 年 Charles A. Baylis 的评论已经提醒：由汤的体系可以推出 Lewis 的有关公设和规则，反方向尚未建立。论文中某个特定公式集合的双向表述，也不能不加区分地升级为“所有公式关于任意拓扑解释的完备性”。
+
+这不是挑汤璪真的刺。恰恰相反，只有区分清楚，才能知道他的工作真正早在哪里：**他非常早就把 Lewis 的严格蕴涵放入布尔环、内部算子与点集几何的明确联系之中。**后来 McKinsey 1941 年谈到拓扑与 Lewis 演算之间的研究时，明确把“最初的步骤”归功于汤璪真。直接文献见 [Tang 1938](https://doi.org/10.1090/S0002-9904-1938-06860-7)、[Baylis 1939 评论](https://doi.org/10.2307/2266218)。
+
+### 5.5 McKinsey 1941：将模态词真正变成算子
+
+接下来出场的是 **J. C. C. McKinsey（麦金西）**。他的 1941 年论文题目有点长：*A Solution of the Decision Problem for the Lewis Systems S2 and S4, with an Application to Topology*（《刘易斯系统 S2 和 S4 的判定问题的解答及其拓扑应用》）。文章首先从逻辑矩阵入手。
+
+设一个矩阵
+
+<ShenMath display tex={String.raw`
+\mathcal M=(K,D,-,*,\times),
+`} />
+
+<ShenMath tex={String.raw`K`} /> 是代数元素的集合，<ShenMath tex={String.raw`D`} /> 是指定值集合，<ShenMath tex={String.raw`-`} /> 是否定，<ShenMath tex={String.raw`\times`} /> 是合取，<ShenMath tex={String.raw`*`} /> 是表示可能性的运算。与严格蕴涵对应的操作可写为
+
+<ShenMath display tex={String.raw`
+a\prec b:=-*(a\times-b).
+`} />
+
+McKinsey 在正规矩阵上分析底层的布尔代数结构及可能算子的性质。这一步的意义在于，我们不再只是讨论某条公理的文字，而是问它对运算 <ShenMath tex={String.raw`*`} /> 施加了什么恒等式约束。
+
+他在 S2 层次取得了对应 <ShenMath tex={String.raw`a\le *a`} />、<ShenMath tex={String.raw`*(a+b)=*a+*b`} /> 的性质；进入 S4 后，他证明
+
+<ShenMath display tex={String.raw`
+**a=*a,\qquad *0=0.
+`} />
+
+现在请把第一条和沈有鼎证明的关键中间式排在一起：
+
+<ShenMath display tex={String.raw`
+\begin{aligned}
+\Diamond\Diamond p&\equiv_s\Diamond p,\\
+**a&=*a.
+\end{aligned}
+`} />
+
+两者不是泛泛地“看起来像”：**McKinsey 的证明明确使用 Lewis 附录二中的 C10.1 归约作为来源**。他论文开头引用《符号逻辑》第 492—502 页，也就是包含沈有鼎证明的那个附录。不过，McKinsey 并没有点名沈有鼎，更没有写“我受沈有鼎的启发建立了代数语义”。这两个层级——数学结构对应与个人影响——我们绝不能混为一谈。参见 [McKinsey 1941](https://doi.org/10.2307/2267105)，尤其第 117、126—129 页。
+
+### 5.6 一个被忽略的技术细节：空集为什么也要处理？
+
+只写 <ShenMath tex={String.raw`CCa=Ca`} /> 还不足以构成通常意义上的闭包代数。Kuratowski 四条律里还有 <ShenMath tex={String.raw`C0=0`} />。McKinsey 在定理 7 与定理 9 中处理了这项要求，其句法材料包括矛盾式 <ShenMath tex={String.raw`p\land\neg p`} /> 的模态化及其与原式的严格等价。
+
+这一步在通常的科普叙述里很容易被跳过，因为大家看到 S4 就自动联想到 closure algebra。但恰恰是在 1938 到 1941 年的历史转折处，我们应该问：**一个研究者是在什么地方真正凑齐闭包运算所需的全部条件？**
+
+对于想细读证明的人，我建议保留英文 AWPL 稿件附录中 McKinsey 定理 7 的局部句法重构，放到网页末尾折叠显示。对于一般读者，这里只需要知道：幂等律之外，空元素条件并非凭空免费得到。
+
+### 5.7 从集合变成代数：McKinsey—Tarski 1944—1948
+
+到了 **1944 年**，McKinsey 与 **Alfred Tarski（塔斯基）**发表 *The Algebra of Topology*，把闭包代数作为一个抽象代数对象加以系统研究。随后有 1946 年关于闭元素的研究，以及 1948 年 *Some Theorems about the Sentential Calculi of Lewis and Heyting*，将代数结果明确用于 Lewis 与 Heyting 的演算。
+
+<ShenHistoryFigure src="" alt="McKinsey 与 Tarski 的历史照片，或 1944 年论文首页" caption="图 5.2　McKinsey 与 Tarski 的合作。建议配 1944 年《The Algebra of Topology》论文首页，以及两位作者照片。" credit="[待补图片出处]" />
+
+最适合博客向普通读者讲解的结论是：
+
+| 逻辑系统 | 对应的代数条件（历史结果的现代简述） |
+| --- | --- |
+| S4 | 全部闭包代数 |
+| S5 | 每个闭元素同时也是开元素的闭包代数 |
+
+设 <ShenMath tex={String.raw`Ca=a`} />，则 <ShenMath tex={String.raw`a`} /> 是闭元素。若它还满足 <ShenMath tex={String.raw`Ia=a`} />，那么它也同时是开元素。S5 所对应的结构条件，就是把全部闭元素变成这种**既开又闭**的元素。具体结果见 McKinsey—Tarski 1948 的代数表征定理。
+
+<ShenAlgebraFigure kind="s4s5" />
+
+在一般拓扑空间里，这种要求相当强。比如实数轴上，闭区间 <ShenMath tex={String.raw`[0,1]`} /> 是闭集却不是开集；但在 S5 对应的特定闭包代数类里，每个闭元素都必须是开元素。这里并不是说所有普通拓扑空间都突然成了 S5，而是说我们缩小了所允许的代数结构。
+
+### 5.8 C12 在闭包代数里：将任意元素放入其闭包的内部
+
+现在终于到了最适合画成动画的部分。令
+
+<ShenMath display tex={String.raw`
+\Diamond a=Ca,\qquad \Box a=Ia.
+`} />
+
+C12（公理 B）的代数形式是
+
+<ShenMath display tex={String.raw`
+a\leq I(Ca).
+`} />
+
+它说，任意元素都包含在自己闭包的内部里。请不要觉得这是一般拓扑的性质：它不是。对于通常实数轴上的单点集 <ShenMath tex={String.raw`\{0\}`} />，闭包仍是单点，内部却为空，所以它明显不满足这个包含关系。B 真的增加了限制。
+
+下一步和沈有鼎的句法证明完全同型：把 <ShenMath tex={String.raw`a`} /> 替换成 <ShenMath tex={String.raw`Ca`} />。于是
+
+<ShenMath display tex={String.raw`
+Ca\leq I(CCa).
+`} />
+
+S4 的闭包幂等性保证 <ShenMath tex={String.raw`CCa=Ca`} />，所以
+
+<ShenMath display tex={String.raw`
+\boxed{Ca\leq I(Ca).}
+`} />
+
+这正是 C11（公理 5）的代数形式。
+
+<ShenAlgebraFigure kind="calculation" />
+
+还可以从闭包与内部的基本性质知道 <ShenMath tex={String.raw`I(Ca)\leq Ca`} />；联合 C11，得到
+
+<ShenMath display tex={String.raw`
+Ca=I(Ca).
+`} />
+
+这说的正是：闭包 <ShenMath tex={String.raw`Ca`} /> 同时是开元素。
+
+如果说沈有鼎的句法证明是“把 C12 用在 <ShenMath tex={String.raw`\Diamond p`} /> 上，再消去 <ShenMath tex={String.raw`\Diamond\Diamond p`} />”，那么代数证明就是“把 B 用在 <ShenMath tex={String.raw`Ca`} /> 上，再消去 <ShenMath tex={String.raw`CCa`} />”。**关键代入完全平行。**
+
+### 5.9 同一组公式换了三种语言
+
+让我们停下来，把 1930 年代到 1940 年代的路线看成一次翻译：
+
+| 阶段 | 关键对象 | 典型表达 |
+| --- | --- | --- |
+| Lewis—沈有鼎的句法演算 | 严格等价与代入规则 | <ShenMath tex={String.raw`\Diamond\Diamond p\equiv_s\Diamond p`} /> |
+| McKinsey 的逻辑矩阵 | 代数一元运算 | <ShenMath tex={String.raw`**a=*a`} /> |
+| McKinsey—Tarski 的闭包代数 | 闭包与内部算子 | <ShenMath tex={String.raw`CCa=Ca`} />、<ShenMath tex={String.raw`a\le I(Ca)`} /> |
+
+它们的历史连接并非“一个人把一个完整理论直接传给另一个人”。我们能够确认的是：Lewis 记录了沈有鼎的具体推导；McKinsey 引用了 Lewis 的相关附录，并直接使用了同一个归约结构；后来闭包代数赋予这些结构清楚的运算意义。至于 McKinsey 本人有没有专门读过脚注中沈有鼎的名字，或从他那里获得创作灵感，目前还不能断言。
+
+反过来，对汤璪真的贡献也必须给予恰当位置。他不是沈有鼎与 McKinsey 之间的“过渡人物”那么简单：他走的是另一条很有内容的数学路线，从布尔环和欧几里得点集建立严格蕴涵的模型性解释，且获得 McKinsey 的明确回顾性认可。这两位中国逻辑学家的研究放在一起，足以说明当时中国留学生与学者不是近代逻辑单纯的被动读者。
+
+### 5.10 小结：一个公式活了下来，一条证明却差点失去署名
+
+所以，现在回头看第二章贝克尔的十模态猜想、第三章沈有鼎的严格等价替换、第四章 Wajsberg 的代数标准形与 Parry 的归约结果、第五章汤璪真和 McKinsey—Tarski 的代数发展，我们才有资格说，这确实是一段交织得很紧的历史。
+
+沈有鼎的证明并没有在 1932 年以后神奇地变成所有模态语义学的源头。但它所使用的那条中间式，恰好是后来闭包代数基本律之一；它所排除的错误分支，也涉及后来的 S4/S5 公理架构。
+
+接下来的第六章，我想专门回答另一个让我感兴趣的问题：**为什么这样一项确切可核查的句法证明，后来在广泛传播的模态逻辑史叙述中却几乎没留下作者的名字？**这里既有数学语言变得太简洁的原因，也有教科书的选择、学术传播路径以及我们怎样书写逻辑史的问题。
+
+---
+
+## 第六章　为什么这条证明后来几乎看不见了？
+
+讲到这里，技术问题其实已经结束。贝克尔提出候选公理，沈有鼎证明了其中一条隐含的依赖关系，麦金西等人又把某些公式翻译成闭包代数的定律。那么，一个再自然不过的问题是：为什么我们读现代模态逻辑教科书时，很少见到沈有鼎的名字？
+
+我认为这里至少有四条线索：**发表形式、基础系统的改变、语义工具的成功，以及学术史的叙述习惯**。它们相互叠加，却不能简单地归结为“西方人故意不承认中国人的成果”。历史写作如果过早诉诸一种笼统的民族解释，反而会遮住真正可以验证的机制。
+
+### 6.1 定理写进了系统，作者却留在脚注里
+
+首先是发表形式。沈有鼎在刘易斯的书里获得明确署名，但并没有为这项证明单独发表一篇以自己为作者的论文。1932 年读者如果仔细看附录二第 492 页的说明与第 498 页的证明，就会知道（14）的贡献者是谁；后来作者转引 S5 的定义、公理或性质时，却未必还会逐一追溯附录里的每一项署名。
+
+这件事让我想起一个学术出版中的微妙区别：**一个结果被保存下来，不等于它的发现过程也会被保存下来。**数学家常常习惯把一个结果写成“容易验证”“由定义可得”；逻辑教科书更是如此。由于教学的目标不是复原发现史，一条原本需要若干既有引理才能在 Lewis 的规则下推出来的定理，最后可能变成练习题。
+
+另外，沈有鼎自己也没有留下连续出版的“模态逻辑系列论文”。与持续发表这一领域工作的 Lewis、McKinsey、Tarski、Feys 或后来 Kripke 相比，他的名字自然较少出现在参考文献列表里。这是可观察的文献传播差异，不是对贡献大小的直接评价。
+
+### 6.2 换成闭包代数以后，证明短得令人吃惊
+
+在第五章我们已经看到：把 <ShenMath tex={String.raw`\Diamond`} /> 解释为闭包 <ShenMath tex={String.raw`C`} />、把 <ShenMath tex={String.raw`\Box`} /> 解释为内部 <ShenMath tex={String.raw`I`} />，则 B 与 5 的代数形式分别为
+
+<ShenMath display tex={String.raw`
+B:\quad a\le I(Ca),
+\qquad
+5:\quad Ca\le I(Ca).
+`} />
+
+在 S4 闭包代数中，<ShenMath tex={String.raw`CCa=Ca`} />。由 B 对元素 <ShenMath tex={String.raw`Ca`} /> 代入，我们立刻得到
+
+<ShenMath display tex={String.raw`
+Ca\le I(CCa)=I(Ca).
+`} />
+
+没有长篇句法推导，也不用逐次调用严格等价替换规则。这就是后来数学语言的力量：它将大量证明劳动压缩进一个已经经过定义和表征的结构。
+
+不过，在这个过程中，“为什么可以代入”这一问题也被重新安置了。在原来的 Lewis 演算里，替换前必须取得严格等价定理，并且要检查规则 Sb 是否允许我们在嵌套语境中进行替换；在抽象代数里，等式替换合法性内建于等式逻辑。不能因此说当年的证明没有意义。**恰好相反，后来工具使它变短，说明数学技术已经改变了问题的表达方式。**
+
+### 6.3 B 的拓扑性质为什么不如 4 那么显眼
+
+还有一种更值得数学讨论的解释。在闭包代数中，4 直接给出幂等律：
+
+<ShenMath display tex={String.raw`
+CCa=Ca.
+`} />
+
+这是拓扑空间中最熟悉的公理之一。对比之下，B 的代数形式
+
+<ShenMath display tex={String.raw`
+a\le I(Ca)
+`} />
+
+显得不那么平常。一般拓扑空间并不满足它。例如在实数轴的通常拓扑中，单点集合 <ShenMath tex={String.raw`\{0\}`} /> 的闭包仍是自身，而其内部为空，所以无法包含这个单点。
+
+对单独一个集合而言，<ShenMath tex={String.raw`A\subseteq\operatorname{Int}(\operatorname{Cl}(A))`} /> 是所谓 *preopen*（或 *locally dense*）条件；它不是对任意子集都自动成立的普通拓扑定律。若要求空间中的**所有子集**都满足这一条件，那么每个闭集都成为开集：给闭集 <ShenMath tex={String.raw`F`} /> 代入，得到 <ShenMath tex={String.raw`F\subseteq\operatorname{Int}(F)\subseteq F`} />。反过来，如果所有闭集都是开集，任意 <ShenMath tex={String.raw`A`} /> 的闭包既闭又开，自然也有 <ShenMath tex={String.raw`A\subseteq\operatorname{Int}(\operatorname{Cl}(A))`} />。
+
+这正好通向 S5 的闭包代数刻画：每个闭元素都是开元素。于是 B 看似只是一项关于任意元素的包含关系，一旦在 S4 的幂等律下把元素替换成闭包元素，便立刻要求所有闭元素开放。**这一步就是沈有鼎句法代入的代数化身。**
+
+我猜想，正是因为 4 直接对应大家耳熟能详的闭包公理，而 B 的这个包含式需要绕一下才能显露它的全局含义，后来的教学更愿意直接用 S5 的漂亮代数表征，而不逐项解释那条早期句法证明。这里的“我猜想”是史学解释，不是已经得到档案证明的出版史因果关系。
+
+### 6.4 换成关系语义，事情更容易了
+
+在今天最常见的正规模态逻辑的 Kripke 关系语义中，4、B、5 分别对应可达关系的传递性、对称性、欧几里得性。一个简单的论证是：若 <ShenMath tex={String.raw`wRv`} /> 与 <ShenMath tex={String.raw`wRu`} />，对称性给出 <ShenMath tex={String.raw`vRw`} />，再由传递性推出 <ShenMath tex={String.raw`vRu`} />。这就是欧几里得条件。
+
+<ShenMath display tex={String.raw`
+\bigl(R\text{ 对称}\ \land\ R\text{ 传递}\bigr)
+\quad\Longrightarrow\quad
+R\text{ 欧几里得}.
+`} />
+
+而且这条框架推论本身不要求处处自反。第三章的三世界互动程序之所以专门放进一个“对称且传递但不是自反”的例子，就是希望读者在点击中自己发现这一点。若再处于包含 T 的标准背景，便得到通常意义上的 S5 等价关系框架。
+
+但是，这种语义解释无法代替对 1932 年史料的解释。它告诉我们**今天为什么知道这个公式有效**，并不能说明**沈有鼎当时如何在 S1 的原始规则中证明它**。拿后来的语义工具去评价早期证明，就像看到一项今天只需调用标准函数库的计算，便以为最早设计这个算法的人只是做了无用功。
+
+### 6.5 逻辑史常常喜欢记住系统，却忘了一个中间定理的发现者
+
+最后还有一种教科书写作的选择性。我们记住 Lewis 的 S1—S5、Gödel 的翻译、McKinsey—Tarski 的闭包代数和 Kripke 的关系语义，因为它们都有清楚的系统性意义、影响了后来的大量工作。沈有鼎的发现则以一个精确的公理依赖证明呈现，没有形成以他的名字命名的长期研究计划。
+
+这不意味着我们要把所有成果重新署名。Wajsberg 的贡献、Becker 的问题、Tang 的几何解释、Parry 的进一步归约、McKinsey 和 Tarski 的抽象代数工作，每项都必须按自己的证据来定位置。沈有鼎的价值，恰恰在于**我们有原书脚注和 Parry 的回顾性确认，可以为一条具体的、长期被轻描淡写的证明恢复作者**。
+
+---
+
+## 第七章　沈有鼎自己为什么不大提这件事？
+
+把问题转回中国逻辑史，又出现一个奇怪的现象：一些研究者知道沈有鼎曾在美国研究模态逻辑，却常常只说他“解决过相关问题”，不告诉读者究竟是哪一个问题、使用了哪套公理和规则。相比之下，Lewis 1932 年的脚注反倒准确得多。
+
+### 7.1 从清华到哈佛：金岳霖培养的第一代现代逻辑研究者
+
+沈有鼎是清华哲学系早期学生，1929 年毕业后赴美国哈佛大学学习，随后又到德国接触欧洲哲学；1934 年回国任教。把他的早期研究只讲成“留美学生学到了西方模态逻辑”，显然不够。他在哈佛并非只听课程：Lewis 和 Parry 的文本记录显示，他参与过一项可以明确署名的形式逻辑研究。
+
+他后来教过逻辑、讨论过哥德尔，又投身《墨经》研究和中国古代逻辑史，学术跨度令人吃惊。2026 年刘奋荣和余伟俊写的《沈有鼎和他的逻辑世界》记述了一则旧事：在一次讨论中，沈有鼎直言金岳霖未必看得懂哥德尔的技术成果；金先生并没有因此生气，而是坦然接受。这个掌故来自殷海光的回忆。它当然不能证明所有史实细节，但至少呈现了那一代人十分珍贵的学术交往气质：学生可以对老师提出严厉的技术判断，老师也愿意承认知识上的界限。详见文末所列清华校友总会文章及其所引回忆材料。
+
+<ShenHistoryFigure src="" alt="沈有鼎与金岳霖的合影或清华哲学系历史照片" caption="图 7.1　建议采用能核对人物身份与拍摄年代的清华哲学系合影。" credit="[待补：档案与照片授权信息]" />
+
+### 7.2 证明以后，他真正关心的问题越来越宽
+
+仅就 1932 年这项证明而言，沈有鼎并没有留下一个接续数十年的系列论文。后来他把许多精力用于哲学、传统逻辑、墨家逻辑以及逻辑概念的历史阐释。这条轨迹很容易让后人以为他已经彻底放弃模态问题。
+
+但现有通信线索说明事情没有如此简单。你在 AWPL 研究中注意到他于 1972 年致王浩的信，谈及自己当年和 Parry 对模态的讨论，也表示后来思考已有变化。这份材料很适合放入正文，但发表时应按《沈有鼎文集》或相应信札的确切页码逐字复核；在确认原文之前，我不把任何现代概括写成沈先生的直接引语。
+
+在这里可以提出两个不同问题：他有没有**持续发表**模态逻辑成果？目前看到的文献并不支持肯定回答。他有没有**长期保留**对于模态和蕴涵的思想兴趣？通信提供了积极线索。千万不要用第一个问题的否定答案替代第二个问题。
+
+### 7.3 为什么中国学界没有及时讲清楚这项贡献
+
+我认为首先还是材料问题。中国现代逻辑史一般较重视院系沿革、师承、著作和学术思想，而 Lewis 的严格蕴涵公理推演属于高度专门化的技术史。要确认那句脚注的含义，读者不仅需要找到《Symbolic Logic》的第二附录，还需要真正理解 S1 的公设、Sa/Sb 规则以及 C10、C11、C12 的地位。没有这层技术准备，哪怕看到了脚注，也只能笼统地记成“沈先生研究过模态逻辑”。
+
+第二个原因是学科间隔。研究现代中国哲学史的人未必习惯从 1930 年代原始逻辑记号中重建证明；研究 S5 的数学逻辑学家则往往直接使用成熟的正规系统与 Kripke 语义，很少回头翻检民国时期的中文人物材料。于是恰好需要两个专业同时发挥作用的这件事，被两边都漏掉了。
+
+但这也给我们留下一个很值得做的项目：把早期英文逻辑文献中的中文人名、通信与现代中国逻辑史的书目连接起来。沈有鼎、沈有乾与 Ladd-Franklin 的姓名混淆，正是另一种相似情况。历史研究不是先找到一个“伟大人物”再替他堆砌光环，而是把一条条可以追溯的文献关系整理清楚。
+
+### 7.4 顺便说说沈先生的生活趣闻
+
+在严肃逻辑之外，关于沈有鼎的回忆还有很多令人难忘的小事。他喜欢古琴与昆曲；浦江清日记中记载过他穿着西装弹古琴，随后又在西装外套上棉袍出门喝茶的情景。清华校友总会 2026 年发表的文章重新整理了这些资料，提供了原始日记的书目线索。一个在纸上精细区分严格蕴涵与实质蕴涵的人，生活中却似乎对穿衣和整理房间不太上心。这样的反差，绝非几条冷冰冰的定理能够概括。
+
+另一个不太适合被当成单纯笑话的故事，发生在他身处政治运动时。那不是“书呆子的可爱糊涂”，而是知识分子坚持事实判断与政治仪式之间的碰撞。下一章会专门讲到这件事。
+
+---
+
+## 第八章　同一张逻辑史地图上的不同命运
+
+写到这里，终于可以把书合上，看看这几个人后来走向哪里。讨论他们的理论时，我们很容易把他们排列在同一条平静的时间线上：1922 年 Kuratowski、1930 年 Becker、1932 年 Shen、1933 年 Wajsberg、1938 年 Tang、1941 年 McKinsey、1948 年 McKinsey—Tarski。可是这条时间线背后的二十世纪，远谈不上平静。
+
+这些逻辑学家后来经历过纳粹迫害、战争流亡、冷战时期的政治调查、性倾向歧视以及中国的政治运动。应该强调，这些遭遇的性质不同，不能为了文学效果把所有人都说成遭受了同一种迫害。我们能做的，是把各人的命运、可靠证据以及需要留白的地方放在一起。
+
+### 8.1 贝克尔：形式逻辑的探索者，也是纳粹时代的拥护者
+
+贝克尔的智识背景几乎可以直接代表战前德国大学的一个传统：数学训练、胡塞尔现象学、对布劳威尔和卡西尔的关切。他在模态逻辑的形式研究中确实提出了重要问题，也犯下过明确的证明错误。然而，不能因为这些技术成就就忽略他的政治立场。
+
+Centrone 与 Minari 2022 年专著开篇引用了党卫队保安机构的资料：贝克尔虽非纳粹党员，但被评价为拥护民族社会主义、试图巩固其意识形态的人。2026 年 Cresswell 与 Riche 的序言更为沉重：他们最初准备出版这部历史资料集时，因为认识到贝克尔的纳粹过去，而且同一本书竟把他和遭纳粹迫害的 Wajsberg 并置，感到难以继续推进。这段自我反省很有价值：一本逻辑史文献选集也不能把人从历史中彻底剥离。
+
+我不赞成因为贝克尔的政治立场就抹去他的逻辑工作，同样不赞成用“他是数学家，所以不必谈政治”为他开脱。我们需要同时承认两件事：他在形式逻辑史上确有重要贡献；他的政治态度也是必须写进传记的事实。
+
+### 8.2 Wajsberg：波兰逻辑学派被战争截断的一部分
+
+Wajsberg 的人生与贝克尔构成一种令人不安的对照。他出生于 1902 年，是华沙逻辑学派的重要成员，研究多值逻辑、形式公理化与模态逻辑。他在 1927 年致 Lewis 的信、1933 年的类演算论文，以及后来受到重视的标准形与代数语义结果，说明他本来极可能拥有更长的学术生涯。
+
+但德国对波兰的侵略和纳粹对犹太人的迫害摧毁了这一代人的生活。波兰逻辑史文献将 Wajsberg 列在战争期间遇害的逻辑学家名单中。这里应当特别谨慎：权威参考资料对他的死亡年份仍常用问号（如 1902—1942? 或 1902—194?），所以我不会虚构某一天、某座集中营或某次抓捕的具体场景。我们能够负责任地说的是：**Wajsberg 在纳粹迫害犹太人和占领波兰的历史环境中丧生，具体死亡经过尚待进一步档案核实。**
+
+这不仅是一个人物传记的末尾。战前华沙逻辑学派失去的还有无数尚未写出的定理、尚未培养的学生，以及原本可能延续的学术通信。要把 Wajsberg 的工作重新放进模态逻辑史，并不是给过去多添一个名字，而是在承认这段知识传统曾被暴力中断。
+
+<ShenHistoryFigure src="" alt="Wajsberg 1933 年论文首页或战前华沙大学档案照片" caption="图 8.1　Wajsberg 的学术工作与战争前的波兰逻辑学派。建议使用已核查身份的文献影像，不使用未经证实的人物肖像。" credit="[待补图片来源]" />
+
+### 8.3 Tarski：1939 年出国参加会议，后来再也无法按原计划回国
+
+与 Wajsberg 不同，Tarski 在 1939 年前往美国参加学术会议，此后因战争爆发而滞留国外，最终在加州大学伯克利分校建立长期的学术事业。这一遭遇在后见之明里容易被写成“命运眷顾天才”的戏剧转折，但当时他并不知道战争会怎样改变波兰，更无法预见自己同家人的分别会延续多久。
+
+他后来在集合论、模型论、真理理论和代数逻辑方面的成就，与这里讨论的 McKinsey—Tarski 合作一样，成为现代逻辑史的重要部分。可是如果我们把华沙学派的成员放在一起看，便会发现学术传承的延续不仅取决于研究能力，也取决于是否得以在战火中幸存、是否拥有迁移和继续工作的机会。
+
+### 8.4 McKinsey：在冷战安全审查和性倾向歧视中离开 RAND
+
+McKinsey 是一位横跨数学逻辑、拓扑、博弈论与科学哲学的研究者。他与 Tarski 的合作，为 S4、S5 的代数研究建立了极其扎实的基础；在 RAND，他也参与了战后应用数学和决策研究。
+
+然而，1951 年他失去了 RAND 的工作。相关历史研究指出，冷战安全审查把他的同性恋身份视为“安全风险”；即使他的私人生活并不是完全不为人知的秘密，这种分类仍足以决定他能否继续参与敏感的研究工作。这不是数学能力不足，也不是某项逻辑结果被证伪，而是制度性歧视进入学术就业和安全许可体系的实例。
+
+后来 McKinsey 转到斯坦福大学，与 Patrick Suppes 等人继续从事科学基础研究。1953 年他在帕洛阿尔托去世，年仅四十五岁。传记资料报道其死因为自杀。但要区分两件事：**有证据表明他遭受了基于性倾向的排斥，也有资料记载他的自杀；现有证据不足以把两者写成可以完全确定的单一因果链**。尤其不能用“因为同性恋被排挤，所以意外死亡”一句话代替复杂的生平史。
+
+我更愿意强调其工作留下的反差：一个为逻辑中的“必要”和“可能”提供数学工具的人，竟然生活在一个把自己的私人身份当作职业风险的时代。
+
+### 8.5 Parry：拒绝告发同事，最终仍回到讲台
+
+Parry 的经历也和冷战密切相关，但事实与“无端被人诬告为共产党”并不一样。布法罗大学的官方人物档案明确记录：Parry 曾于 1933 年加入美国共产党；1953 年他被美国众议院非美活动调查委员会传唤。他愿意说明自己的经历，却不愿提供其他党员的姓名。此后学校剥夺了他的终身教职保障，迫使他接受一年一聘的安排。
+
+这是学术自由史上一个值得认真写的案例。个人拥有某种政治信念是一回事，国家或大学要求他通过指认别人来证明忠诚则是另一回事。Parry 当年的拒绝不仅承担了法律和职业风险，也为后来关于大学独立性与言论自由的争论留下了实际材料。
+
+Parry 并没有因此离开全部学术生活。他继续在布法罗大学任教，后来担任哲学系主任（1968—1971），1979 年退休，1988 年去世。布法罗大学保存着他的个人档案，包括 1953 年证词、相关争议的剪报及 1976 年的口述访谈。这些材料非常值得未来进一步挖掘。
+
+在本文的故事里，他还有一个特别的位置。1939 年，他明确说沈有鼎最先向自己指出相关证明；1989 年出版的回顾文章又给出了关于沈有鼎和分析蕴涵讨论的回忆。文章的出版时间晚于他的去世，并不意味着他“死后写作”；它可能是遗稿或已完成论文的后续出版。无论如何，直到他生命的晚年，几十年前那位来自中国的研究者仍在他的学术记忆之中。这一点尤其令我感动。
+
+### 8.6 沈有鼎：一位以严密著称的逻辑学家，在政治运动中为标点符号遭到批斗
+
+如果读者只知道沈有鼎在《墨经》研究中的声誉，很容易想不到他在二十世纪中国经历过什么。他 1934 年回国后在清华任教，抗战时随学校南迁，后来又到牛津访问，中华人民共和国成立后经历院系调整，辗转北京大学、中国科学院哲学研究所。他并不是一个永远生活在书斋中的抽象名字，而是几乎穿过了二十世纪中国知识分子必须面对的各种制度变化。
+
+文革期间，有一些关于沈先生遭批斗的回忆，细节令人难以平静。智效民在《布袍破屣亦风流——逻辑学家沈有鼎趣闻》中整理过两件事：其一，据李元庆的讲述，沈先生在集体政治仪式中把《毛主席语录》拿倒了，因此受到批斗；其二，据梁志学、王路等人的回忆，1969 年 1 月某次“最高指示”发布之后，他在学习会上指出其中一个标点符号有误，被负责政治运动的人员视作攻击而遭批斗。
+
+我特别在意后一件事。对一个认真做逻辑的人来说，文字中的标点、作用域和推断关系绝不是无关紧要的装饰；一处标点甚至可能改变一个公式的意思。**但这不意味着我们应该把沈先生被批斗的故事写成“逻辑学家因为太较真闹出的笑话”。**真正令人不安的是：在那个制度环境里，一个普通的文字校对判断都可能被政治化，讲真话的权利变得极其脆弱。
+
+这两件事的来源属于回忆材料的转述，尚不能当作逐日档案记录来处理。发表前最好进一步找到梁志学、王路、李元庆等人的最初文字或口述原件，辨明讲述者、发生时间和具体处罚。当前可以据已有文献交代故事和史料层级，却不应再自行添加被关押天数、身体伤害程度或当场对话等没有出处的情节。
+
+这里还有一个略带悲剧意味的反差：在哈佛时代，沈有鼎凭借精确的代入与严格等价替换，解决了同行没有解决的模态推导；几十年后，连指出一句政治文本中标点有误都可能成为危险行为。从逻辑学的自由讨论到政治仪式里的禁止质疑，中间隔着的不仅是地理距离，也是知识分子能够如何使用理性的制度条件。
+
+<ShenHistoryFigure src="" alt="沈有鼎晚年照片或中国科学院哲学研究所旧影" caption="图 8.2　沈有鼎晚年。照片需核对年代、人物及馆藏；不建议以没有直接史料依据的文革批斗示意图替代真实资料。" credit="[待补图片来源]" />
+
+### 8.7 汤璪真，以及没有被一条大叙事讲完的其他人
+
+汤璪真的具体生平在中文与英文二手文献中仍有不少需要核对的空白。我们可以确认他早在 1930 年代以布尔环和点集解释参与了严格蕴涵的早期代数研究，但不应为了让本章“每个人都有一个悲剧”，给他补写没有可靠来源的政治遭遇。未来若能找到他的任职档案、家属回忆和通信，再增加这一节会更扎实。
+
+同样，Lewis、Langford、Kuratowski、Feys 等人的生活各有曲折，却没有必要将每个人都硬塞进一套受害者叙事。不同社会和制度施加的约束并不相同；研究者之间的实际学术分歧也并不都来自政治。
+
+### 8.8 结语：一条定理能够流传下来，首先要有人活下来
+
+我们从 Lewis 书里的一条脚注出发，最后竟走过了哈佛、弗赖堡、华沙、伯克利、兰德公司、布法罗和北京。沿路上有论文、证明、通信、矩阵和闭包代数，也有战争、审查、流亡和文革。
+
+回到起点，那条证明仍然只是
+
+<ShenMath display tex={String.raw`
+\begin{aligned}
+&C10\Longrightarrow\Diamond\Diamond p\equiv_s\Diamond p,\\
+&C12[p:=\Diamond p]\Longrightarrow
+\Diamond p\prec\Box\Diamond\Diamond p,\\
+&\hspace{2cm}\Longrightarrow
+\Diamond p\prec\Box\Diamond p.
+\end{aligned}
+`} />
+
+但现在我们知道，公式外面还有很多需要被记住的事情。贝克尔的错误提醒我们，提出一个形式系统不等于证明它真正独立；Wajsberg 的遭遇提醒我们，知识传统会被战争暴力截断；McKinsey、Parry 与沈有鼎的经历则说明，研究者能够说什么、教什么、与谁合作，从来不完全由学术能力决定。
+
+至于沈有鼎本人，我觉得对他最好的纪念，不是把一句现代教科书上的定理拔高成无所不能的发现，而是在它原来所属的演算里，把证明认真读懂，让今天的学生知道这个人做了什么，并知道他曾经生活在怎样的时代。
+
+一个逻辑学家的名字，可能只被印在一条脚注里。但只要我们愿意把那条脚注后面的数学与历史读完整，他的工作就不会真正消失。
+
+---
+
+## 参考文献与进一步阅读
+
+以下优先保留本文实际使用的一手著作和可追溯的研究资料。含有历史人物生平的网页资料还需要在正式出版前按书面原始材料复核。文内的图像占位符不代表已取得图像版权。
+
+### 原始逻辑文献
+
+- <span id="ref-lewis1918"></span>C. I. Lewis, *A Survey of Symbolic Logic*. Berkeley: University of California Press, 1918.
+- <span id="ref-lewis1920"></span>C. I. Lewis, “Strict Implication—An Emendation,” *Journal of Philosophy*, 1920.
+- <span id="ref-lewislangford1932"></span>C. I. Lewis and C. H. Langford, *Symbolic Logic*. New York: Century, 1932；另有 Dover 1959 年版本。第二附录第 492—502 页是本文核心一手来源。
+- <span id="ref-lewis1932"></span>Lewis and Langford, *Symbolic Logic*, 1932, Appendix II（与上一条为同一文献，为兼容第一章的引文锚点保留）。
+- Oskar Becker, “Zur Logik der Modalitäten,” *Jahrbuch für Philosophie und phänomenologische Forschung* 11 (1930): 497–548.
+- Mordchaj Wajsberg, “Ein erweiterter Klassenkalkül,” *Monatshefte für Mathematik und Physik*, 1933.
+- <span id="ref-parry1939"></span>William T. Parry, “Modalities in the Survey System of Strict Implication,” *Journal of Symbolic Logic* 4 (1939): 137–154. [DOI](https://doi.org/10.2307/2268714).
+- Tsao-Chen Tang, “Algebraic Postulates and a Geometric Interpretation for the Lewis Calculus of Strict Implication,” *Bulletin of the American Mathematical Society* 44 (1938): 737–744. [DOI](https://doi.org/10.1090/S0002-9904-1938-06860-7).
+- Charles A. Baylis, 评 Tang 1938, *Journal of Symbolic Logic* 4 (1939): 27. [DOI](https://doi.org/10.2307/2266218).
+- <span id="ref-mckinsey1941"></span>J. C. C. McKinsey, “A Solution of the Decision Problem for the Lewis Systems S2 and S4, with an Application to Topology,” *Journal of Symbolic Logic* 6 (1941): 117–134. [DOI](https://doi.org/10.2307/2267105).
+- J. C. C. McKinsey and Alfred Tarski, “The Algebra of Topology,” *Annals of Mathematics* 45 (1944): 141–191. [DOI](https://doi.org/10.2307/1969080).
+- J. C. C. McKinsey and Alfred Tarski, “On Closed Elements in Closure Algebras,” *Annals of Mathematics* 47 (1946): 122–162. [DOI](https://doi.org/10.2307/1969038).
+- J. C. C. McKinsey and Alfred Tarski, “Some Theorems about the Sentential Calculi of Lewis and Heyting,” *Journal of Symbolic Logic* 13 (1948): 1–15. [DOI](https://doi.org/10.2307/2268135).
+- William T. Parry, “Analytic Implication: Its History, Justification and Varieties,” in *Directions in Relevant Logic*, 1989, pp. 101–118. [DOI](https://doi.org/10.1007/978-94-009-1005-8_7).
+
+### 当代研究与史料
+
+- Stefania Centrone and Pierluigi Minari, *Oskar Becker, On the Logic of Modalities (1930): Translation, Commentary and Analysis*. Springer, 2022. [DOI](https://doi.org/10.1007/978-3-030-87548-0).
+- Max Cresswell and Jacques Riche, *Modal Logic in Europe: 1930–1959*. Birkhäuser, 2026. 尤其第 2 章 §2.3.1 与第 3 章。 [DOI](https://doi.org/10.1007/978-3-032-23475-9).
+- <span id="ref-mares2024"></span>Edwin Mares, *The Logic of Entailment and its History*, 2024.
+- <span id="ref-cook2025"></span>Roy T. Cook, “Understanding Christine Ladd-Franklin's Logic,” *Australasian Journal of Logic*, 2025.
+- <span id="ref-laddfranklinbio"></span>Christine Ladd-Franklin 生平及其博士学位授予史，参见 Johns Hopkins University 的相关档案与研究介绍（正式发表时补入准确链接）。
+- <span id="ref-shen1927"></span>Eugene Shen [沈有乾], “The Ladd-Franklin Formula in Logic: The Antilogism,” *Mind*, 1927.
+- Robin Goldblatt, “Mathematical Modal Logic: A View of Its Evolution,” *Journal of Applied Logic* 1 (2003): 309–392. [DOI](https://doi.org/10.1016/S1570-8683(03)00008-9).
+- 沈有鼎：《沈有鼎文集》，人民出版社，1992 年；《沈有鼎集》，中国社会科学出版社，2006 年。
+- 刘奋荣、余伟俊： [《沈有鼎和他的逻辑世界》](https://www.tsinghua.org.cn/info/1951/43545.htm)，清华校友总会，2026 年 10 月 17 日。
+- 智效民：[《布袍破屣亦风流——逻辑学家沈有鼎趣闻》](https://www.aisixiang.com/data/93513.html)，载爱思想网站（引用梁志学、王路和李元庆等人的回忆）。
+- [University at Buffalo Libraries, William T. Parry 人物档案](https://library.buffalo.edu/specialcollections/archives/ubhistory/ubpeople/detail.html?ID=3014)；另见 [Parry Papers](https://library.buffalo.edu/specialcollections/archives/collections-guides/collections/browse.html?COLLECTIONTITLE=P) 与 1953 年 HUAC 记录。
+- Stanisław J. Surma, [“Mordchaj Wajsberg: Life and Works”](https://www.uni.lodz.pl/fileadmin/Projekty/EXTENDD/BSL/2__2/surma2.pdf), *Bulletin of the Section of Logic* 2 (1973).
+- [“Logic in Poland after 1945 (until 1975)”](https://cs.uky.edu/~marek/papers.dir/15.dir/logic45-75.pdf)，波兰逻辑学派遭战争毁坏的学术史综述。
+- [J. C. C. McKinsey 生平概述](https://en.wikipedia.org/wiki/J._C._C._McKinsey)；关于 RAND 安全审查的专门研究可参见 *Learning Secrecy in the Early Cold War: The RAND Corporation*（2011），正式引用时请核对原文页码。
+
+*写作说明：本稿第二章至第五章依据所附英文研究和两部现代著作；第六章包含我对学术传播机制的解释性假说；第七、八章的历史细节按照可追溯资料表述，尚需作者逐条与原始档案核对。*

@@ -1,5 +1,5 @@
 ---
-title: "一条藏在脚注里的证明：沈有鼎、S5 与模态逻辑的代数语义"
+title: "沈有鼎、S5 与模态逻辑的代数语义"
 description: "从刘易斯附录二中归于沈有鼎的 C10+C12 推出 C11 的句法证明，讲到汤璪真、麦金西与塔斯基如何把同一组形式结构转写为矩阵、拓扑和闭包代数。"
 pubDate: 2026-08-05
 updatedDate: 2026-08-22
@@ -11,7 +11,7 @@ tags:
   - 代数语义
   - 中国逻辑史
 series: 中国逻辑史
-draft: true
+draft: false
 featured: false
 translationKey: shen-youting-s5
 translationStatus: original
@@ -22,6 +22,9 @@ author: Rui Zhu
 
 import ShenProofStepper from '../../../components/ShenProofStepper.astro';
 import ShenAlgebraFigure from '../../../components/ShenAlgebraFigure.astro';
+import ShenHistoryFigure from '../../../components/ShenHistoryFigure.astro';
+import ShenModalFrameLab from '../../../components/ShenModalFrameLab.astro';
+
 
 
 ## 按语
@@ -34,7 +37,7 @@ B. 这有什么大不了的，这个推导在模态逻辑不是很显然吗？
 C. 是吗，这在模态逻辑史应该有记载吧？
 D. 我不认识沈有鼎，也不清楚这个推导。
 
-/* 在这里加入一个小程序做统计 */
+<ShenReaderPoll />
 
 
 我第一次注意到沈有鼎这项工作，是大概17年在奥克兰大学图书馆里。我在一堆没人碰的旧书书架上乱翻，翻到 C. I. Lewis和 C. H. Langford 合著的 Symbolic Logic 时。正好看到附录二里有个中国人名字，旁边有一条很短的脚注：
@@ -44,7 +47,13 @@ D. 我不认识沈有鼎，也不清楚这个推导。
 
 即：第 498 页证明（14）归功于沈有鼎。
 
-/* 我要在这里加一副图，怎么加？ */
+<ShenHistoryFigure
+  src="/images/shen-s5/appendix2.png"
+  alt="Lewis 与 Langford 1932 年第二附录关于沈有鼎证明的脚注"
+  caption="《Symbolic Logic》第二附录，第 492 页：Lewis 明确把第 498 页证明（14）归于 Shen Yuting。"
+  credit="Lewis and Langford, Symbolic Logic, 1932, Appendix II, p. 492"
+/>
+
 
 
 仔细阅读了一下，发现这其实是证明了在严格蕴含系统里加入一个严格蕴含版本的 公理 B 和 4 就可以推出公理 5。
@@ -78,7 +87,7 @@ D. 我不认识沈有鼎，也不清楚这个推导。
 
 第4章介绍附录二里Lewis提到的另外两位与沈有鼎工作相关的两位逻辑学家的工作。一位是波兰的Wajsberg,他独立提出了一个等价于S5的系统；另一位是William T Parry, Whitehead的博士生，沈有鼎在哈佛的好朋友。Parry是分析蕴含这一逻辑领域的创始人，他在严格蕴含逻辑领域有着诸多贡献，而且在他1939年的重要文章中，他也确认了沈有鼎证明的优先性。
 
-第5章开始介绍d代数语义的发展，这里的关键是Kuratowski 1922, 汤璪真 1939 和 McKinsey 1941这三篇文章。中间也会穿插一些文章，讲讲严格蕴含和模态逻辑在当时有哪些相应的发展。
+第5章开始介绍代数语义的发展，这里的关键是Kuratowski 1922, 汤璪真 1939 和 McKinsey 1941这三篇文章。中间也会穿插一些文章，讲讲严格蕴含和模态逻辑在当时有哪些相应的发展。
 
 第6章开始会脱离英文稿件内容。我会比较大胆地分析，为何沈有鼎的证明会被很少谈起。我个人认为这和公理B对应的代数性质有关。而关系语义出现后，沈有鼎的句法证明在语义层面看着非常明显。
 
@@ -96,7 +105,9 @@ D. 我不认识沈有鼎，也不清楚这个推导。
 
 这本书我觉得很值得读，尤其是第一章梳理代数逻辑传统的内容很有价值。它的第一章从 Leibniz 开始，一路梳理 Ploucquet、Lambert、Holland、Castillon、Hamilton 和他的学生 Thomson、George Bentham、Bayne、De Morgan、Boole、Jevons、Peirce、MacColl、Schröder、Ladd-Franklin 等人的工作。很多名字很陌生，但在 Lewis 的叙述里，从十七世纪到二十世纪初的代数逻辑传统基本没有中断，而是一条相当连续的发展线。[Lewis 1918](#ref-lewis1918)
 
-当然，Lewis 也很清楚，当时另一条路线，Frege、Peano、Russell 和 Whitehead 所代表的逻辑主义路线，重新发明了关系逻辑。Lewis 作为美国人，而且James 是他的博论导师之一，他可能更偏向 Boole—Schröder—Peirce 这一条代数逻辑传统，但他自己在严格蕴含上的工作，却很大程度是在回应 Russell 和 Whitehead 的 *Principia Mathematica*（《数学原理》）。Lewis 1924年之后和 Whitehead 在哈佛大学做了同事。但写这本书时还没有。
+这里增加刘易斯的照片和《符号逻辑概览》的目录图  
+
+当然，Lewis 也很清楚，当时另一条路线，Frege、Peano、Russell 和 Whitehead 所代表的逻辑主义路线，重新发明了关系逻辑。Lewis 作为美国人，而且 James 是他的博论导师之一，他可能更偏向 Boole—Schröder—Peirce 这一条代数逻辑传统，但他自己在严格蕴含上的工作，却很大程度是在回应 Russell 和 Whitehead 的 *Principia Mathematica*（《数学原理》）。Lewis 1924年之后和 Whitehead 在哈佛大学做了同事。但写这本书时还没有。
 
 Lewis 认为《数学原理》的实质蕴含（material implication）不算作真正的“蕴含”。作为一种在二值逻辑的演算，
 
@@ -131,6 +142,7 @@ Lewis 认为在真假二值以外加入“不可能性”概念，我们能得�
 **所谓五值，在今天的术语中更接近五种基本模态的意思，而非一个五值的矩阵语义（五值真值表）。Dugunji 1940 证明了，Lewis 的 S1 到 S5 都没有有穷矩阵语义。** 
 
 这一时期，塔斯基语义尚未确立。语义学的主流是翻译语义，很多符号的解释依赖语言解读。对象语言、元语言、语义值、模态状态这些层次在当时并没有像今天这样被彻底区分开。这点以后还会提到。到了 1932 年 Lewis 自己讨论 Boolean algebra 对模态词的解释时，就已经碰到“一个代数元素”和“关于这个元素的元语言断言”混在一起的问题；再后来 Quine 对 Lewis 式模态逻辑的 use/mention 批评，也正好打在这个概念断层上。
+
 
 #### 1.2 Lewis 1918 年的基本语言
 
@@ -192,7 +204,7 @@ A8^\ast & (p\strictif q)\equiv_s(\sim q\strictif\sim p).
 \end{array}
 $$
 
-这里最后一条 $A8^\ast$ 带星号，因为**这是 1918 年版本后来出问题的公设**。1920 年以后 Lewis 不再保留这个完整的等价式，而只保留其中一个方向。我们后面将会看到。
+这里最后一条 $A8^{\ast}$ 带星号，因为**这是 1918 年版本后来出问题的公设**。1920 年以后 Lewis 不再保留这个完整的等价式，而只保留其中一个方向。我们后面将会看到。
 
 Lewis 同时规定了三类 proof operations：
 
@@ -200,10 +212,8 @@ Lewis 同时规定了三类 proof operations：
 2. **Inference（推断）**：从 $p$ 和 $p\strictif q$ 可以推出 $q$；
 3. **Production（合取/联立）**：分别得到 $p$ 与 $q$ 后，可以得到 $pq$。
 
-表面上 Lewis 说是三个规则，但如果按照今天形式系统的习惯来看，第一条实际上把两种性质很不一样的规则挤在一起了：
 
-- 命题变元的**统一替换**；
-- 严格等价式的**替换**。
+ 命题变元的**统一替换** 和 严格等价式的**替换**同时作为系统的初始规则是刘易斯系统的特征。这一点与我们现在的模态逻辑不同，第二个替换往往是推出规则。
 
 
 ### 2. Post 的批评：$A8^\ast$ 让严格蕴含塌回实质蕴含
@@ -246,53 +256,16 @@ $$
 Lewis 提出严格蕴含概念，本就是为了区分“事实上假”和“逻辑上不可能”。如果二者等价，那严格蕴含这个概念是多余的。
 
 
-#### 2.1 Post 的原始证明到底在哪里？
 
-这个问题我之前一直觉得值得追一下，因为很多二手文献只会写一句：
+#### 2.1 Post 的原始证明
 
-> Post proved that Lewis's 1918 system collapses.
+ 这里增加Post的照片 
 
-但不告诉你他到底怎么证。
-
-原始情况其实有点有趣。我们今天能直接找到的不是 Post 自己发表的一篇“反例论文”，而是 Lewis 1920 年的修正文。Lewis 在那里说，Post 还给了一个用图说明 2.21 错误的反例；这个图 Lewis 没有重印，因为解释起来太麻烦。但是，**Lewis 紧接着完整重印了 Post 关于 2.21 导致 $-p\equiv_s\sim p$ 的句法证明。**
-
-所以这条 famous Post objection 并不是后来人根据语义重构出来的，它一开始就是一个非常 Lewis 式的句法推导。
-
-如果把 1920 年那套已经很难读的符号压缩一下，证明的策略是这样的：
-
-1. 从坏掉的方向 2.21 出发：
-
-   $$
-   (\sim q\strictif\sim p)\strictif(p\strictif q).
-   $$
-
-2. 利用严格蕴含的定义，把右边的 $p\strictif q$ 展开成“$p$ 与非 $q$ 同真是不可能的”。
-
-3. 对 2.21 作一组非常 Lewis 式的复杂替换，让“关于不可能性的蕴含”和“原严格蕴含”重新嵌套起来。
-
-4. 再利用 Lewis 已经证明的积、否定和严格蕴含传递等定理，最终得到
-
-   $$
-   -p\strictif\sim p.
-   $$
-
-5. 而 Lewis 原来的 A7 本来就给了反方向：
-
-   $$
-   \sim p\strictif-p.
-   $$
-
-6. 两个方向合起来：
-
-   $$
-   \boxed{-p\equiv_s\sim p}.
-   $$
 
 完整逐行证明我准备放在本文后面的技术附录里，因为它强烈依赖 Lewis 1918 年的编号、定义和老式替换记号。如果硬塞在正文这里，读者大概还没见到沈有鼎就已经逃跑了。但证明的思想必须知道：**Post 不是用后来 Kripke 语义给 Lewis 找了一个反模型，而是直接在 Lewis 自己的句法机器里把系统推塌了。**
 
-这也很有意思。Lewis 1918 年最核心的问题之一，是想用形式演算抓住“真正的蕴含”；Post 对他的致命批评，同样是纯形式的。
 
-#### 2.2 Lewis 怎么修？
+#### 2.2 Lewis 修复
 
 修法其实很简单：把坏掉的反方向删掉，只保留
 
@@ -314,7 +287,7 @@ $$
 - **1932 Appendix II 的 A-set**：系统化整理后的版本，后来称为 $S3$。
 
 
-Oscar Becker 1930 年的工作正是在这条系统传统上展开的。他面对的还不是后来教科书里最常见的 $S4,S5$，而是 Lewis 1918—1920 那条 Survey system，也就是 $S3$。
+Oscar Becker 1930 年的工作正是在这条系统传统上展开的。也就是说，他的工作基于 $S3$。
 
 顺便说一下，虽然在今天 $S4,S5$ 名气更大，但 $S3$ 在1950年前受到地追捧更多。Parry 1939 年那篇研究模态词归约的重要论文，题目就直接叫 *Modalities in the Survey System of Strict Implication*。[Parry 1939](#ref-parry1939) 
 
@@ -335,12 +308,12 @@ B-set 一共有九个公设， B1--B9。只取 B1--B7 得到 $S1$；在 $S1$ 上
 
 #### 3.1 先统一记号
 
-1932 年 Lewis 的写法和今天仍然不同。本文后面做句法证明时，基本保留 Lewis 的风格，但为了让读者不至于每三行查一次符号，我统一采用下面的记号：
+1932 年 Lewis 的写法和之前有了变化。具体体现在$\sim$ 开始指代否定，而不是不可能。不可能被直接用$\sim\Diamond$组合表示。我依然区分等号的两种意义，同时使用括号而不是点号作为分隔符：
 
 - 命题变元：$p,q,r,\ldots$；
 - 否定：$\sim p$；
-- 合取：$pq$，即 $p\land q$；
-- 可能：$\Diamond p$。
+- 逻辑积（合取）：$pq$，即 $p\land q$；
+- 自协调（可能）：$\Diamond p$。
 
 定义：
 
@@ -375,7 +348,7 @@ $$
 p\equiv_s q
 $$
 
-不是元语言里的“这两个公式完全相同”，而是：
+和之前一样，表示
 
 $$
 p\strictif q
@@ -385,7 +358,7 @@ $$
 
 
 
-另外，Lewis 原书大量用点号表示作用域。比如不同数量、不同位置的点相当于不同层级的括号。这是早期逻辑书很常见的排版习惯，但对今天读者实在不友好。本文正文和附录会把它们改成括号；需要考据时再把 Lewis 原式放在旁边。
+
 
 #### 3.2 S1 与 S2 的公设
 
@@ -414,7 +387,7 @@ $$
 S2=S1+B8.
 $$
 
-B9 是一个存在性公设，本文讨论 $S1$ 到 $S5$ 的这条主线不需要它，所以不展开。
+B9 是一个带存在量词公设，本文讨论 $S1$ 到 $S5$ 的这条主线不需要它，所以不展开。
 
 至于 $S3$，在 Appendix II 的整理下，可以看作在 $S1$ 上加入
 
@@ -425,11 +398,9 @@ A8:\qquad
 (\sim\Diamond q\strictif\sim\Diamond p).
 $$
 
-这里你应该已经认出它和 1918—1920 年 Post 那场风波的关系：它就是 Lewis 最后保留下来的那个安全方向。
+#### 3.3 四条推理规则
 
-#### 3.3 四条推理规则：沈有鼎的证明为什么特别依赖 Sb
-
-1932 年的体系里，我们需要四条规则。
+1932 年的体系里，明确四条规则，这次把命题变元的统一替换和严格等价替换分开了。
 
 **Sa — Substitution（统一替换）**
 
@@ -457,15 +428,7 @@ $$
 
 是定理，那么在一个定理内部出现的 $A$ 可以被 $B$ 替换，反过来也可以。
 
-这条规则是本文的明星。
 
-因为沈有鼎最后会得到
-
-$$
-\Diamond\Diamond p\equiv_s\Diamond p.
-$$
-
-但得到这个式子本身还不够。他要把 C12 中因为统一替换而产生的 $\Diamond\Diamond p$，**在一个更大的模态环境内部**换成 $\Diamond p$。没有 Sb，整个证明最后一步就发动不起来。
 
 **Ad — Adjunction（联立）**
 
@@ -495,30 +458,12 @@ $$
 B.
 $$
 
-这四条规则看起来都很朴素，但它们和今天正常模态逻辑的证明习惯并不完全一样。尤其不要偷偷往系统里加入 Necessitation，再用 K 公理到处推。$S1$ 和 $S2$ 不是后来意义下的 normal modal logics。
 
-理解沈有鼎的证明，一个重要前提就是：**只用 Lewis 当时真正拥有的句法工具。**
+### 4. 沈有鼎证明之前，需要熟悉的定理
 
-### 4. 沈有鼎证明之前，需要哪些定理？
+Lewis 在第 498 页给出的沈有鼎证明非常短。但这是因为需要用到的一些定理已经被推出。如果没有从公设和规则开始，推出沈有鼎的结果需要至少45步以上。下面就是沈有鼎证明中要用到的定理：
 
-Lewis 在第 498 页给出的沈有鼎证明非常短。但这个“短”有个前提：前面一百多页已经替你做了大量工作。
-
-如果把这些前置结果全部删掉，沈的证明看起来会像魔术。所以我先挑出后面最关键的几个定理。
-
-直接进入沈有鼎证明的是三个：
-
-1. Proposition 12.2：严格反置；
-2. Proposition 12.3：双重否定严格等价；
-3. Proposition 18.4：$p\strictif\Diamond p$。
-
-另外还有一个 **Proposition 19.82** 不直接进入沈的证明，但它会在第五章讲 McKinsey 和代数语义时变得非常重要。
-
-也就是说，本章实际上准备四块砖：前三块给沈有鼎，第四块留给后来代数语义。
-
-#### 4.1 Proposition 12.2：严格反置
-
-Lewis 的 12.2 可以整理为：
-
+1. Proposition 12.2：严格反证的一个形式；
 $$
 (\sim p\strictif q)
 \equiv_s
@@ -528,25 +473,8 @@ $$
 
 它是严格蕴含版本的一种 contraposition / antilogism 原理。
 
-如果你只看公式会觉得平平无奇，但沈有鼎证明的开头就要靠它把 C10 的方向翻过来。因此这个定理不是背景噪音。
+2. Proposition 12.3：双重否定的严格等价；
 
-完整证明我放在技术附录。它的核心不神秘：先利用 B1--B3 建立若干交换和自反的严格等价，再把
-
-$$
-\sim p\sim q
-$$
-
-与
-
-$$
-\sim q\sim p
-$$
-
-的等价送进不可能性环境，最后按照严格蕴含定义重写回来。
-
-#### 4.2 Proposition 12.3：双重否定
-
-第二个是：
 
 $$
 p\equiv_s\sim\sim p.
@@ -559,116 +487,20 @@ $$
 p\strictif\sim\sim p.
 $$
 
-另一个方向不是公设，需要借助 12.2 和已经得到的自反性推出。两个方向联立后才得到严格等价。
+另一个方向不是公设，需要借助 12.2 和其它公设推出
 
-这个定理在后面的证明中会被频繁使用。原因很简单：Lewis 的严格蕴含定义、不可能性和否定互相套起来以后，会制造大量双重否定。如果没有 12.3，每一步都会变得很笨重。
-
-#### 4.3 Proposition 18.4：$p\strictif\Diamond p$
-
-第三个才是真正值得停一下的：
+3. Proposition 18.4：真严格蕴含可能。
 
 $$
 p\strictif\Diamond p.
 \tag{18.4}
 $$
 
-用今天的眼光看：
 
-$$
-p\to\Diamond p
-$$
+在模态逻辑中，这是公理 T 的一个对偶形式。但 Lewis 不是在 Kripke reflexive frame 上证明它；他是在 $S1$ 里，纯句法推出来的。所以，我们这里最好不叫他“自反”公理。它的直观意思就是“真 p”命题严格蕴含“可能 p”命题
 
-像得不能再像 modal axiom T 的一个对偶形式，所以我们很容易觉得它“当然成立”。
+4. 另外还有一个 **Proposition 19.82** ，它没在沈的证明中，但它会在第五章讲 McKinsey 和代数语义时发挥作用。
 
-但这里一定不要偷换背景。
-
-Lewis 不是在 Kripke reflexive frame 上证明它；他是在 $S1$ 里，靠 B1--B7、替换规则以及之前的严格蕴含定理，纯句法地把它推出来。
-
-这件事对沈有鼎至关重要。
-
-后面 C10 会先给出
-
-$$
-\Diamond\Diamond p\strictif\Diamond p.
-$$
-
-而 18.4 只要令
-
-$$
-p:=\Diamond p
-$$
-
-就立即得到反方向：
-
-$$
-\Diamond p\strictif\Diamond\Diamond p.
-$$
-
-于是两边合起来：
-
-$$
-\boxed{
-\Diamond\Diamond p\equiv_s\Diamond p
-}
-$$
-
-这正是沈有鼎证明最重要的中间结果。
-
-所以如果读者问：
-
-> 沈有鼎证明里真正“藏着”的前提是什么？
-
-我会首先回答：
-
-> **Proposition 18.4。**
-
-##### 18.4 的证明策略
-
-完整逐行证明放到附录，这里只说它是怎么想出来的。
-
-Lewis 使用 Proposition 12.6，也就是他的 antilogism law 的一个方向：
-
-$$
-(pq\strictif r)
-\strictif
-(p\sim r\strictif\sim q).
-$$
-
-再结合 B7：
-
-$$
-p(p\strictif q)\strictif q.
-$$
-
-通过合适的统一替换，可以逐步整理成：
-
-$$
-p\strictif\sim(p\strictif\sim p).
-$$
-
-然后展开严格蕴含的定义：
-
-$$
-p\strictif\sim\sim\Diamond(p\sim\sim p).
-$$
-
-再用 12.3 消去双重否定，并利用
-
-$$
-p\equiv_s pp
-$$
-
-把 $pp$ 化回 $p$，最后得到：
-
-$$
-p\strictif\Diamond p.
-$$
-
-我很喜欢这个证明，因为它提醒我们：今天一个几乎会被语义直觉一眼带过的公式，在 Lewis 的早期句法体系里，需要一串相当精细的代换和等价替换才能获得。
-
-### 5. Proposition 19.82：后来为什么会变成闭包的有限并律？
-
-还有一个结果暂时和沈有鼎的证明没有直接关系，但第五章一定会回来：
 
 $$
 (\Diamond p\vee\Diamond q)
@@ -677,222 +509,25 @@ $$
 \tag{19.82}
 $$
 
-这就是 Lewis 的 Proposition 19.82。
+这个定理的证明 需要 B8，所以属于 $S2$。
 
-它和 18.4 有一个很重要的区别：
 
-- 18.4 已经能在 $S1$ 中证明；
-- 19.82 需要 B8，所以属于 $S2$。
-
-B8 是：
-
-$$
-\Diamond(pq)\strictif\Diamond p.
-$$
-
-Lewis 把它叫作 consistency postulate。直觉上，如果 $p$ 与 $q$ 可以共同成立，那么 $p$ 至少应该是可能的。
-
-为什么我偏偏要把 19.82 提出来？
-
-因为几十年以后，如果把 $\Diamond$ 解释成闭包算子 $C$，19.82 会直接变成：
-
-$$
-C(A\cup B)=CA\cup CB.
-$$
-
-这正是 Kuratowski 闭包公理中的**有限并保持**。
-
-而 18.4：
-
-$$
-p\strictif\Diamond p
-$$
-
-会变成
-
-$$
-A\subseteq CA,
-$$
-
-也就是闭包的**扩张性（extensivity）**。
-
-所以在 Lewis 1932 年的纯句法体系内部，我们已经能看到后来 closure algebra 的两条骨架：
-
-$$
-A\subseteq CA,
-$$
-
-以及
-
-$$
-C(A\cup B)=CA\cup CB.
-$$
-
-Lewis 当时没有这样解释它们。这个对应是后来才出现的。也正因为如此，我们后面回头看 18.4、19.82、C10.1b，会发现它们像几块提前摆在桌上的拼图，只是当时还没人把“闭包代数”这张图完整拼出来。
-
-#### 5.1 19.82 的证明是怎么走的？
-
-Lewis 不是直接从 B8 两三步推出 19.82。他先证明 Proposition 19.8：
-
-$$
-\sim\Diamond p\,\sim\Diamond q
-\equiv_s
-\sim\Diamond(p\vee q).
-\tag{19.8}
-$$
-
-这句话的直觉是：
-
-> $p$ 不可能并且 $q$ 不可能，当且仅当 $p\vee q$ 不可能。
-
-当然，在 Lewis 的体系里，“直觉上显然”不算证明。
-
-他的证明路线大致是：
-
-1. 从
-   $$
-   \sim\Diamond p\,\sim\Diamond q
-   $$
-   分别取出
-   $$
-   \sim\Diamond p,\qquad \sim\Diamond q.
-   $$
-
-2. 利用前面的 Proposition 19.74，把这两个“不可能性”分别变成以 $p$、$q$ 为前件、以共同矛盾式为后件的严格蕴含。
-
-3. 用 19.61 和 19.65 把两个分支合起来，得到
-   $$
-   (p\vee q)\strictif\sim(p\vee q).
-   $$
-
-4. 再借助 Proposition 18.12，把“一个命题严格蕴含自身否定”转换成它的不可能性：
-   $$
-   \sim\Diamond(p\vee q).
-   $$
-
-5. 反方向由 Proposition 19.28 给出，于是得到 19.8 的严格等价。
-
-接下来反而简单了。对 19.8 两边取否定，并使用严格等价的替换规则，再消去双重否定：
-
-$$
-\sim(\sim\Diamond p\,\sim\Diamond q)
-\equiv_s
-\Diamond(p\vee q).
-$$
-
-而按照析取的定义，
-
-$$
-\sim(\sim\Diamond p\,\sim\Diamond q)
-=
-\Diamond p\vee\Diamond q.
-$$
-
-所以：
-
-$$
-\boxed{
-(\Diamond p\vee\Diamond q)
-\equiv_s
-\Diamond(p\vee q)
-}
-$$
-
-即 Proposition 19.82。
-
-完整的 Lewis 式逐行推导我仍然放在技术附录。正文里知道这个策略就够了。这里真正值得记住的，是它在系统层级上的位置：
-
-$$
-\boxed{
-18.4\in S1,\qquad 19.82\in S2.
-}
-$$
-
-以后 McKinsey 1941 年把可能性写成代数算子 $*$ 时，这两个公式会分别变成：
-
-$$
-a<*a,
-$$
-
-和
-
-$$
-*(a+b)=*a+*b.
-$$
-
-到这里，第一章其实已经把第五章需要的代数语义伏笔埋好了。
-
-### 6. 第一章小结：先别急着把 Lewis 翻译成 Kripke
-
-这一章内容不少，但真正要记住的其实只有几件事。
+### 6. 第一章小结：
 
 Lewis 1918 年发明严格蕴含，是因为他认为实质蕴含虽然是一个完全合法的二值真值函数，却没有抓住 ordinary inference 中“真正蕴含”的内涵联系。
 
-他的第一次公理化尝试失败了：Post 发现原 $A8^\ast$ 的反方向会把
+他的第一次公理化尝试有问题：Post 发现原 $A8^\ast$ 的反方向会把坍缩“不可能”与“假”。
 
-$$
-\text{falsity}
-$$
+Lewis 1920 年删掉坏的方向，留下后来 $S3$ 的核心公设。1932 年，他和 Langford 重写严格蕴含,在附录二中正式定义 $S1$、$S2$、$S3$、$S4$、$S5$。$S1$ 的 三条定理会在沈有鼎的证明中发挥作用，而$S2$的一条定理帮助了McKinsey 完成严格蕴含逻辑的代数化。
 
-和
-
-$$
-\text{impossibility}
-$$
-
-压成严格等价，从而毁掉 strict/material distinction。
-
-Lewis 1920 年删掉坏的方向，留下后来 $S3$ 的核心公设。1932 年，他又把严格蕴含系统重新分解为 $S1$、$S2$、$S3$、$S4$、$S5$。
-
-对本文最重要的是：
-
-$$
-S1=B1+\cdots+B7,
-$$
-
-$$
-S2=S1+B8,
-$$
-
-而沈有鼎后面的核心证明只需要 $S1$。
-
-在这个底座里已经有：
-
-$$
-p\equiv_s\sim\sim p,
-$$
-
-$$
-p\strictif\Diamond p,
-$$
-
-以及到了 $S2$：
-
-$$
-(\Diamond p\vee\Diamond q)
-\equiv_s
-\Diamond(p\vee q).
-$$
-
-下一章我们终于可以去看 Oskar Becker。Becker 真正担心的，正是这些可能、必然、不可能一层层套下去以后，到底会产生多少种不能再归约的模态形式。
-
-而沈有鼎后来纠正他的地方，也就藏在这里：
-
-$$
-\Diamond p
-\quad\text{和}\quad
-\Diamond\Diamond p
-$$
-
-到底是什么关系？
 
 ### 第一章注记：Lewis、Ladd-Franklin，以及一些我觉得国内值得补的逻辑史
 
 C. I. Lewis 在蓝皮书中被誉为“现代模态逻辑的奠基人”。在模态逻辑课中，他留给我们的印象通常是
 
-> 句法时代的巨擎，但语义学时代后就不再是主流。
+> 模态逻辑句法时代的巨擎，但语义学时代后就不再是主流。
 
-这样表述不算错，但似乎低估了他的学术影响力。
+这样表述不算错，但低估了他的学术影响力。
 
 实际上，Lewis 是美国二十世纪哲学和逻辑领域里一个教父式的人物。他的 strict implication 直接影响了 analytic implication、relevant implication、connexive logic 等一整条“什么才算真正 entailment”的研究；他的 conceptual pragmatism、关于 a priori、meaning 和 verification 的理论又进入美国分析哲学和实用主义传统。今天很多看上去互不相干的东西——模态逻辑、相干逻辑、某些非单调推理思想、意向性与意义理论、真理与知识问题——往回追经常都能碰到 Lewis。除此之外，他还有大量的伦理学和美学作品。
 
@@ -902,7 +537,7 @@ Edwin Mares 近年来一直在系统整理 Lewis 及其学派的逻辑史。他 
 
 另外一个我越来越觉得应该认真写的人，是 **Christine Ladd-Franklin（1847--1930）**。
 
-Roy T. Cook 在 2024 年 UNAM 的 *Feminist Approaches to Logic* workshop 上专门做过一个题目非常挑衅的报告：
+Roy T. Cook 在 2024 年 UNAM 的 *Feminist Approaches to Logic* workshop 上专门做过一个题目非常炸眼的报告：
 
 > *Did Christine Ladd-Franklin discover contemporary modal logic?*
 
@@ -912,556 +547,629 @@ Ladd-Franklin 本身的经历就足以拍一部电影。
 
 她是 Peirce 极少数真正意义上的学生，在逻辑上发展出著名的 **antilogism（反三段论）**。她 1882 年已经完成 Johns Hopkins 的博士要求，却因为当时大学对女性的制度性排斥没有获得博士学位；直到 1926 年，学校才正式把博士学位授予她。这个事实今天已经有很完整的档案材料。[Ladd-Franklin biography](#ref-laddfranklinbio)
 
-而她和中国逻辑史居然还有一条很少有人提的线：**沈有乾**。
+而她和中国逻辑史其实有着联系。
 
-沈有乾在美国学习期间在哥伦比亚大学听过 Ladd-Franklin 的课，后来在中文和英文中介绍过她的逻辑。关于 Ladd-Franklin 逻辑的现代研究甚至有作者说，就现有材料来看，沈有乾可能是她唯一可以明确追踪的逻辑学弟子；1927 年沈有乾还在 *Mind* 上发表 *The Ladd-Franklin Formula in Logic: The Antilogism*。[Shen 1927](#ref-shen1927)
+沈有乾在美国学习期间在哥伦比亚大学上过 Ladd-Franklin 的课，后来在中文和英文中介绍过她的逻辑。关于 Ladd-Franklin 逻辑的现代研究甚至有作者说，就现有材料来看，沈有乾可能是她唯一可以明确追踪的逻辑学弟子；1927 年沈有乾还在 *Mind* 上发表 *The Ladd-Franklin Formula in Logic: The Antilogism*。[Shen 1927](#ref-shen1927)
 
 金岳霖后来在《逻辑》中介绍 Ladd-Franklin 时，也把沈有乾的分析放在一起讨论。
 
-按沈有乾自己的回忆，他在美国还听到过有人把 Ladd-Franklin 称作当代的“亚里士多德”。这个评价当然很夸张，但至少说明一件事：她在当时不是一个今天教科书脚注里才勉强能找到的人物。
+按沈有乾自己的回忆，他在哈佛上学时，那里的老师把 Ladd-Franklin 称作当代的“亚里士多德”。这个评价当然很夸张，但至少说明一件事：她在当时不是一个今天教科书脚注里才勉强能找到的人物。从 C I Lewis的解读来看，蕴含的 contraposition 推理很大程度要归给 Ladd-Franklin。我比较好奇，其它证明论传统是否也受过她影响？
 
 更有意思的是，Ladd-Franklin 不只是逻辑学家。她后来在色觉、心理学、女性教育和女性学术权利方面都有重要工作，也是十九世纪末到二十世纪初美国女性学术史里的代表人物。
 
-然后这样一个人，在中文逻辑史里几乎没人认真研究。
+增加Franklin和沈有乾画像
+
+然后这样一个人，在中文逻辑圈里没人认真研究。
 
 这就很有意思。
 
-我们国内经常有人嫌“现代逻辑”没意思、没文化，反而喜欢说应该恢复传统逻辑。但真正处在传统三段论和现代代数逻辑交界处、难度又恰到好处的 Ladd-Franklin **Antilogism**，中文里反而几乎找不到认真技术分析它的文章。
+国内有老师认为“现代逻辑”太难，不好教，不实用，坚持教传统逻辑。但真正处在传统三段论和现代代数逻辑交界处、难度又恰到好处的 Ladd-Franklin **Antilogism**，中文里反而几乎找不到认真技术分析它的文章。我在国外见到一大批学者，而且他们很多人研究 Ladd-Franklin根本就不为发文章，只是出于一种好奇和尊重。我在秘鲁UNILOG 2025时在逻辑史的workshop 申请讲沈有鼎。讲完后，有个巴西的老师非常兴奋地过来告诉我：Ray，你知不知道沈有鼎还研究过 Ladd-Franklin。我很惊讶，表示没听说过。他说：当时有个知名的中国人叫Eugene Shen, 他写过关于 Ladd-Franklin 的文章。有鼎，Eugene。这不就是他英文名嘛。你看，你叫Rui，你的英文名是Ray。不就对上了嘛。我一时有点相信了。不过我很快反映过来了。大概率是沈有乾。因为沈有乾学术路径和Ladd-Franklin 太像了，后来也是中国心理学界的先驱人物。而且我在搜索中还发现。搞混淆的不止他一个，academia上有篇文章就猜想 沈有鼎是沈有乾。但实际上，中文学术圈都知道，他们是兄弟。
 
-我觉得这也是为什么做逻辑史不能只按今天教科书里的胜利者名单倒着写。Lewis、Ladd-Franklin、MacColl、Peirce、沈有乾、沈有鼎这些人之间，实际上有很多后来被教材的线性叙事抹平了的联系。
+这么有意思的故事，为什么国内的逻辑史教科书从来没写过，也没人写英文文章澄清这一点。我觉得我们要做的事情还很多。
 
-本文当然还是讲沈有鼎。
+本文当然还是讲沈有鼎。但如果以后有时间，我很想把 Ladd-Franklin—沈有乾这条线也单独写出来。
 
-但如果以后有时间，我很想把 Ladd-Franklin—沈有乾这条线也单独写出来。
 
+## 第二章　贝克尔的“开放位置”：一位现象学家想把模态关进有限的格子
 
-## 一、严格蕴含
+假如我们今天问一位学过模态逻辑的学生：$\Box\Box p$ 和 $\Box p$ 在 S4 里有什么关系？他大概会立即想到公理 4，再加上 T，几行就可以说明两者等价。但请暂时把 Kripke 框架、可达关系和现代公理系统忘掉。我们现在要回到 1930 年，去看看另一个人面对同样的符号时，究竟看到了什么。
 
-### 1. 符号逻辑概览 1918
+这个人叫 **Oskar Becker（奥斯卡·贝克尔，1889—1964）**。我原本只是想把他写成一个犯了错误、然后被沈有鼎纠正的德国逻辑学家。读过他的原文，以及 Stefania Centrone 与 Pierluigi Minari 的研究以后，发现事情远没有这么简单。贝克尔的雄心大得多：他不只是想删掉公式里几层多余的 $\Diamond$ 和 $\Box$，而是试图把当时两种看上去很难相容的研究方式——形式逻辑和现象学——放进同一篇论文里。
 
-一切要从 C I Lewis 1918 年的 a survey of symbolic logic《符号逻辑概览》说起。这本书真得很值得读，尤其第一章从 Leibniz 开始梳理 Ploucquet, Lambert, Holland, Castillon, Hamilton and his student Thomson, George Bentham, Bayne, De Morgan，Boole， Jevons，Peirce，MacColl, Shroder, Ladd-Franklin，无论你听没听过，从十七世纪到二十世纪整个代数逻辑的发展在他的整理下是连续的。不过，他也承认关系逻辑被Frege, Peano, Russell 和 Whitehead 重新发明了一次。这也就是我们今天所谓的逻辑主义路线。虽然他的这本书琢磨更多在代数逻辑路线，但严格蕴含这部分是在回应 Russell 和 Whitehead 的 Principia Mathematica 《数学原理》。他认为数学原理中的实质蕴含，是一种二值代数的演算。其中假命题蕴含所有命题，以及真命题被所有命题蕴含这两点让它并不是合适（proper）的蕴含关系。他提出了严格蕴含的概念，而实质蕴含的定理和推理作为其部分而存在。（p 291）
+<ShenHistoryFigure src="" alt="奥斯卡·贝克尔的历史照片" caption="图 2.1　奥斯卡·贝克尔。照片由作者补入，建议核对照片年代与馆藏署名。" credit="[待补：档案或图片来源]" />
 
-他的逻辑定义如下：
-1. Propositions: p, q, r, etc.
-2. Negation: -p, meaning "p is false".
-3. Impossibility: -p, meaning "p is impossible", or "It is impossible
-that p be true "
-4. The logical product: p x q or pq, meaning "p and q both", or "p is
-true and q is true".
-5. Equivalence: p = q, the defining relation. 
+### 2.1 胡塞尔的学生，数学家的训练，哲学家的野心
 
+贝克尔通常和海德格尔一起，被认为是胡塞尔最重要的学生之一。他并不是一个只会谈论“存在”与“意识”的哲学家：1914 年，他凭一项几何学研究取得数学博士学位；1922 年，他又在胡塞尔指导下完成涉及几何学现象学基础的教授资格论文。1927 年，他发表《数学的存在》（*Mathematische Existenz*）；1930 年发表我们关心的《论模态逻辑》（*Zur Logik der Modalitäten*）。这篇论文刊登在胡塞尔主持的《哲学与现象学研究年鉴》上。该年鉴此前也刊登过海德格尔的《存在与时间》及贝克尔自己的《数学的存在》。换言之，对当时读者来说，这不是一篇从哲学讨论中偶然掉出来的数学小品，而是一位现象学圈内学者试图直接处理形式逻辑难题的作品。参见 [Centrone 与 Minari 2022，第 1—3 页](https://doi.org/10.1007/978-3-030-87548-0)（下文简称 C&M）。
 
-不同于二值逻辑，他认为严格蕴含有五个值：
-(1) p, "p 是真的".
-(2) -p, "p 是假的".
-(3) ~p, "p 是不可能的".
-(4) - ~ p, "p 不可能是假的"-i. e., "p 是可能的".
-(5) ~-p, "p为假是不可能的 "-i. e., "p 是必然的". 
+贝克尔的写作计划可以拆成两条线：第一条是非常技术性的，考察 Lewis 的严格蕴涵系统里，反复叠加的模态到底能否缩减到有限类型；第二条则试图理解数学直觉主义所说的“证明”“构造”和“存在”，究竟在模态逻辑中意味着什么。即使今天把第二条全删掉，第一条仍会是一项实实在在的逻辑研究。但如果只保留第一条，我们又会看不懂贝克尔为何如此执着于某些公理。
 
-这里出现了可能和必然概念，而在现代逻辑中，只有MacColl 和 Peirce 研究过可能和必然的概念。而因为Lewis的影响最大，我们教科书一般称他是现代模态逻辑的奠基人。
+他的政治立场另有一段很不体面的历史。C&M 在专著开篇明确引用了纳粹党卫队保安部门对贝克尔政治忠诚的档案评语，表示与其政治立场保持距离。这件事不是无关紧要的八卦，不过我打算把它和 Wajsberg 的命运放在第八章再说：在这里，先让贝克尔的逻辑论证以它自己的面貌出场。
 
-当时，还没有塔斯基语义学，元语言和对象语言并没有区别。一些语义层面的概念，比如 consistency “一致性”被Lewis用对象语言表达： p ∘ q 被定义作 ~(p-q). 即p和q是一致的 当且仅当 p和非q同真是不可能的。Lewis 在这本书里没有使用 ◇ 符号，如果表示 ◇p,可以使用（p ∘ p）
+### 2.2 从古代屋顶上的乌鸦，到 Lewis 的严格蕴涵
 
-其它一些联结词定义如下：
+C&M 有一节标题很有意思，叫作 *The Conditional, or The Crows on the Roofs*，可以译为“条件句，或者屋顶上的乌鸦”。他们引述了关于古代麦加拉—斯多亚学派争论条件句的一段掌故：据说连屋顶上的乌鸦都在聒噪，争论究竟什么样的蕴涵才算成立。这当然是一种文学性的说法；但争论本身绝非玩笑。
 
-Strict Implication. p⥽q = -(p -q). 
-material Implication. p ⊂ q = -(p -q). 
-Strict Logical Sum. p∧q = ~(-p-q). Del.
-maierial Logical Sum. p + q = -( - p -q). 
-Strict Equivalence. (p = q) = (pool q)(q-lp). 
+如果只要求真值条件，$p\to q$ 就是“不是 $p$，或者 $q$”。假话作为前件，真话作为后件，都足以使这个条件句为真。但要是我们关心的是前后件之间某种真正的推演联系，事情就复杂了。Lewis 正是在这道老问题上坚持：实质蕴涵可以有它的位置，但它不是严格蕴涵。
 
-这里可以看到 = 整个符号既被用于表示定义，又表示严格等价。
+贝克尔接过 Lewis 的工具，又把问题推进一步：如果“不可能”“可能”“必然”可以一遍遍作用到同一命题上，它们形成的逻辑强弱次序究竟是什么？可以像数的大小一样排列吗？
 
-严格蕴含系统的公设包括：
-A1 pq⥽ qp
+为了避免混淆，我先说两件事。
 
-A2 qp⥽ p
+第一，贝克尔所讨论的是经过 1920 年修正的 Lewis *Survey* 系统，也就是**后来被称作 S3 的系统**；他在 1930 年并不可能使用 1932 年才固定下来的 S1—S5 命名。
 
-A3 p⥽pp
+第二，贝克尔谈“模态的个数”，主要是在数一个命题前面的模态词串（比如 $\Box\Diamond\Box$）经过严格等价归约后有多少基本类型，并不是在数整个语言有多少不同公式，更不是在数不同命题的真值配置。这几个“有限”需要严格区分。
 
-A4 p(q r) ⥽ q(p r)
+### 2.3 所谓“开放位置”：难道模态可以永远套下去？
 
-A5 P ⥽ -( -p )
+设 $p$ 是一个命题。我们当然可以说 $\Diamond p$，还可以说 $\Diamond\Diamond p$、$\Box\Diamond p$、$\Diamond\Box\Diamond p$……句法上，写下第十层、第一百层毫无困难。问题是，它们在 Lewis 的演算中究竟有多少是可以证明等价的？
 
-A6 (p ⥽ q)(q ⥽ r)⥽ (p -I r)
+贝克尔在 1930 年论文第 503 页一带把这种待解决处称作一个“开放的位置”（*eine offene Stelle*）。他希望通过引入额外原则让演算“闭合”，也就是给所有反复叠加的模态找出有限的基本形态。
 
-A7 ~p ⥽ -p
+这里有个不能轻轻带过的错误：**贝克尔从模态可能无限叠加，推测相应系统不可判定，推理过头了。**哪怕不可约的模态词串真有无穷多个，也不能直接得出不存在判定算法；反过来，模态词串只有有限种，也不足以单独证明整个公式语言可判定。可判定性说的是：存在一个算法，对任意输入公式都在有限步骤内回答它是不是定理。
 
-A8* p ⥽ q = -q ⥽ -p
+今天已经知道 S3 是可判定的。C&M 2022 年专著不仅指出贝克尔的这一推断有问题，还在附录给出有关 S3 的语义、有限模型性质和可判定性讨论（附录 §§5.4—5.6）。这是评价贝克尔时应当写清楚的一处错误，而不是以为只要证明他数错了模态，判定问题就自动解决。
 
-推理规则如下：
+但这种错误也有它的时代背景。1930 年前后，“什么算算法”本身尚未有后来 Church—Turing 意义上的标准形式刻画；用有限归约、标准形和形式化计算来理解逻辑问题，是当时一种很自然的思路。
 
-1. Substituiion. Any proposition may be substituted for p or q or r,
-etc. If p is a proposition, -p and -p are propositions. If p and q are
-propositions, p q is a proposition. Also, of any pair of expressions related
-by =, either may be substituted for the other.
-2. Inference. If p is asserted and p ~ q is asserted, then q may be
-asserted. (note that this operation is not assumed for material impli.
-cation, pc q.)
-3. Production. If p and q are separately asserted, p q may be asserted.
-These are the only operations made use of in proof. 
+### 2.4 三个公理：C10、C11、C12
 
-(p 291-295)
+贝克尔设计的三个关键原则，后来在 Lewis 与 Langford 的《符号逻辑》第二附录中被编号为 C10、C11、C12。这里仍然采用第一章的符号：$A\prec B$ 是严格蕴涵，$\Box A:=\sim\Diamond\sim A$。
 
-这里写作三个规则，其实应该看作四个，即联立替换和严格等价替换应该看作两个不同规则。Lewis 1932年的著作就写作四个。
-### 2. Post 的 批评 与 S3
+| Lewis 编号 | Becker 原编号 | 严格蕴涵形式 | 今天通常对应 |
+| --- | --- | --- | --- |
+| C10 | 1.92 | $\Box p\prec\Box\Box p$ | 4 |
+| C11 | 1.9 | $\Diamond p\prec\Box\Diamond p$ | 5 |
+| C12 | 1.91 | $p\prec\Box\Diamond p$ | B |
 
-E. L. Post 指出，其中一条等价公设会导致严格蕴含坍塌成数学原理里的实质蕴含：所有严格蕴含被最终可以被消去，严格蕴涵也就失去了原本想保留的内涵差别。（你能否补齐证明，找到Post的原句法证明）
+用普通蕴涵的现代记号看，这就是
 
-刘易斯后来删去了问题等价式的一个方向，我们得到
+$$
+4:\ \Box p\to\Box\Box p,\qquad
+5:\ \Diamond p\to\Box\Diamond p,\qquad
+B:\ p\to\Box\Diamond p.
+$$
 
-A8 （p ⥽ q） ⥽ （-q ⥽ -p）
+不过，**上述对应不等于可以直接在 S1 里使用正规模态逻辑的所有规则。**贝克尔的原始公式外面是严格蕴涵，我们要证明的也是 Lewis 演算里的可推导关系。这是后面第三章技术证明必须坚持的边界。
 
-而S3 就是 A1-A8
+C10 说：如果 $p$ 是必然的，那么“$p$ 是必然的”本身也具有必然性；C11 说：如果 $p$ 有可能，那么这种可能性是必然的；C12 说：如果 $p$ 成立，那么 $p$ 的可能性是必然的。三个公理只差一点点，表达的意思却不一样。
 
-Becker 的工作 发表于 1930年，就是在S3之上的。实际上，S3是个在当时影响很大系统，即使1932年的书出现后，有了S1，2，4，5。人们也没有放弃对S3的研究。它也经常被称为 概览系统 the survey system。
+贝克尔把 C12 叫作“布劳威尔公理”（*Brouwersche Axiom*）。这不是偶然冠上的人名。他要用直觉主义对证明的理解去说明一种从真到“双重不可能性”的推移。不过，我认为在博客里最好把他的**哲学动机**与后来公理 B 的**形式语义**分开：B 在正规模态逻辑中的框架对应是对称性；它不是布劳威尔直觉主义命题演算里的一个现成公理，也不意味着布劳威尔本人认可贝克尔的解释。原始讨论见 Becker 1930，第 513—514 页；英文注释见 C&M 2022，第 75—76 页。
 
-### 3. S1-S2 与 部分必要定理
+### 2.5 一套“六模态”，一套“十模态”
 
+贝克尔把必要、真实、可能，以及它们的否定或对偶，排列成逻辑强度等级。在他认为已经归约完毕的“六模态演算”里，一个命题前面的基本表达可以取为
 
-The B-set contains B1--B9. Restricting it to B1--B7 yields \Sone\, while \Sone\ plus B8 yields \Stwo\ \cite[pp.~497--501]{LewisLangford1932}. Lewis states the relevant comparison under either the full A-set or the full
-B-set, but the reconstruction below shows that Shen's direction requires only
-\Sone. Becker, by contrast, was responding to \cite{Lewis1918}, and his discussion
-therefore belongs more directly to the line that became \Sthree.
-Nevertheless, every theorem of \Stwo, and hence of \Sone, is also a theorem
-of \Sthree; Shen's derivation therefore remains valid there and still corrects
-Becker's proposed modal classification.
+$$
+\Box p,\quad p,\quad \Diamond p,\quad
+\neg\Box p,\quad \neg p,\quad \neg\Diamond p.
+$$
 
+这些表达之间有清楚的蕴涵关系，例如
 
+$$
+\Box p\ \Longrightarrow\ p\ \Longrightarrow\ \Diamond p.
+$$
 
-Lewis's modal notation differs from modern modal logic. The primitive vocabulary used here consists of propositional variables $p,q,r,\ldots$, negation $\sim$, logical product $\cdot$ (usually suppressed by juxtaposition), and possibility $\poss$. Disjunction, strict implication, and strict equivalence are defined as follows:
-
-\begin{equation}
-  p\vee q\ :=\ \sim(\sim p\sim q).
-  \label{eq:d1}\tag{disj}
-\end{equation} 
-\begin{equation}
-  p\strictif q\ :=\ \sim\poss(p\sim q).
-  \label{eq:d2}\tag{strimp}
-\end{equation}
-\begin{equation}
-  p\strictequiv q\ :=\ (p\strictif q)(q\strictif p).
-  \label{eq:d3}\tag{streq}
-\end{equation}
-
-Lewis and Langford do not use $\Box$ as an abbreviation for $\sim\poss\sim p$ in the
-original notation. The present reconstruction therefore retains the original
-notation in the syntactic proofs; $\Box$ is used only as an editorial
-convenience in the later semantic discussion.
-
-Lewis's book uses the equality sign $=$ in ways that are potentially ambiguous from a modern perspective, including displays of definitions and strict equivalences. We therefore distinguish definitional equality from strict equivalence without changing the inferential content of Lewis's or Shen's proofs.\footnote{McKinsey \cite[p.~117]{McKinsey1941} explicitly makes the same notational distinction, reserving $=$ for definitional equality and using a separate sign for strict equivalence. }
-
-Accordingly, we use $:=$ for definitional equality and $\strictequiv$ for
-strict equivalence. The present reconstruction also replaces Lewis's dot punctuation by parentheses. In Lewis's typography the number and placement of dots indicate scope: a stronger dot division marks a wider grouping. Since several steps of the reconstructed derivations depend on the intended
-grouping, the appendices retain the historical formulas but give modern
-parenthesization in the accompanying explanation wherever ambiguity would
-otherwise arise.
-
-The eight postulates B1--B8 are given in
-Table~\ref{tab:s1postulates}. B1--B7 constitute the \Sone\ basis used in
-Shen's proof, while B8 is included because it enters the \Stwo\ results,
-especially Proposition~19.82, used later in tracing the transition to
-topological semantics. \footnote{There is also a B9, an existential postulate. It is not used in the \Sone--\Sfive\ definitions relevant here and plays no role in the present result. In Appendix~II, \Sthree\ is presented by the A-set; an equivalent basis is obtained by adding A8,
-$(p\strictif q)\strictif(\sim\poss q\strictif\sim\poss p)$,
-to \Sone.}
-
-\begin{table}[t]
-\caption{The B1--B8 basis used in this chapter.}
-\label{tab:s1postulates}
-\centering
-\begin{tabular}{lll}
-\toprule
-B1 & $pq\strictif qp$ & commutation of product \\
-B2 & $pq\strictif p$ & simplification \\
-B3 & $p\strictif pp$ & idempotent expansion \\
-B4 & $(pq)r\strictif p(qr)$ & one associativity direction \\
-B5 & $p\strictif\sim\sim p$ & one double-negation direction \\
-B6 & $(p\strictif q)(q\strictif r)\strictif(p\strictif r)$ & transitivity of strict implication \\
-B7 & $p(p\strictif q)\strictif q$ & internalized strict inference \\
-B8 & $\poss(pq)\strictif\poss p$ & possibility projection \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Four rules are needed in the reconstructed proof:
-\begin{description}
-\item[Sa (Substitution).] Uniform substitution of formulas for propositional variables in a theorem.
-\item[Sb (Substitution of Equivalents).] If $A \strictequiv B$ is a theorem, $A$ and $B$ are mutually substitutable in any theorem.
-\item[Ad (Adjunction).] From theorems $A$ and $B$, infer their product $AB$.
-\item[Smp (Strict Modus Ponens).] From $A$ and $A\strictif B$, infer $B$.
-\end{description}
-
-
-\Sone\ and \Stwo\ are not normal modal systems in the later sense, but $p\strictif\poss p$ is already derivable in \Sone. A detailed syntactic reconstruction of Proposition~18.4 is given in
-Appendix~\ref{app:45}.
-
-
-
-\subsection{Prerequisites: Lewis 18.4 and 19.82}
-\label{sec:prerequisite}
-
-Shen's proof, as recorded by Lewis, is short only after a substantial
-prerequisite has been secured. Lewis's Chapter VI records the proof of Proposition~18.4~\cite[p.~163]{LewisLangford1932}
-\begin{equation}
-  p\strictif\poss p.
-  \label{eq:184}\tag{cf. Prop. 18.4}
-\end{equation}
-
-
-Under the later interpretation of possibility as closure, it has the same algebraic shape as the extensivity law $\alpha \subseteq C\alpha$, the second of Kuratowski's original
-four closure conditions.
-
-
-Appendix~\ref{app:45} reconstructs Proposition~18.4 together with the two earlier results used explicitly in Shen's proof. Auxiliary Lewis propositions needed only inside the reconstruction are cited rather than independently rederived. The first is the contrapositive principle
-\begin{equation}
-  (\sim p\strictif q)\strictequiv(\sim q\strictif p),
-  \label{eq:contra}\tag{cf. Prop. 12.2}
-\end{equation}
-and the second is the double-negation equivalence
-\begin{equation}
-  p\strictequiv\sim\sim p.
-  \label{eq:dn}\tag{cf. Prop. 12.3}
-\end{equation}
-
-A second Lewis result becomes important in the later algebraic development. Proposition~19.82 states
-\begin{equation}
-  (\poss p\vee\poss q)\strictequiv\poss(p\vee q).
-  \label{eq:dd}\tag{cf. Prop. 19.82}
-\end{equation}
-Its proof requires B8 and therefore belongs to \Stwo\ rather than \Sone.
-Appendix~\ref{app:1982} reconstructs the derivation. Under the later closure
-reading, Eq.~\eqref{eq:dd} becomes finite-union preservation.
-
-
-\medskip
-\noindent\textit{i. Proof of \eqref{eq:contra} (Proposition~12.2).}
-\begin{enumerate}
-\item $p\strictif pp$.
-\hfill B3.
-
-\item $pp\strictif p$.
-\hfill B2, Sa$[p/q]$.
-
-\item $(p\strictif pp)(pp\strictif p)$.
-\hfill 1, 2, Ad.
-
-\item $p\strictequiv pp$.
-\hfill 3, \ref{eq:d3}.
-
-\item $((p\strictif pp)(pp\strictif p))\strictif(p\strictif p)$.
-\hfill B6, Sa$[pp/q]$, $[p/r]$.
-
-\item $p\strictif p$.
-\hfill 3, 5, Smp.
-
-\item $(p\strictif p)(p\strictif p)$.
-\hfill 6, 6, Ad.
-
-\item $p\strictequiv p$.
-\hfill 7, \ref{eq:d3}.
-
-\item $\sim p\sim q\strictif\sim q\sim p$.
-\hfill B1.
-
-\item $\sim q\sim p\strictif\sim p\sim q$.
-\hfill B1, with $p$ and $q$ interchanged.
-
-\item $(\sim p\sim q\strictif\sim q\sim p)
-      (\sim q\sim p\strictif\sim p\sim q)$.
-\hfill 9, 10, Ad.
-
-\item $\sim p\sim q\strictequiv\sim q\sim p$.
-\hfill 11, \ref{eq:d3}.
-
-\item $\sim\poss(\sim p\sim q)
-      \strictequiv
-      \sim\poss(\sim p\sim q)$.
-\hfill 8, Sa[$\sim\poss(\sim p\sim q)/p$].
-
-\item $\sim\poss(\sim p\sim q)
-      \strictequiv
-      \sim\poss(\sim q\sim p)$.
-\hfill 13, 12, Sb.
-
-\item $(\sim p\strictif q)
-      \strictequiv
-      \sim\poss(\sim q\sim p)$.
-\hfill 14, \ref{eq:d2} on the left.
-
-\item $(\sim p\strictif q)
-      \strictequiv
-      (\sim q\strictif p)$.
-\hfill 15, \ref{eq:d2} on the right.
-\end{enumerate}
-
-\medskip
-\noindent\textit{ii. Proof of \eqref{eq:dn} (Proposition~12.3).}
-\begin{enumerate}
-\item $(\sim p\strictif\sim p)
-      \strictequiv
-      (\sim\sim p\strictif p)$.
-\hfill \ref{eq:contra}, Sa$[\sim p/q]$.
-
-\item $\sim p\strictif\sim p$.
-\hfill i(6), Sa$[\sim p/p]$.
-
-\item $\sim\sim p\strictif p$.
-\hfill 1, 2, Sb.
-
-\item $p\strictif\sim\sim p$.
-\hfill B5.
-
-\item $(p\strictif\sim\sim p)
-      (\sim\sim p\strictif p)$.
-\hfill 4, 3, Ad.
-
-\item $p\strictequiv\sim\sim p$.
-\hfill 5, \ref{eq:d3}.
-\end{enumerate}
-
-\medskip
-\noindent\textit{iii. Proof of Proposition~18.4.}
-
-We use Lewis's law of antilogism, Proposition~12.6
-\cite[p.~132]{LewisLangford1932}, in the direction
-\[
-   (pq\strictif r)\strictif(p\sim r\strictif\sim q).
-\]
-No additional modal postulate is used.
-
-\begin{enumerate}
-\item $(pq\strictif r)\strictif(p\sim r\strictif\sim q)$.
-\hfill Prop.~12.6, first direction.
-
-\item $p(p\strictif q)\strictif q$.
-\hfill B7.
-
-\item $(p(p\strictif q)\strictif q)
-      \strictif
-      (p\sim q\strictif\sim(p\strictif q))$.
-\hfill 1, Sa[$p\strictif q/q$, $q/r$].
-
-\item $p\sim q\strictif\sim(p\strictif q)$.
-\hfill 2, 3, Smp.
-
-\item $p\sim\sim q\strictif\sim(p\strictif\sim q)$.
-\hfill 4, Sa[$\sim q/q$].
-
-\item $pq\strictif\sim(p\strictif\sim q)$.
-\hfill 5, \ref{eq:dn}, Sb.
-
-\item $pp\strictif\sim(p\strictif\sim p)$.
-\hfill 6, Sa[$p/q$].
-
-\item $p\strictif\sim(p\strictif\sim p)$.
-\hfill 7, i(4), Sb.
-
-\item $p\strictif\sim\sim\poss(p\sim\sim p)$.
-\hfill 8, \ref{eq:d2}.
-
-\item $p\strictif\poss(p\sim\sim p)$.
-\hfill 9, \ref{eq:dn}, Sb.
-
-\item $p\strictif\poss(pp)$.
-\hfill 10, \ref{eq:dn}, Sb.
-
-\item $p\strictif\poss p$.
-\hfill 11, i(4), Sb.
-\end{enumerate}
-
-The last line is Lewis's Proposition~18.4, Eq.~\eqref{eq:184} of the
-main text.
-
-% ============================================================
-\section{A syntactic derivation of Proposition~19.82 in \Stwo}
-\label{app:1982}
-
-Propositions~19.8 and 19.82 are reconstructed here. Lewis's printed route uses
-Proposition~12.17 (p.~129), Proposition~18.12 (p.~160), Proposition~19.28
-(p.~169), Propositions~19.61 and 19.65 (pp.~172--173), and Proposition~19.74
-(p.~174) of \cite{LewisLangford1932}. Proposition~19.75, also on p.~174,
-is used later in Appendix~\ref{app:mckinsey7}. Their independent proofs are
-not repeated in this proceedings version. The aim is a source-bounded
-reconstruction of the local Lewis derivation relevant to Proposition~19.82,
-not a foundational rederivation of the entire preceding chapter from
-B1--B8.
-
-
-Lewis first proves Proposition~19.8,
-\begin{equation}
-  \sim\poss p\,\sim\poss q
-  \strictequiv
-  \sim\poss(p\vee q).
-  \tag{19.8}
-  \label{eq:198}
-\end{equation}
-The printed derivation may be displayed as follows, with Lewis's dot-scope
-rendered by parentheses where needed:
-\begin{enumerate}
-\item $(\sim\poss p\sim\poss q)\strictif\sim\poss p$.
-\hfill B2.
-
-\item $(\sim\poss p\sim\poss q)\strictif\sim\poss q$.
-\hfill Prop.~12.17.
-
-\item $\sim\poss p\strictif(p\strictif (\sim p\sim q))$.
-\hfill Prop.~19.74, Sa[$\sim p\sim q /q$].
-
-\item $\sim\poss q\strictif(q\strictif (\sim p\sim q))$.
-\hfill Prop.~19.74, Sa[$q/p,\ \sim p\sim q/q$].
-
-\item $(\sim\poss p\sim\poss q)\strictif(p\strictif (\sim p\sim q))$.
-\hfill 1, 3, Ad; B6, Sa, Smp.
-
-\item $(\sim\poss p\sim\poss q)\strictif(q\strictif (\sim p\sim q))$.
-\hfill 2, 4, Ad; B6, Sa, Smp.
-
-\item $(\sim\poss p\sim\poss q)\strictif[(p\strictif (\sim p\sim q))(q\strictif (\sim p\sim q))]$.
-\hfill 5, 6, Ad; Prop.~19.61, Sa, Smp.
-
-\item $[(p\strictif (\sim p\sim q))(q\strictif (\sim p\sim q))]
-      \strictif[(p\vee q)\strictif (\sim p\sim q)]$.
-\hfill Prop.~19.65, Sa[$\sim p\sim q/r$].
-
-\item $(\sim\poss p\sim\poss q)\strictif[(p\vee q)\strictif (\sim p\sim q)]$.
-\hfill 7, 8, Ad; B6, Sa, Smp.
-
-\item $(\sim\poss p\sim\poss q)\strictif[(p\vee q)\strictif\sim(p\vee q)]$.
-\hfill 9, \ref{eq:d1}, \ref{eq:dn}, Sb: replace
-$\sim p\sim q$ by $\sim(p\vee q)$.
-
-\item $(\sim\poss p\sim\poss q)\strictif\sim\poss(p\vee q)$.
-\hfill 10, Prop.~18.12, Sa, Sb.
-
-\item $\sim\poss(p\vee q)\strictif (\sim\poss p\sim\poss q)$.
-\hfill Prop.~19.28.
-
-\item $(\sim\poss p\sim\poss q)\strictequiv\sim\poss(p\vee q)$.
-\hfill 11, 12, Ad, \ref{eq:d3}.
-\end{enumerate}
-
-This is Proposition~19.8. The transition to Proposition~19.82 uses negation
-congruence for strict equivalence (a derived application of Sb), followed by
-double-negation replacement and the definition of disjunction:
-\begin{enumerate}
-\item $\sim(\sim\poss p\,\sim\poss q)
-      \strictequiv\sim\sim\poss(p\vee q)$.
-\hfill \eqref{eq:198}, negation congruence by Sb.
-
-\item $\sim(\sim\poss p\,\sim\poss q)
-      \strictequiv\poss(p\vee q)$.
-\hfill 1, \ref{eq:dn}, Sa, Sb.
-
-\item $(\poss p\vee\poss q)\strictequiv\poss(p\vee q)$.
-\hfill 2, \ref{eq:d1}, Sa.
-\end{enumerate}
-Hence
-\begin{equation}
-  (\poss p\vee\poss q)\strictequiv\poss(p\vee q),
-  \tag{19.82}
-  \label{eq:1982app}
-\end{equation}
-which is Eq.~\eqref{eq:dd} of the main text
-\cite[p.~176]{LewisLangford1932}.
-
-这部分从我的文章中翻译，可以增加一些内容，好好解释，但不要累赘。可以把19.8的证明补齐，或者给出一个证明策略。
-
-### 第一章注记
-在我看来，C.I.Lewis不仅仅是现代模态逻辑的奠基人。他是近乎美国哲学逻辑教父式的人物。除了模态逻辑，各种相干逻辑，非单调推理，意向性理论，真理理论几乎都和Lewis有牵连。我觉得他是一个真正让逻辑和分析哲学在美国落地的人物。而国内对他的专门研究似乎非常不足。
-
-Edwin Mares 在写一本 C.I.Lewis的书，大家可以期待。
-
-Roy Cook 提出 Ladd-Franklin 也应该被视作模态逻辑的开创者，她的系统有一套自然延申等价于D。他的文章还没有出来。我在Unilog 2025 听过他的报告。同样内容，他2024年在 Taller Feminist Approaches to Logic 2024 报告过。大家可以观看https://www.youtube.com/live/yDtQc8s-ARc
-
-Ladd-Franklin 是皮尔士仅有的几个学生，也是我国著名的心理学家沈有乾的老师。她的经历传奇，是二十世纪典型女权主义学者，她在1882年完成博士学位要求，但因当时对女性的制度性排斥未获学位；约翰斯·霍普金斯大学于1926年正式授予她博士学位。沈有乾记载，当时的美国大学里，有老师称她是当代的“亚里士多德”。这样传奇的学者，在国内居然无人研究？国内也真是好玩。这么多人嫌弃现代逻辑没用，坚持做传统逻辑。但 Antilogism (反三段论) 这种难度恰好的，居然连篇文章都找不到。
-
-
-
-## Becker
-
-如果把二十多年历史压缩在一张图里，大致是这样：
+另一方面，他还认为，如果采用 C10 与 C12 的组合，就会产生一套不同于前者的“十模态演算”。除了上述基本类型，还会出现类似
+
+$$
+\Box\Diamond p,\quad \Diamond\Box p,
+\quad \Box\Diamond\neg p,
+\quad \neg\Box\Diamond p
+$$
+
+这样的候选模态。贝克尔写下了十种，并试图研究其强弱关系。
+
+<ShenHistoryFigure src="" alt="Becker 1930 年关于模态词强弱关系的原始图表" caption="图 2.2　建议放入 Becker 1930 年原文第 513 页附近的模态强度图；旁边可配你 AWPL 论文中的重绘图。需要标明原图与现代重绘各自的来源。" credit="[待补：原文扫描与作者重绘]" />
+
+但是这里有个致命问题：如果 C10+C12 已经能够推出 C11，那么所谓十模态系统事实上满足六模态系统的关键归约公理；十个“基本模态”并没有证明真是十个不同的等价类。贝克尔恰好漏掉了这一点。沈有鼎发现的，就是那条藏在其中的推导。
+
+### 2.6 哥德尔比沈有鼎更早指出了方法上的漏洞，但没有留下同一条证明
+
+贝克尔的论文发表后，**Kurt Gödel（哥德尔）在 1931 年的一篇书评里提出过非常明确的批评**：贝克尔没有证明自己列出的几个系统真的不同，也没有证明六种或十种候选模态不能继续约化。哥德尔这一批评在逻辑史上十分值得注意，因为它所指出的是一种标准的形式系统研究规范：你不能只写出若干公理和一个归约表，就认定构造了彼此不同的系统。
+
+沈有鼎后来做的事情恰恰击中了哥德尔指出的缺口之一：他不是泛泛地说“贝克尔的证明不够”，而是在 Lewis 的演算内部实际构造了 $C10+C12\vdash C11$ 的证明。
+
+不过也不要把二人关系讲得太戏剧化。现有材料只能证明哥德尔在 1931 年提出这类方法论质疑，以及 Lewis 在 1932 年明确把定理（14）的证明归于沈有鼎。**不能仅凭时间先后就写成“沈有鼎读了哥德尔的书评并决定回应”。**原始书评参见 [Gödel 1931，《贝克尔模态逻辑论文书评》](https://doi.org/10.1093/oso/9780195147209.003.0022)；C&M 2022 专门处理了书评中的相关争论。
+
+### 2.7 更大的背景：从布劳威尔到卡西尔，贝克尔的第二项野心
+
+如果只盯着那三个公式，读者可能以为《论模态逻辑》是一篇略微冗长的技术论文。事实上，它的后半部分是在一个非常热闹的哲学战场上写成的：**数学对象必须被构造出来才能存在吗？数学里的理想元素有没有正当性？直觉主义中的“可证明”，能不能用模态语言表达？**
+
+贝克尔借助胡塞尔的现象学、布劳威尔的直觉主义及海廷关于证明的工作，试图讨论这些问题；他还与 **Ernst Cassirer（恩斯特·卡西尔）** 围绕数学中的理想对象、存在和证明展开争论。C&M 为此安排了长篇分析（第 3 章），涉及 Husserl、Cassirer、Brouwer、Weyl 和 Hilbert。这些哲学家显然不是为了帮助学生在 $\Diamond\Diamond p$ 前面少写一层菱形才出现的。
+
+今天读来有趣的一点是：贝克尔可能比哥德尔更早认真提出过把直觉主义解释进模态逻辑的方案，但给出真正有影响力的形式翻译的是哥德尔 1933 年的工作。说贝克尔“率先想到这条路”可以讨论；说他“已经完成了哥德尔翻译”，则不对。C&M 对此有十分明确的区分。
+
+我觉得这恰好使贝克尔成为一个比“犯了错误的反派角色”更值得写的人。他选中了重要的问题，却未把证明做完；他抓住了形式化方法的潜力，却又反复把哲学直觉当成形式结论。后来人有时从这些尝试中取走可以留下的东西，同时舍弃错误的部分。科学史经常就是这样前进的。
+
+### 2.8 Cresswell—Riche 2026：问题甚至比沈有鼎指出的更微妙
+
+这里必须补上你提供的 **Max Cresswell 与 Jacques Riche 2026 年新书** *Modal Logic in Europe: 1930–1959* 的一项重要结果。此书第 2 章的编辑评注 §2.3.1（印刷页码 63—65）不仅复述了沈有鼎的证明，还指出：
+
+> 在 **S3** 而不是只有 **S1** 的背景中，甚至可以从单独的 C12 导出 C10，继而得到 C11。
+
+Cresswell 和 Riche 借用 Parry 1939 年关于 *Survey* 系统的一项定理，给出这条更强的证明思路。换句话说，贝克尔当年真正研究的 S3 已经比沈有鼎证明所需的 S1 更强；在这一较强背景下，他对 C12 所能产生的归约效力估计得更不充分。
+
+务必注意两个不同主张：
+
+
+
+第二项结果**不能倒灌成沈有鼎本人证明过的更强定理**。它反而提醒我们研究模态逻辑史时多么需要在每一条公式旁边写清楚基础系统。另外，他们还指出，若换成更弱的 S2 背景，单独加入 B 的系统又不是同一回事。
+
+所以我想给贝克尔一个相对公平的评价：他的“十模态演算”站不住脚；他对 S3 不可判定的判断也不成立。但他发现和公开推动的问题相当重要，他对模态阶层、逻辑强弱和直觉主义翻译的思考，又确实刺激了后来的工作。沈有鼎证明的价值，不必以贬低整个贝克尔为代价。
+
+---
+
+## 第三章　沈有鼎究竟证明了什么？从一行脚注到完整的演算
+
+如果前一章读得有些累，这一章可以稍微松一口气。我们现在终于回到真正的主角：沈有鼎。与贝克尔几十页的长文相比，后来归在沈名下的关键证明短得有点惊人。短，不是因为它没有技术含量，而是因为 Lewis 的书已经把大部分基础设施铺好了。
+
+### 3.1 一个当时身在哈佛的中国研究生
+
+沈有鼎 1929—1931 年间在哈佛学习，所处环境包括 **Henry M. Sheffer**、**C. I. Lewis**、**Alfred North Whitehead** 以及后来同他讨论蕴涵问题的 **William T. Parry** 等人。说他属于这场逻辑研究交流的一部分，有文献依据；但如果具体说“沈有鼎一定上过 Lewis 某门课”或“贝克尔的原文是 Lewis 指定给他的”，目前仍需要课程登记、信件或回忆材料才能坐实。
+
+<ShenHistoryFigure src="" alt="沈有鼎在哈佛求学时期的照片或哈佛校园历史照片" caption="图 3.1　沈有鼎留学时期的历史背景。优先寻找可核查年代的沈本人照片；如无则使用哈佛旧校园图，并避免暗示他出现在照片中。" credit="[待补图片出处]" />
+
+一条确定无疑的证据，来自 Lewis 与 Langford 1932 年《符号逻辑》第二附录第 492 页的脚注：它明确将第 498 页的证明（14）归于 **Y. T. Shen (Shen Yuting)**。这里的名字并不是现代汉语拼音的 Shen Youding，而是当时使用的罗马字拼写。研究早期英文资料时，这两种拼写都得检索。
+
+我个人尤其喜欢这条史料，是因为它没有什么“伟大的东方智慧”之类的修辞，只是一本专业著作老老实实地指出，这个证明是某位研究生做的。史料越朴素，反倒越不容易任人改写。
+
+### 3.2 真正的难点不是 B，而是先取得可以嵌套替换的严格等价
+
+我们想证明的是
+
+$$
+S1+C10+C12\vdash C11.
+$$
+
+三个公式分别为
+
+$$
+\begin{aligned}
+C10 &: \Box p\prec\Box\Box p,\\
+C12 &: p\prec\Box\Diamond p,\\
+C11 &: \Diamond p\prec\Box\Diamond p.
+\end{aligned}
+$$
+
+从视觉上看，C12 和 C11 的右边完全一样，左边只差一层 $\Diamond$。一个聪明的读者可能立刻想到：把 C12 的 $p$ 替换成 $\Diamond p$ 不就可以了吗？
+
+当然可以代入，但代入后的结果是
+
+$$
+\Diamond p\prec\Box\Diamond\Diamond p.
+$$
+
+**看到了吗？右边多出了一层 $\Diamond$。**
+
+所以真正需要的不是“$p$ 与 $\Diamond p$ 差不多”，而是一个可以在 Lewis 规则 **Sb（严格等价替换）** 下使用的定理：
+
+$$
+\Diamond\Diamond p\equiv_s\Diamond p
+$$
+
+这个等价式就是整条证明的机关，也是它后来进入闭包代数史的关键。
+
+### 3.3 C10 怎样给出可能算子的幂等性
+
+从 C10 出发，利用第一章已经讲过的命题 12.2（严格反置）与 12.3（双重否定严格等价），可以得到
+
+$$
+\Diamond\Diamond p\prec\Diamond p.
+\tag{C10.1a}
+$$
+
+把这一步的技术细节全部写在正文里，许多人恐怕看到一半就会关掉网页。所以这里先交代证明策略，下面的小程序再逐步显示每一次代入。完整重构还可以放在原稿附录。
+
+另一方面，S1 中已有 Proposition 18.4：
+
+$$
+p\prec\Diamond p.
+$$
+
+把其中的 $p$ 一致地换成 $\Diamond p$，立刻得到反方向：
+
+$$
+\Diamond p\prec\Diamond\Diamond p.
+$$
+
+将两个方向合取，按严格等价的定义整理，便有
+
+$$
+\boxed{\Diamond\Diamond p\equiv_s\Diamond p.}
+\tag{C10.1b}
+$$
+
+我在这里用 **C10.1a** 和 **C10.1b** 两个编辑性编号，是为了区分单向严格蕴涵与双向严格等价。Lewis 原书把相关式子列在 C10.1 下，不能误写成沈有鼎额外提出了一个“名叫 C10.1b 的新公理”。
+
+为什么一定要得到 **严格等价**？因为最后要在一个更大的模态公式中，把 $\Diamond\Diamond p$ 用 $\Diamond p$ 替换。如果只有单向蕴涵，不能随便宣称可在任意嵌套上下文里做完全相同的替换。正是这一点，让这条证明保持了 Lewis 句法体系的严格性。
+
+### 3.4 把 C12 用到“已经可能的命题”上
+
+现在再看 C12：
+
+$$
+p\prec\Box\Diamond p.
+$$
+
+令 $p:=\Diamond p$，得
+
+$$
+\Diamond p\prec\Box\Diamond\Diamond p.
+$$
+
+我们刚刚证明 $\Diamond\Diamond p\equiv_s\Diamond p$。于是，在右侧更深的模态上下文中使用 Sb，消掉多余的一层可能算子：
+
+$$
+\Diamond p\prec\Box\Diamond p.
+$$
+
+这就是 C11。至此：
+
+$$
+\boxed{S1+C10+C12\vdash C11.}
+$$
+
+这也正是 Lewis 的证明（14）。
+
+到这里还不能把事情讲成“沈有鼎证明了 S4+B=S5 的所有方向”。严格说，**沈有鼎获得署名的是 C10、C12 推出 C11 的方向**；Lewis 在附录二的相邻条目（12）、（13）又给出了从 C11 分别回到 C10、C12 的推导。因此我们才有
+
+$$
+S1+C11 = S1+C10+C12.
+$$
+
+按照 Lewis 1932 年的定义，这给出了 S5 的两种呈现。署名的边界要讲清楚，才能凸显沈有鼎究竟做了什么。
+
+### 3.5 把纸上的证明变成读者可以点击的证明
+
+仓库中已经有 `ShenProofStepper.astro`。我建议这里直接保留它，而不是新写一套。读者打开网页时先看到压缩的数学骨架，想检查证明的人再点击“下一步”，每次只揭示一行依据。尤其应重点观察这两个动作：**先把 C10 转成双向严格等价，再对 C12 作模态化代入。**
+
+<ShenProofStepper />
+
+如果讲义或论文里已经提供了每一步的形式重构，博客的互动程序最好也保持同样的行号与理由。这样它不仅是一个视觉动画，还能承担“可核对的证明导航器”的功能。当然，逐行展示并不等于程序已经自动验证了每一条推导；它目前是有说明的交互呈现，并非机器核验的 proof checker。
+
+### 3.6 你觉得这一结论“一眼就能看出来”吗？
+
+今天我们往往把 4、B、5 直接看成可达关系的性质：传递性、对称性和欧几里得性。于是一个框架上从 $wRv$、$wRu$ 出发，利用对称性得到 $vRw$，再用传递性推出 $vRu$，就解释了“4 与 B 联合蕴涵 5”。
+
+这个语义观察十分简洁；但沈有鼎当时并不是用它证明的。为了让读者直观比较，可以在这一章末尾放一个小程序。你可以直接在三个世界之间添加或删除箭头，让网页实时判断相应的 4、B、5 条件是否成立。
+
+<ShenModalFrameLab />
+
+这里要专门强调一个细节：**对称 + 传递 ⇒ 欧几里得** 并不要求事先假设自反性。可是把系统整体称为 S5 时，通常还需要处理包含 T 的背景条件。程序会故意给出一个对称且传递、但不处处自反的例子，以免读者把某个框架蕴涵与完整逻辑系统的刻画混为一谈。
+
+### 3.7 沈有鼎的贡献究竟应该怎样评价
+
+我认为，最准确的表述既不是“沈有鼎已经发明了 S5 的语义学”，也不是“不过是今天小学生都会的一条公理关系”。
+
+他在当时的严格蕴涵演算内，补出了贝克尔缺失的公理依赖证明，使所谓十模态系统的独立性主张失去依据。这个证明的核心中间式，后来又在代数和拓扑语义中呈现为闭包算子的幂等律。它的技术含量依赖于**当时允许怎样推理**，而不是依赖于几十年后的教科书能否把结论压缩成两行。
+
+当然，我们还没有资格宣称“没有沈有鼎，S5 就不会出现”。这样的反事实既很难论证，也没有必要。逻辑史不缺奇迹故事，真正缺的是把谁证明了哪一条、在什么系统里证明、被谁记录下来这些细节逐项核对。
+
+---
+
+## 第四章　另一边的两位逻辑学家：Wajsberg、Parry，以及一封更早的信
+
+沈有鼎并不是一个人在做模态词归约。Lewis 1932 年第二附录有意思的地方，是它并排保存了几位年轻研究者的工作。有些人后来成了逻辑史上的重要名字，有些人几乎消失在战争与政治之中。我们先从一封 **1927 年的信**说起。
+
+### 4.1 Wajsberg：贝克尔发表论文之前，他已经想到了 C11 的方向
+
+**Mordchaj Wajsberg** 是波兰逻辑学家，活跃于华沙学派的数学逻辑研究中。Lewis 在 1932 年《符号逻辑》第二附录第 492 页记载，Wajsberg 在 **1927 年** 就通过来信向他寄送过用于比较系统的矩阵和相关证明，并勾勒了一个与后来加入 C11 的系统等价的演算。
+
+这意味着一件不该被遗漏的事实：**贝克尔 1930 年公开发表 C11 之前，Wajsberg 已经意识到对应原则的重要性。**他并非只是看到贝克尔论文后才想到类似结构。这一点由 Lewis 对那封信的明确叙述支持，也由 Cresswell—Riche 2026 年新书第 3 章重新强调。
+
+但注意另一面：目前这些材料并没有把 **C10+C12 推出 C11** 的那条特定证明归给 Wajsberg。Lewis 对沈有鼎的署名依然是明确而独立的。我们不应该因为追求“谁更早”，就把本来不同的成果挤成一场只有一个冠军的比赛。
+
+<ShenHistoryFigure src="" alt="Mordchaj Wajsberg 的照片或 1933 年论文首页" caption="图 4.1　建议优先使用 Wajsberg《Ein erweiterter Klassenkalkül》（1933）论文首页；历史人物照片需先确认身份。" credit="[待补图片出处]" />
+
+### 4.2 一本关于“类演算”的论文，怎么成了 S5 的早期语义？
+
+Wajsberg 1933 年发表的论文题为 *Ein erweiterter Klassenkalkül*（《一种扩充的类演算》）。光看标题，很难猜出这篇文章在模态逻辑史中的位置。它主要处理一种类演算，但其中用于表达“等于全集”的运算，使某些严格蕴涵和模态公式获得了代数式解释。
+
+粗略地说，可以设一个算子 $J$ 满足：
+
+$$
+J(X)=\begin{cases}
+1,&X=1,\\
+0,&X\ne 1.
+\end{cases}
+$$
+
+这里 $1$ 是全集，$0$ 是空集。我们不必把这个例子直接当成后来 Kripke 意义上的“世界集合语义”；但它确实提供了评价相应公式是否恒真的代数结构。Wajsberg 通过特殊的标准形及归约方法研究这类公式。
+
+Cresswell—Riche 在第 3 章 §3.2 和 §3.3.3 中提出一个谨慎但很有意思的判断：**从某种意义上说，这是模态逻辑中最早的完备性证明之一**。之所以强调“从某种意义上说”，正因为它并不是 1960 年代那种以任意关系框架定义 S5 的现代形式，也不宜一句话盖棺定论为“所有模态逻辑的第一个语义完备性定理”。
+
+这里还有一处容易被混淆的差别：有限多个**模态词串**不等于任意固定变元数下只有有限多个不同**模态函数**。Cresswell—Riche 特别指出，S4 的基本模态词串数目有限，但不能由此直接推出每个有穷变元片段只含有限多个不同模态公式。Wajsberg 的标准形研究比简单数六个符号更深入。
+
+### 4.3 Parry：那位亲自记得沈有鼎证明的人
+
+相比 Wajsberg，**William T. Parry** 与沈有鼎的联系更直接。他同样处于哈佛的逻辑研究环境，也是严格蕴涵与后来所谓**分析蕴涵**（analytic implication）发展史中的重要人物。
+
+<ShenHistoryFigure src="" alt="William T. Parry 的照片或其 1939 年论文首页" caption="图 4.2　William T. Parry。若未找到可靠的个人照片，建议采用 1939 年《Modalities in the Survey System of Strict Implication》论文首页。" credit="[待补图片出处]" />
+
+Parry 1939 年发表了一篇题目非常贴切的论文：*Modalities in the Survey System of Strict Implication*。里面有不少今天读起来仍然很有价值的纯句法归约结果。而对本文来说，最重要的或许只是第 150 页注释 18 的一句话：
+
+> “The proof of this fact, by the way, was first pointed out to me by Mr. Y. T. Shen.”
+
+这句话意义很大。Lewis 的脚注告诉我们谁被认定为证明的作者；Parry 的脚注则表明，他本人当时就从沈有鼎那里得知过这个证明。**两份证言相互独立，证明不是后来中国研究者把某条匿名定理强行安到沈有鼎名下。**
+
+其实，我很想知道两人当年讨论这些问题时的具体场景。是在课后？在研究室？在餐桌？遗憾的是，这些细节目前没有证据。写历史必须容忍这种空白。不能因为觉得“两个年轻人在哈佛咖啡馆热烈争辩”很有画面感，就把想象当成事实。
+
+### 4.4 Parry 1939 年的另一个结果：原来 S3 也只有四十二种模态
+
+贝克尔认为 Lewis 的 *Survey* 系统中模态词可以无穷生成、无穷不可约。Parry 到 1939 年给出了一个完全不同的答案：经过恰当归约，S3 的基本模态数目是 **42**，而 S4 是 **14**。
+
+这里其实埋着一个很漂亮的历史反讽。贝克尔为了求得有限的系统，提出“六模态”和“十模态”；结果“十模态”根本不是他想象的独立系统，连他担心模态无限增殖的 S3 自己，也并没有他想象中的无穷多个不可约模态。
+
+不过我建议把 Parry 的工作看成补完早期问题链条的一环，而不简单说他“把贝克尔所有结论都推翻了”。贝克尔关于模态的排列和可比性还涉及另一层问题，Parry 的有限归约并不能让所有哲学问题自动消失。
+
+Cresswell—Riche 的新书还有一段极有用的“数学八卦”：他们指出，对 **S3+C12**，可以借助 Parry 的定理导出 C10，因此再取得 C11。这是第二章末尾提过的新强化结果。它说明 1930 年贝克尔原始基础系统里的结构，比 1932 年沈有鼎所需的最弱证明背景更加微妙。
+
+### 4.5 为什么叫“分析蕴涵”？从同真关系走向内容关系
+
+如果说 Lewis 不满意的是实质蕴涵太弱，那么 Parry 还想进一步问：即便一个命题的真在逻辑上保证另一个命题真，两者是否就存在我们愿意称作“分析地相关”的联系？
+
+例如，经典真值函数里，任意命题都蕴涵重言式。然而人们通常不会因为“今天下雨”就认为它与一个完全无关的数学重言式之间存在内容上的分析联系。Parry 所推动的分析蕴涵，就是要给蕴涵增加某种**内容条件**，避免把一切逻辑上必然的结论不加区分地视作前件的内在分析结果。它后来进入 relevant / relevance logic 的历史脉络，但不应简单宣称 Parry 已经拥有后来全部相关逻辑的理论。
+
+沈有鼎在哈佛与 Parry 讨论的，远不止 C10、C11、C12 这三个公理。Parry 在 1989 年回顾文章 *Analytic Implication: Its History, Justification and Varieties* 中谈到沈有鼎，对当年的思想交流给出极高评价，称自己从沈那里获得的比给予沈的更多。这条回忆提醒我们：脚注中的沈有鼎并非只交了一道算术式练习，而是当时一项持续的逻辑研究对话中的参与者。
+
+### 4.6 1972 年的另一份回声：沈有鼎还记得同 Parry 讨论模态
+
+有趣的是，几十年后沈有鼎致王浩的信里，又提到自己曾经和 Parry 讨论模态观念，并说自己后来关于逻辑—数学模态的认识已有很大发展。英文 AWPL 稿件已经讨论了这封 1972 年信，所引中文材料见《沈有鼎文集》相应页码。
+
+我认为，这份材料的史学价值不应被夸张。它不能证明沈有鼎几十年间一直秘密研究着某个完整的 S5 语义体系。但它确实足以反对一种简单印象：沈有鼎年轻时偶然做过一个模态逻辑问题，之后就彻底不感兴趣了。至少对他本人而言，与 Parry 的讨论仍然值得回忆。
+
+### 4.7 一本遗稿般的新书，把这批名字重新放到一起
+
+Cresswell—Riche 的 *Modal Logic in Europe: 1930–1959* 还有一段很私人化的序言。两位作者回忆，1983 年他们在蒙特利尔哲学大会等待 Kripke 的报告，观众席里突然有一位女士激动地站起来向 Kripke 发话，Max 低声告诉身边的人：“那是 Ruth Barcan。”这段趣闻不像正式论文，却十分生动地把早期模态逻辑的几代人物连接起来。
+
+更令人感慨的是，此书长期酝酿，直到 Max Cresswell 去世后才正式出版。序言说，Max 直到晚年仍在计划这项研究的续篇。全书收录了 Becker、Wajsberg、Feys、Bayart 的早期文献，并附上大量译注。它不仅为本文提供了新的数学分析，也使 Wajsberg 这样不太容易找到原文的逻辑学家重新能够被阅读。正式资料见 [出版社页面](https://doi.org/10.1007/978-3-032-23475-9)。
+
+这个故事也可以成为第八章的一个伏笔：我们现在讲的是模态词如何归约；到了最后，再回头看这些人各自的命运，会发现二十世纪远比一张漂亮的模态等级图复杂得多。
+
+---
+
+## 第五章　另一种语言：从库拉托夫斯基的闭包到汤璪真、麦金西和塔斯基
+
+终于要讲代数语义了。在此之前的几章里，模态词一直是写在公式前面的符号。$\Diamond p$ 是一个新公式，$\Diamond\Diamond p$ 又是一个更新的公式。证明的任务，是在 Lewis 允许的规则下，把这些公式联系起来。
+
+但如果我们不再把 $\Diamond$ 看成一个单纯的句法符号，而是看成**某个集合上的运算**呢？那么沈有鼎需要多步推出的等价式，可能突然就变成一个我们非常熟悉的代数恒等式。这一章要讲的，就是这种语言转换究竟怎么发生的。
 
 <ShenAlgebraFigure kind="lineage" />
 
-这里有三次重要的“换语言”。
+### 5.1 一次闭包以后，为什么再闭包没有用？
 
-1. **句法语言**：贝克尔提出 C10、C11、C12；沈有鼎在刘易斯演算中证明其中一条非显然的依赖关系。
-2. **矩阵与拓扑语言**：汤璪真先给出布尔环和点集解释，麦金西再系统地把刘易斯的可能算子解释为一种闭包算子。
-3. **抽象代数语言**：麦金西与塔斯基把这些算子律抽象为闭包代数，并用它们表征 S4 与 S5。
+想象桌面上摆着一张画有若干点的纸。给出一个点集 $A$，你想把那些虽然不一定属于 $A$、但无论怎样放大都躲不开 $A$ 的点一并收进来。得到的集合，叫作 $A$ 的**闭包**（closure），记为 $CA$。
 
-沈有鼎位于第一阶段。他的贡献不是后来语义理论的全部起点，但他帮助固定了后来语义学要解释的那个形式对象：S4、S5 到底怎样划分，C10、C11、C12 到底怎样相互依赖。
-
-## 二、故事为什么从“严格蕴涵”开始
-
-今天学模态逻辑，我们通常先看到可能世界、可达关系和真值条件。比如，$\Box p$ 表示在所有可达世界中 $p$ 都为真，$\Diamond p$ 表示至少有一个可达世界使 $p$ 为真。
-
-但沈有鼎在哈佛学习的 1929—1931 年，这种教材式语义还不存在。克里普克的关系语义要到 1950 年代末和 1960 年代初才形成。当时的前沿问题不是“给定一个框架，公式在哪里为真”，而是“怎样构造一套不退化的严格蕴涵演算”。
-
-刘易斯反对把“如果 $p$，那么 $q$”完全理解成实质蕴涵。实质蕴涵只要前件假或后件真就成立，因而会产生许多在日常推理中很奇怪的结果。刘易斯希望表达一种更强的、带有必然联系的蕴涵关系。用本文统一的记号：
+假如已经得到 $CA$，再取一次闭包，显然不应该凭空增加什么：
 
 $$
-p\prec q\;:=\;\neg\Diamond(p\land\neg q).
+CCA=CA.
 $$
 
-也就是说，$p$ 严格蕴涵 $q$，当且仅当“$p$ 真而 $q$ 假”是不可能的。严格等价则定义为两个方向的严格蕴涵：
+这就是闭包算子的**幂等性**。它也是你看到 $\Diamond\Diamond p\equiv_s\Diamond p$ 时应该立即想到的结构。
+
+早在 **1922 年**，波兰数学家 **Kazimierz Kuratowski（库拉托夫斯基）** 已经将拓扑闭包的核心性质公理化。设 $B$ 是布尔代数，$0$ 是最小元素，$+$ 或 $\lor$ 表示并或上确界，一个闭包算子 $C$ 满足：
 
 $$
-p\equiv_s q\;:=\;(p\prec q)\land(q\prec p).
+\begin{aligned}
+C(a\lor b)&=Ca\lor Cb,\\
+a&\leq Ca,\\
+C0&=0,\\
+CCa&=Ca.
+\end{aligned}
 $$
 
-这里有两个容易被现代读者忽略的细节。
+对应的内部算子（interior）定义为
 
-第一，刘易斯把 $\Diamond$ 当作原始模态词；必要性 $\Box p$ 只是后来为了阅读方便写成 $\neg\Diamond\neg p$。第二，刘易斯原书里的等号有时表示定义，有时表示严格等价。为免混乱，本文把定义写成 $:=$，把对象语言中的严格等价写成 $\equiv_s$。
+$$
+Ia:=\neg C\neg a.
+$$
 
-### 1. 从一次“模态坍塌”说起
+一个闭元素满足 $Ca=a$；一个开元素满足 $Ia=a$。在一般拓扑空间里，闭集未必开，开集也未必闭。这一点将成为 S4 与 S5 代数区别的核心。
 
-刘易斯 1918 年《符号逻辑概论》中的系统有一个严重问题。E. L. Post 指出，其中一条等价公设会导致模态坍塌：模态公式最终可以被消去，严格蕴涵也就失去了原本想保留的内涵差别。
+### 5.2 把可能性当成闭包，必要性就成为内部
 
-刘易斯后来删去了问题等价式的一个方向，并在 1932 年《符号逻辑》中重建系统。第二附录又把当时最新的结果集中整理为两组公设 A 与 B。这里的命名很容易造成误会，所以要说得精确一些：
+现在请大胆做一次翻译：
 
-- 完整的 **B 公设集**有 B1—B9；
-- B1—B7 构成后来正式命名的 **S1**；
-- S1 再加 B8 构成 S2；
-- B9 是一条存在性公设，不参与这里的 S1—S5 定义。
+$$
+\Diamond a:=Ca,\qquad \Box a:=Ia.
+$$
 
-因此，下面证明使用的底座应当叫 **S1**，不能把 B1—B7 直接叫作“完整 System B”。这样也能避免把 B 公设集与后来的“公理 B”混为一谈。
+在这套语言里，Lewis S1 的 Proposition 18.4，$p\prec\Diamond p$，回顾性地对应 $a\leq Ca$；S2 的 Proposition 19.82 则对应有限并保持律；而含 C10 的归约式
 
-### 2. S1 的七条底层公设
+$$
+\Diamond\Diamond p\equiv_s\Diamond p
+$$
 
-为了让读者感受这套演算的脾气，下面列出 B1—B7。相邻公式的并置表示合取。
+则恰好变成
 
-| 公设 | 公式 | 大致作用 |
+$$
+CCa=Ca.
+$$
+
+<ShenAlgebraFigure kind="laws" />
+
+我故意说“回顾性对应”，因为 1922 年的 Kuratowski 并没有在研究 Lewis 的 S4，Lewis 也不是照着 Kuratowski 的公理表发明严格蕴涵。历史上真正需要解释的，是这些形式结构如何在后来的数学工作中相遇，而不是强行假装几位逻辑学家同时掌握了同一个后世定义。
+
+### 5.3 汤璪真：把严格蕴涵带进布尔环和点集的中国逻辑学家
+
+这里出现本文第二位重要的中国学者：**汤璪真（Tsao-Chen Tang）**。如果说沈有鼎为 S5 的句法公理结构提供了关键证明，那么汤璪真则在另一个方向上，为 Lewis 的演算寻找代数和几何解释。
+
+汤璪真在 1936 年的论文中已经讨论严格蕴涵和布尔包含之间的关系。对两个布尔元素来说，$a\leq b$ 等价于 $a\land b=a$。于是人们自然会问：Lewis 的 $p\prec q$，是否也可以和这种代数上的包含关系相联系？汤璪真恰好从这类问题出发，逐步走向一个更大胆的想法：给模态词设计真正的代数运算。
+
+<ShenHistoryFigure src="" alt="汤璪真照片或 1938 年论文首页" caption="图 5.1　汤璪真 1938 年《Algebraic Postulates and a Geometric Interpretation for the Lewis Calculus of Strict Implication》论文首页。建议使用作者照片及文章首页并列。" credit="[待补来源]" />
+
+1938 年，他在 *Bulletin of the American Mathematical Society* 发表 *Algebraic Postulates and a Geometric Interpretation for the Lewis Calculus of Strict Implication*（《刘易斯严格蕴涵演算的代数公设与几何解释》）。与其把这篇文章概括为“建立了 S4 的拓扑语义”，不如看一看它真正做了什么。
+
+汤璪真采用带单位元 $1$ 的布尔环，并引入一元运算 $x^{\infty}$。其两个形式条件可以写成
+
+$$
+\begin{aligned}
+x^{\infty}x&=x^{\infty},\\
+(xy)^{\infty}&=x^{\infty}y^{\infty}.
+\end{aligned}
+$$
+
+这里乘法 $xy$ 是布尔代数的交。若在欧几里得平面的点集几何中解释 $x^{\infty}$，它表示 $x$ 的内部。然后定义
+
+$$
+\Diamond x:=1-(1-x)^{\infty}.
+$$
+
+这不正是“先补集、取内部、再补集”吗？也就是闭包。
+
+### 5.4 但是：汤璪真的形式代数，还不是完整的闭包代数
+
+这里必须做一个有点扫兴却十分重要的区分：**形式公设层**与**具体欧几里得点集模型层**不同。
+
+汤璪真给出的两条形式条件能够推出某些内部运算性质，但它们本身并未自动规定 $1^{\infty}=1$。而如果 $\Diamond0=1-1^{\infty}$，要使闭包保持空集，即 $\Diamond0=0$，就恰好需要额外知道 $1^{\infty}=1$。
+
+在实际欧几里得拓扑中，全集当然是开集，因此这一条件成立；但在抽象公设里，它还不能无条件使用。
+
+同理，不能因为某些 Lewis 公设能从汤璪真的代数体系推出，就断言他已经证明了那个代数体系与 Lewis 的全部演算**双向等价且完全**。1939 年 Charles A. Baylis 的评论已经提醒：由汤的体系可以推出 Lewis 的有关公设和规则，反方向尚未建立。论文中某个特定公式集合的双向表述，也不能不加区分地升级为“所有公式关于任意拓扑解释的完备性”。
+
+这不是挑汤璪真的刺。恰恰相反，只有区分清楚，才能知道他的工作真正早在哪里：**他非常早就把 Lewis 的严格蕴涵放入布尔环、内部算子与点集几何的明确联系之中。**后来 McKinsey 1941 年谈到拓扑与 Lewis 演算之间的研究时，明确把“最初的步骤”归功于汤璪真。直接文献见 [Tang 1938](https://doi.org/10.1090/S0002-9904-1938-06860-7)、[Baylis 1939 评论](https://doi.org/10.2307/2266218)。
+
+### 5.5 McKinsey 1941：将模态词真正变成算子
+
+接下来出场的是 **J. C. C. McKinsey（麦金西）**。他的 1941 年论文题目有点长：*A Solution of the Decision Problem for the Lewis Systems S2 and S4, with an Application to Topology*（《刘易斯系统 S2 和 S4 的判定问题的解答及其拓扑应用》）。文章首先从逻辑矩阵入手。
+
+设一个矩阵
+
+$$
+\mathcal M=(K,D,-,*,\times),
+$$
+
+$K$ 是代数元素的集合，$D$ 是指定值集合，$-$ 是否定，$\times$ 是合取，$*$ 是表示可能性的运算。与严格蕴涵对应的操作可写为
+
+$$
+a\prec b:=-*(a\times-b).
+$$
+
+McKinsey 在正规矩阵上分析底层的布尔代数结构及可能算子的性质。这一步的意义在于，我们不再只是讨论某条公理的文字，而是问它对运算 $*$ 施加了什么恒等式约束。
+
+他在 S2 层次取得了对应 $a\le *a$、$*(a+b)=*a+*b$ 的性质；进入 S4 后，他证明
+
+$$
+**a=*a,\qquad *0=0.
+$$
+
+现在请把第一条和沈有鼎证明的关键中间式排在一起：
+
+$$
+\begin{aligned}
+\Diamond\Diamond p&\equiv_s\Diamond p,\\
+**a&=*a.
+\end{aligned}
+$$
+
+两者不是泛泛地“看起来像”：**McKinsey 的证明明确使用 Lewis 附录二中的 C10.1 归约作为来源**。他论文开头引用《符号逻辑》第 492—502 页，也就是包含沈有鼎证明的那个附录。不过，McKinsey 并没有点名沈有鼎，更没有写“我受沈有鼎的启发建立了代数语义”。这两个层级——数学结构对应与个人影响——我们绝不能混为一谈。参见 [McKinsey 1941](https://doi.org/10.2307/2267105)，尤其第 117、126—129 页。
+
+### 5.6 一个被忽略的技术细节：空集为什么也要处理？
+
+只写 $CCa=Ca$ 还不足以构成通常意义上的闭包代数。Kuratowski 四条律里还有 $C0=0$。McKinsey 在定理 7 与定理 9 中处理了这项要求，其句法材料包括矛盾式 $p\land\neg p$ 的模态化及其与原式的严格等价。
+
+这一步在通常的科普叙述里很容易被跳过，因为大家看到 S4 就自动联想到 closure algebra。但恰恰是在 1938 到 1941 年的历史转折处，我们应该问：**一个研究者是在什么地方真正凑齐闭包运算所需的全部条件？**
+
+对于想细读证明的人，我建议保留英文 AWPL 稿件附录中 McKinsey 定理 7 的局部句法重构，放到网页末尾折叠显示。对于一般读者，这里只需要知道：幂等律之外，空元素条件并非凭空免费得到。
+
+### 5.7 从集合变成代数：McKinsey—Tarski 1944—1948
+
+到了 **1944 年**，McKinsey 与 **Alfred Tarski（塔斯基）**发表 *The Algebra of Topology*，把闭包代数作为一个抽象代数对象加以系统研究。随后有 1946 年关于闭元素的研究，以及 1948 年 *Some Theorems about the Sentential Calculi of Lewis and Heyting*，将代数结果明确用于 Lewis 与 Heyting 的演算。
+
+<ShenHistoryFigure src="" alt="McKinsey 与 Tarski 的历史照片，或 1944 年论文首页" caption="图 5.2　McKinsey 与 Tarski 的合作。建议配 1944 年《The Algebra of Topology》论文首页，以及两位作者照片。" credit="[待补图片出处]" />
+
+最适合博客向普通读者讲解的结论是：
+
+| 逻辑系统 | 对应的代数条件（历史结果的现代简述） |
+| --- | --- |
+| S4 | 全部闭包代数 |
+| S5 | 每个闭元素同时也是开元素的闭包代数 |
+
+设 $Ca=a$，则 $a$ 是闭元素。若它还满足 $Ia=a$，那么它也同时是开元素。S5 所对应的结构条件，就是把全部闭元素变成这种**既开又闭**的元素。具体结果见 McKinsey—Tarski 1948 的代数表征定理。
+
+<ShenAlgebraFigure kind="s4s5" />
+
+在一般拓扑空间里，这种要求相当强。比如实数轴上，闭区间 $[0,1]$ 是闭集却不是开集；但在 S5 对应的特定闭包代数类里，每个闭元素都必须是开元素。这里并不是说所有普通拓扑空间都突然成了 S5，而是说我们缩小了所允许的代数结构。
+
+### 5.8 C12 在闭包代数里：将任意元素放入其闭包的内部
+
+现在终于到了最适合画成动画的部分。令
+
+$$
+\Diamond a=Ca,\qquad \Box a=Ia.
+$$
+
+C12（公理 B）的代数形式是
+
+$$
+a\leq I(Ca).
+$$
+
+它说，任意元素都包含在自己闭包的内部里。请不要觉得这是一般拓扑的性质：它不是。对于通常实数轴上的单点集 $\{0\}$，闭包仍是单点，内部却为空，所以它明显不满足这个包含关系。B 真的增加了限制。
+
+下一步和沈有鼎的句法证明完全同型：把 $a$ 替换成 $Ca$。于是
+
+$$
+Ca\leq I(CCa).
+$$
+
+S4 的闭包幂等性保证 $CCa=Ca$，所以
+
+$$
+\boxed{Ca\leq I(Ca).}
+$$
+
+这正是 C11（公理 5）的代数形式。
+
+<ShenAlgebraFigure kind="calculation" />
+
+还可以从闭包与内部的基本性质知道 $I(Ca)\leq Ca$；联合 C11，得到
+
+$$
+Ca=I(Ca).
+$$
+
+这说的正是：闭包 $Ca$ 同时是开元素。
+
+如果说沈有鼎的句法证明是“把 C12 用在 $\Diamond p$ 上，再消去 $\Diamond\Diamond p$”，那么代数证明就是“把 B 用在 $Ca$ 上，再消去 $CCa$”。**关键代入完全平行。**
+
+### 5.9 同一组公式换了三种语言
+
+让我们停下来，把 1930 年代到 1940 年代的路线看成一次翻译：
+
+| 阶段 | 关键对象 | 典型表达 |
 | --- | --- | --- |
-| B1 | $pq\prec qp$ | 合取交换 |
-| B2 | $pq\prec p$ | 合取消去 |
-| B3 | $p\prec pp$ | 合取幂等的扩张方向 |
-| B4 | $(pq)r\prec p(qr)$ | 合取结合的一个方向 |
-| B5 | $p\prec\neg\neg p$ | 双重否定的一个方向 |
-| B6 | $(p\prec q)(q\prec r)\prec(p\prec r)$ | 严格蕴涵传递 |
-| B7 | $p(p\prec q)\prec q$ | 内部化的严格推理 |
+| Lewis—沈有鼎的句法演算 | 严格等价与代入规则 | $\Diamond\Diamond p\equiv_s\Diamond p$ |
+| McKinsey 的逻辑矩阵 | 代数一元运算 | $**a=*a$ |
+| McKinsey—Tarski 的闭包代数 | 闭包与内部算子 | $CCa=Ca$、$a\le I(Ca)$ |
 
-此外还要使用四条规则：
+它们的历史连接并非“一个人把一个完整理论直接传给另一个人”。我们能够确认的是：Lewis 记录了沈有鼎的具体推导；McKinsey 引用了 Lewis 的相关附录，并直接使用了同一个归约结构；后来闭包代数赋予这些结构清楚的运算意义。至于 McKinsey 本人有没有专门读过脚注中沈有鼎的名字，或从他那里获得创作灵感，目前还不能断言。
 
-- **Sa，一致替换**：把定理中的命题变元统一换成任意合式公式；
-- **Sb，严格等价替换**：若 $A\equiv_s B$ 是定理，便可在定理的任意语境中以 $A$ 与 $B$ 相互替换；
-- **Ad，联立**：从定理 $A$ 与 $B$ 得到 $AB$；
-- **Smp，严格分离**：从 $A$ 与 $A\prec B$ 得到 $B$。
+反过来，对汤璪真的贡献也必须给予恰当位置。他不是沈有鼎与 McKinsey 之间的“过渡人物”那么简单：他走的是另一条很有内容的数学路线，从布尔环和欧几里得点集建立严格蕴涵的模型性解释，且获得 McKinsey 的明确回顾性认可。这两位中国逻辑学家的研究放在一起，足以说明当时中国留学生与学者不是近代逻辑单纯的被动读者。
 
-今天看上去很普通的变形，在这里往往都要经过若干条公设和规则。例如，证明
+### 5.10 小结：一个公式活了下来，一条证明却差点失去署名
 
-$$
-p\prec\Diamond p
-$$
+所以，现在回头看第二章贝克尔的十模态猜想、第三章沈有鼎的严格等价替换、第四章 Wajsberg 的代数标准形与 Parry 的归约结果、第五章汤璪真和 McKinsey—Tarski 的代数发展，我们才有资格说，这确实是一段交织得很紧的历史。
 
-——也就是后来闭包算子扩张律 $a\le Ca$ 的句法前身——并不是一行“显然”。我在正式论文中把所需的刘易斯推导恢复为四十五个步骤，综合使用了 B1—B7 和上述规则。沈有鼎的主证明虽然不需要把这四十五步重新走一遍，却依赖这个已经取得的命题 18.4。
+沈有鼎的证明并没有在 1932 年以后神奇地变成所有模态语义学的源头。但它所使用的那条中间式，恰好是后来闭包代数基本律之一；它所排除的错误分支，也涉及后来的 S4/S5 公理架构。
 
-这也解释了为什么我们不能拿今天的语义直观去嘲笑早期逻辑学家：“传递加对称当然得到欧几里得，这有什么难？”在 1930 年前后，问题恰恰是如何在没有这种语义工具的情况下，从一套符号操作规则中把结果推出来。
+接下来的第六章，我想专门回答另一个让我感兴趣的问题：**为什么这样一项确切可核查的句法证明，后来在广泛传播的模态逻辑史叙述中却几乎没留下作者的名字？**这里既有数学语言变得太简洁的原因，也有教科书的选择、学术传播路径以及我们怎样书写逻辑史的问题。
 
-## 三、贝克尔留下的“开放位置”
+---
 
-奥斯卡·贝克尔既是数学哲学家，也是胡塞尔现象学传统中的重要人物。他在 1930 年发表《论模态逻辑》，集中处理刘易斯系统里反复叠加的模态。
+{/* 本片段结束。不要把现有文章的第六章、附录及参考文献无意覆盖。 */}
 
-问题很直观：如果 $\Diamond p$、$\Diamond\Diamond p$、$\Box\Diamond p$、$\Diamond\Box\Diamond p$ 都可能互不等价，那么模态词就可以无穷叠加，演算似乎永远无法收束。贝克尔把这里称作一个“开放位置”。他希望通过添加新公理，让复杂模态归约为有限多种基本形态。
+
+## 二、贝克尔的“开放位置”
+
+奥斯卡·贝克尔 Oscar Becker 既是数学哲学家，也是胡塞尔现象学传统中的重要人物。他被描述为一个有纳粹倾向的人。至少是非常认同民族主义的。他在当时经常和海德格尔一起，被看作是胡塞尔最杰出的学生。
+
+他在 1930 年发表《论模态逻辑》，集中处理刘易斯系统里反复叠加的模态。他受莱布尼茨的德国传统影响，认为可判定性对逻辑很重要。因为他认为S3有无穷多个模态，所以他判断S3是个不可判定的逻辑。
+
+换句话说，如果 $\Diamond p$、$\Diamond\Diamond p$、$\Box\Diamond p$、$\Diamond\Box\Diamond p$ 都可能互不等价，那么模态词就可以无穷叠加，演算似乎永远无法收束。贝克尔把这里称作一个“开放位置”。他希望通过添加新公理，让复杂模态归约为有限多种基本形态。
 
 刘易斯后来把贝克尔的三条候选原则编号为 C10、C11、C12：
 
@@ -1481,105 +1189,23 @@ $$
 
 如果 C10 与 C12 已经能推出 C11，那么所谓十模态演算根本不是独立的新系统；它会继续坍缩为只有六类模态的 S5。这个贝克尔没有发现的依赖关系，正是沈有鼎证明的内容。
 
-## 四、沈有鼎究竟证明了什么
+## 三、沈有鼎究竟证明了什么
 
-1932 年《符号逻辑》第二附录把相关结果排列成（12）、（13）、（14）：
+沈有鼎当时在哈佛读研究生是 Henry Sheffer的学生，但估计他也听了 C I Lewis的课，接触到了严格蕴含，并且反驳了 Becker 的十模态演算假设。
 
-- （12）从 C11 推出 C10；
-- （13）从 C11 推出 C12；
-- （14）从 C10 与 C12 推出 C11。
+给出具体句法证明
 
-刘易斯只把第三个方向明确归于沈有鼎。换言之，最稳妥的史学表述是：
+后来很奇怪，他去了德国，想学习一些现象学。
 
-> **沈有鼎证明了 C10+C12 ⊢ C11；刘易斯还记录了反方向的两个归约，但没有把它们归于沈有鼎。**
 
-把三个方向全部笼统称作“沈有鼎的等价性证明”，会把史料说得过头。沈有鼎完成的是非平凡的前向推导；再与刘易斯记录的反向结果合起来，我们才有：
+## 四、Wajsberg 和 Parry 的工作
 
-$$
-\mathsf{S1}+\mathrm{C11}
-\quad=\quad
-\mathsf{S1}+\mathrm{C10}+\mathrm{C12}
-\quad=\quad
-\mathsf{S5}.
-$$
+强调 Parry 与沈有鼎的友情。
 
-### 1. 作者身份并不只靠刘易斯的一条脚注
 
-刘易斯的脚注已经是直接的一手证据。七年后，William T. Parry 又在 1939 年论文的脚注中写道：
+## 五、沈有鼎证明对模态逻辑代数语义的影响
 
-> “The proof of this fact, by the way, was first pointed out to me by Mr. Y. T. Shen.”
 
-也就是：“顺便说一句，这一事实的证明最初是沈有鼎先生向我指出的。”
-
-帕里的证词很重要，因为他不只是转述刘易斯的书。他正在亲自讨论模态归约，而且说沈有鼎最先把证明指出给了他。刘易斯的正式署名与帕里的独立回忆相互支持，使这项归属相当稳固。
-
-### 2. 证明真正的机关：先制造一个等价式
-
-把整段证明压缩到最短，其结构只有三步：
-
-1. 从 C10 加上 S1 中已经证明的 $p\prec\Diamond p$，得到
-   $$\Diamond\Diamond p\equiv_s\Diamond p.$$
-2. 把 C12 中的 $p$ 一致替换为 $\Diamond p$，得到
-   $$\Diamond p\prec\neg\Diamond\neg\Diamond\Diamond p.$$
-3. 在右侧嵌套模态内部，用 $\Diamond p$ 替换严格等价的 $\Diamond\Diamond p$，得到
-   $$\Diamond p\prec\neg\Diamond\neg\Diamond p,$$
-   这就是 C11。
-
-看起来像变魔术，但机关非常清楚：**C12 负责把命题送进“必然可能”的位置，C10 负责消掉由代入产生的那一层重复可能性。**沈有鼎识别出了这两个动作可以严丝合缝地接起来。
-
-### 3. C10.1 不能草率地写成“沈有鼎给出的公理”
-
-这里还要修正一种很容易出现的说法。刘易斯在附录里把
-
-$$
-\Diamond\Diamond p\prec\Diamond p
-$$
-
-以及进一步得到的
-
-$$
-\Diamond\Diamond p\equiv_s\Diamond p
-$$
-
-都放在 C10.1 这个编号下。为了讲解清楚，我把前者编辑性地叫作 C10.1a，把后者叫作 C10.1b。
-
-**C10.1 是刘易斯的编号，是证明（14）使用的中间结果；现有史料并没有说“C10.1 这条公式本身由沈有鼎提出”。**刘易斯明确归于沈有鼎的是整个证明（14）。这点看似细小，却关系到我们是否把“使用某个既有中间式完成证明”误写成“发明该中间式”。
-
-## 五、逐行点击：在浏览器里重走这段证明
-
-下面的步进器从三个已经在 S1 中取得的前置结果出发：反置律、双重否定严格等价，以及命题 18.4 的 $p\prec\Diamond p$。它把正式论文中的主证明拆成 15 行。你可以逐步点击，也可以一次显示全部。
-
-<ShenProofStepper />
-
-如果只记住一件技术细节，请记住第 13—15 行：把 $\Diamond p$ 代入 C12 后，右端必然出现 $\Diamond\Diamond p$；只有先得到严格等价
-
-$$
-\Diamond\Diamond p\equiv_s\Diamond p,
-$$
-
-才能利用规则 Sb 在深层模态语境中把它替换掉。证明的精巧之处不是某一行公式特别长，而是沈有鼎看出这条替换链条在刘易斯演算内部确实可行。
-
-## 六、为什么今天看起来“一眼就能证明”
-
-如果允许使用后来成熟的克里普克框架，结论非常短。
-
-- 公理 4 对应可达关系的传递性；
-- 公理 B 对应对称性；
-- 公理 5 对应欧几里得性：若 $xRy$ 且 $xRz$，则 $yRz$。
-
-现在假设关系既传递又对称。由 $xRy$，对称性给出 $yRx$；再把 $yRx$ 与 $xRz$ 交给传递性，就得到 $yRz$。所以“传递 + 对称”推出“欧几里得”。这个方向甚至不需要自返性。
-
-反过来，在通常的自返背景下，欧几里得性又会推出对称性和传递性，于是我们得到熟悉的等价：
-
-$$
-T+4+B\quad=\quad T+5.
-$$
-
-这段语义证明可以帮助现代读者理解结果，却不能取代历史评价。沈有鼎没有“漏掉一个显然的框架论证”，因为当时可供操作的对象就是刘易斯的公式、公设和替换规则。后来语义学让证明透明化，恰好反衬出早期纯句法发现的难度。
-
-## 七、从句法走向代数：先认识闭包算子
-
-现在进入这段历史的第二幕。
 
 设 $B$ 是一个布尔代数，$a,b$ 是其中的元素。可以把它们直观地想成某个空间中的点集。布尔运算对应交、并和补。再增加一个一元运算 $C$，把 $a$ 送到它的闭包 $Ca$。库拉托夫斯基 1922 年列出的四条闭包律是：
 
