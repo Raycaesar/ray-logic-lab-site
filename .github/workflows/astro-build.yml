@@ -1,0 +1,31 @@
+name: Astro production build
+
+on:
+  push:
+    branches:
+      - fix/blog-writing-image-build-20261024
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build website
+        run: npm run build
+      - name: Check Shen article and first image
+        run: |
+          test -s dist/zh/blog/shen-youting-s5/index.html
+          test -s dist/images/shen-s5/appendix2.png
+          grep -q 'katex' dist/zh/blog/shen-youting-s5/index.html
