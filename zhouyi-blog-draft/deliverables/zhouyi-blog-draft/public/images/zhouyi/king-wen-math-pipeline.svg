@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+  <title id="title">从六维状态空间到通行本卦序的五层数学机制</title>
+  <desc id="desc">六十四个六维顶点经过错综轨道压缩、秩优先匹配、主卦骨架分段和有向坐标排序，形成通行本卦序；图中标明各层是否已经数学闭合。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#111c31"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8aa1b7"/>
+    </marker>
+    <style>
+      .title{font:700 34px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .subtitle{font:400 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#aebed0}
+      .step{font:700 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#d6a84b;letter-spacing:1px}
+      .node-title{font:700 25px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .metric{font:700 31px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#61c7cc}
+      .detail{font:400 17px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#cbd5e1}
+      .status{font:700 16px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif}
+      .formula{font:500 18px ui-monospace,SFMono-Regular,Consolas,monospace;fill:#e2e8f0}
+    </style>
+  </defs>
+  <rect width="1200" height="590" rx="26" fill="url(#bg)"/>
+  <text x="56" y="64" class="title">通行本卦序是一条分层线性化</text>
+  <text x="56" y="96" class="subtitle">每一层解决一个不同问题；“配对唯一”不等于“完整全序唯一”</text>
+
+  <g transform="translate(42 145)">
+    <rect width="202" height="300" rx="20" fill="#142239" stroke="#2c4058"/>
+    <text x="20" y="36" class="step">第一层</text>
+    <text x="20" y="77" class="node-title">六维状态空间</text>
+    <text x="20" y="130" class="metric">64 卦</text>
+    <text x="20" y="169" class="formula">Q₆ = {0,1}⁶</text>
+    <text x="20" y="207" class="detail">六爻二值</text>
+    <text x="20" y="234" class="detail">只决定集合</text>
+    <rect x="20" y="258" width="100" height="26" rx="13" fill="#193d39"/>
+    <text x="70" y="277" text-anchor="middle" class="status" fill="#78d6ad">定义闭合</text>
+  </g>
+
+  <path d="M252 295 H272" stroke="#8aa1b7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(282 145)">
+    <rect width="202" height="300" rx="20" fill="#142239" stroke="#2c4058"/>
+    <text x="20" y="36" class="step">第二层</text>
+    <text x="20" y="77" class="node-title">错综轨道</text>
+    <text x="20" y="130" class="metric">20 组</text>
+    <text x="20" y="169" class="formula">G ≅ K₄</text>
+    <text x="20" y="207" class="detail">8 个二元轨道</text>
+    <text x="20" y="234" class="detail">12 个四元轨道</text>
+    <rect x="20" y="258" width="100" height="26" rx="13" fill="#193d39"/>
+    <text x="70" y="277" text-anchor="middle" class="status" fill="#78d6ad">定理闭合</text>
+  </g>
+
+  <path d="M492 295 H512" stroke="#8aa1b7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(522 145)">
+    <rect width="202" height="300" rx="20" fill="#142239" stroke="#2c4058"/>
+    <text x="20" y="36" class="step">第三层</text>
+    <text x="20" y="77" class="node-title">秩优先匹配</text>
+    <text x="20" y="130" class="metric">32 对</text>
+    <text x="20" y="169" class="formula">min (F,D)</text>
+    <text x="20" y="207" class="detail">先保持阳爻数</text>
+    <text x="20" y="234" class="detail">再减少爻变动</text>
+    <rect x="20" y="258" width="100" height="26" rx="13" fill="#193d39"/>
+    <text x="70" y="277" text-anchor="middle" class="status" fill="#78d6ad">定理闭合</text>
+  </g>
+
+  <path d="M732 295 H752" stroke="#8aa1b7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(762 145)">
+    <rect width="202" height="300" rx="20" fill="#142239" stroke="#2c4058"/>
+    <text x="20" y="36" class="step">第四层</text>
+    <text x="20" y="77" class="node-title">主卦骨架</text>
+    <text x="20" y="130" class="metric">30 / 34</text>
+    <text x="20" y="169" class="formula">15 对 / 17 对</text>
+    <text x="20" y="207" class="detail">8 个主卦对锚定</text>
+    <text x="20" y="234" class="detail">24 个散卦对分区</text>
+    <rect x="20" y="258" width="118" height="26" rx="13" fill="#3c321c"/>
+    <text x="79" y="277" text-anchor="middle" class="status" fill="#f1c86d">结构闭合</text>
+  </g>
+
+  <path d="M972 295 H992" stroke="#8aa1b7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(1002 145)">
+    <rect width="156" height="300" rx="20" fill="#142239" stroke="#2c4058"/>
+    <text x="18" y="36" class="step">第五层</text>
+    <text x="18" y="77" class="node-title">有向全序</text>
+    <text x="18" y="130" class="metric">64 项</text>
+    <text x="18" y="169" class="formula">起点·方向·先后</text>
+    <text x="18" y="207" class="detail">张氏坐标逼近</text>
+    <text x="18" y="234" class="detail">仍缺完整解计数</text>
+    <rect x="18" y="258" width="118" height="26" rx="13" fill="#45242a"/>
+    <text x="77" y="277" text-anchor="middle" class="status" fill="#ff9a9a">尚未闭合</text>
+  </g>
+
+  <text x="42" y="506" class="subtitle">沈有鼎：骨架与分篇　　张清宇：错综不变组与散卦定位　　Radisic：等变匹配、优化与 Lean 4 核验</text>
+  <line x1="42" y1="535" x2="1158" y2="535" stroke="#2c4058"/>
+  <text x="42" y="566" class="detail">关键界线：第三层只得到无向匹配；第五层还必须证明每对方向和三十二对的全部先后。</text>
+</svg>

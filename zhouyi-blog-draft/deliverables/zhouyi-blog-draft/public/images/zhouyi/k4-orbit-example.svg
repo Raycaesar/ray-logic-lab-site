@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="760" viewBox="0 0 1100 760" role="img" aria-labelledby="title desc">
+  <title id="title">屯蒙革鼎四元错综轨道的三种完美匹配</title>
+  <desc id="desc">屯、蒙、革、鼎组成克莱因四元群轨道。综边连接屯蒙、革鼎并保持权重，错综复合边更短但跨越权重二与四，错边距离为六。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#14243c"/>
+    </linearGradient>
+    <style>
+      .title{font:700 34px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .subtitle{font:400 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#b6c6d8}
+      .name{font:700 34px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .meta{font:500 17px ui-monospace,SFMono-Regular,Consolas,monospace;fill:#dbe6f2}
+      .note{font:500 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#cbd5e1}
+      .edge-label{font:700 17px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;paint-order:stroke;stroke:#0f192a;stroke-width:7px;stroke-linejoin:round}
+      .legend{font:500 17px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#dbe6f2}
+    </style>
+  </defs>
+  <rect width="1100" height="760" rx="26" fill="url(#bg)"/>
+  <text x="55" y="62" class="title">一个四元轨道里的三种匹配</text>
+  <text x="55" y="96" class="subtitle">屯、蒙、革、鼎：通行本为何不选择更短的边</text>
+
+  <!-- 错边：两条对角线 -->
+  <path d="M280 250 L820 560" stroke="#9b7bd4" stroke-width="4" stroke-dasharray="12 10" opacity="0.8"/>
+  <path d="M820 250 L280 560" stroke="#9b7bd4" stroke-width="4" stroke-dasharray="12 10" opacity="0.8"/>
+
+  <!-- 错综复合边：两条竖线 -->
+  <path d="M280 250 L280 560" stroke="#d6a84b" stroke-width="7" opacity="0.95"/>
+  <path d="M820 250 L820 560" stroke="#d6a84b" stroke-width="7" opacity="0.95"/>
+
+  <!-- 综边：两条横线 -->
+  <path d="M280 250 L820 250" stroke="#58c4c8" stroke-width="9"/>
+  <path d="M280 560 L820 560" stroke="#58c4c8" stroke-width="9"/>
+
+  <text x="550" y="231" text-anchor="middle" class="edge-label" fill="#6ee7eb">综 r：距离 4，权重 2→2</text>
+  <text x="550" y="541" text-anchor="middle" class="edge-label" fill="#6ee7eb">综 r：距离 4，权重 4→4</text>
+  <text x="248" y="411" text-anchor="middle" transform="rotate(-90 248 411)" class="edge-label" fill="#f1c86d">错综 cr：距离 2，权重 2→4</text>
+  <text x="852" y="411" text-anchor="middle" transform="rotate(90 852 411)" class="edge-label" fill="#f1c86d">错综 cr：距离 2，权重 2→4</text>
+  <text x="550" y="396" text-anchor="middle" class="edge-label" fill="#bca5eb">错 c：距离 6</text>
+
+  <g transform="translate(180 160)">
+    <rect width="200" height="180" rx="22" fill="#172a44" stroke="#58c4c8" stroke-width="3"/>
+    <text x="100" y="55" text-anchor="middle" class="name">屯</text>
+    <text x="100" y="91" text-anchor="middle" class="meta">100010</text>
+    <text x="100" y="124" text-anchor="middle" class="note">权重 2</text>
+    <text x="100" y="151" text-anchor="middle" class="note">下震上坎</text>
+  </g>
+  <g transform="translate(720 160)">
+    <rect width="200" height="180" rx="22" fill="#172a44" stroke="#58c4c8" stroke-width="3"/>
+    <text x="100" y="55" text-anchor="middle" class="name">蒙</text>
+    <text x="100" y="91" text-anchor="middle" class="meta">010001</text>
+    <text x="100" y="124" text-anchor="middle" class="note">权重 2</text>
+    <text x="100" y="151" text-anchor="middle" class="note">下坎上艮</text>
+  </g>
+  <g transform="translate(180 470)">
+    <rect width="200" height="180" rx="22" fill="#172a44" stroke="#58c4c8" stroke-width="3"/>
+    <text x="100" y="55" text-anchor="middle" class="name">革</text>
+    <text x="100" y="91" text-anchor="middle" class="meta">101110</text>
+    <text x="100" y="124" text-anchor="middle" class="note">权重 4</text>
+    <text x="100" y="151" text-anchor="middle" class="note">下离上兑</text>
+  </g>
+  <g transform="translate(720 470)">
+    <rect width="200" height="180" rx="22" fill="#172a44" stroke="#58c4c8" stroke-width="3"/>
+    <text x="100" y="55" text-anchor="middle" class="name">鼎</text>
+    <text x="100" y="91" text-anchor="middle" class="meta">011101</text>
+    <text x="100" y="124" text-anchor="middle" class="note">权重 4</text>
+    <text x="100" y="151" text-anchor="middle" class="note">下巽上离</text>
+  </g>
+
+  <g transform="translate(55 692)">
+    <line x1="0" y1="0" x2="55" y2="0" stroke="#58c4c8" stroke-width="8"/>
+    <text x="68" y="6" class="legend">通行本综匹配：同秩、较远</text>
+    <line x1="360" y1="0" x2="415" y2="0" stroke="#d6a84b" stroke-width="7"/>
+    <text x="428" y="6" class="legend">纯距离偏好的错综匹配：跨秩、较近</text>
+    <line x1="800" y1="0" x2="855" y2="0" stroke="#9b7bd4" stroke-width="4" stroke-dasharray="10 8"/>
+    <text x="868" y="6" class="legend">错匹配</text>
+  </g>
+  <text x="550" y="739" text-anchor="middle" class="subtitle">α &gt; β 时，保持权重的综边胜过更短但跨秩的错综复合边</text>
+</svg>

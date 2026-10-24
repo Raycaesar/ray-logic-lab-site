@@ -1,0 +1,137 @@
+---
+const nodes = ['a','b','c'];
+const initial = [
+  [true, true, false],
+  [true, true, false],
+  [false, false, false],
+];
+---
+<section class="frame-lab" data-frame-lab aria-label="可达关系与模态公理互动实验器">
+  <header>
+    <p class="frame-lab__eyebrow">可交互语义实验</p>
+    <h3>三个世界：亲自检验 4 + B ⇒ 5</h3>
+    <p>点击表中的格子，添加或删除一条可达箭头。行是出发世界，列是到达世界；实心格表示有箭头。</p>
+  </header>
+  <div class="frame-lab__presets" role="group" aria-label="选择示例框架">
+    <button type="button" data-preset="4b">对称且传递（但不自反）</button>
+    <button type="button" data-preset="four">只有 4</button>
+    <button type="button" data-preset="b">只有 B</button>
+    <button type="button" data-preset="s5">等价关系框架</button>
+  </div>
+  <div class="frame-lab__body">
+    <div>
+      <table class="frame-lab__matrix">
+        <caption>可达关系 R（点击切换）</caption>
+        <thead><tr><th scope="col">R</th>{nodes.map(n => <th scope="col">{n}</th>)}</tr></thead>
+        <tbody>{initial.map((row,i) => <tr><th scope="row">{nodes[i]}</th>{row.map((yes,j) => <td><button type="button" data-edge={`${i},${j}`} aria-pressed={yes} aria-label={`${nodes[i]} 到 ${nodes[j]} ${yes ? '可达':'不可达'}`} title={`${nodes[i]} → ${nodes[j]}`}>{yes ? '●' : '·'}</button></td>)}</tr>)}</tbody>
+      </table>
+      <p class="frame-lab__hint">例如勾选 (a, b) 就意味着 aRb。注意：这不是命题的真值表。</p>
+    </div>
+    <div class="frame-lab__properties" aria-live="polite">
+      <p><strong data-status="T">T / 自反：计算中</strong></p>
+      <p><strong data-status="4">4 / 传递：计算中</strong></p>
+      <p><strong data-status="B">B / 对称：计算中</strong></p>
+      <p><strong data-status="5">5 / 欧几里得：计算中</strong></p>
+      <p data-verdict class="frame-lab__verdict">正在检查框架性质。</p>
+    </div>
+  </div>
+  <details>
+    <summary>为什么 4 + B 能推出 5？点击看三行推导</summary>
+    <p>若 wRv 且 wRu；由对称性（B）得到 vRw，再由传递性（4）得到 vRu。这恰好是欧几里得条件（5）。此推论本身不需要 T（自反性）。</p>
+    <p>这只是现代关系语义中的框架论证；沈有鼎原来的证明是在 Lewis 严格蕴涵演算里完成的，不能用此图替代句法证明。</p>
+  </details>
+  <noscript>请开启 JavaScript，才能修改可达关系和查看自动判定结果。</noscript>
+</section>
+
+<script>
+  document.querySelectorAll('[data-frame-lab]').forEach(root => {
+    if (!(root instanceof HTMLElement)) return;
+    const presets = {
+      // 4+B, but not T: {a,b} forms a complete cluster, c has no outgoing edges.
+      '4b': [[1,1,0],[1,1,0],[0,0,0]],
+      // A reflexive linear preorder, not symmetric.
+      'four': [[1,1,1],[0,1,1],[0,0,1]],
+      // Reflexive, symmetric 3-point path: a-b-c, but not transitive.
+      'b': [[1,1,0],[1,1,1],[0,1,1]],
+      // Two equivalence classes: {a,b} and {c}.
+      's5': [[1,1,0],[1,1,0],[0,0,1]],
+    };
+    let R = presets['4b'].map(row=>row.slice());
+    const nodes=['a','b','c'];
+    const all=[0,1,2];
+    const names = ['T','4','B','5'] as const;
+    const checks={
+      T: () => all.every(i=>R[i][i]===1),
+      '4': () => all.every(i=>all.every(j=>all.every(k=>!(R[i][j]&&R[j][k])||!!R[i][k]))),
+      B: () => all.every(i=>all.every(j=>!R[i][j]||!!R[j][i])),
+      '5': () => all.every(i=>all.every(j=>all.every(k=>!(R[i][j]&&R[i][k])||!!R[j][k]))),
+    };
+    const counter={
+      T:()=>{const i=all.find(i=>!R[i][i]); return i===undefined?'':`例如 ${nodes[i]}R${nodes[i]} 不成立`;},
+      '4':()=>{for(const i of all)for(const j of all)for(const k of all)if(R[i][j]&&R[j][k]&&!R[i][k])return `${nodes[i]}R${nodes[j]}、${nodes[j]}R${nodes[k]}，但 ${nodes[i]}R${nodes[k]} 不成立`;return '';},
+      B:()=>{for(const i of all)for(const j of all)if(R[i][j]&&!R[j][i])return `${nodes[i]}R${nodes[j]}，但 ${nodes[j]}R${nodes[i]} 不成立`;return '';},
+      '5':()=>{for(const i of all)for(const j of all)for(const k of all)if(R[i][j]&&R[i][k]&&!R[j][k])return `${nodes[i]}R${nodes[j]}、${nodes[i]}R${nodes[k]}，但 ${nodes[j]}R${nodes[k]} 不成立`;return '';},
+    };
+    const captions={T:'T / 自反', '4':'4 / 传递', B:'B / 对称', '5':'5 / 欧几里得'};
+    function render(){
+      root.querySelectorAll('[data-edge]').forEach(el=>{
+        if(!(el instanceof HTMLButtonElement))return;
+        if(!el.dataset.edge)return;
+        const [i,j]=el.dataset.edge.split(',').map(Number);
+        const yes=Boolean(R[i][j]);
+        el.textContent=yes?'●':'·'; el.setAttribute('aria-pressed',String(yes));
+        el.setAttribute('aria-label',`${nodes[i]} 到 ${nodes[j]} ${yes?'可达':'不可达'}`);
+      });
+      const current:Record<string,boolean>={};
+      for(const key of names){
+        const ok=checks[key](); current[key]=ok;
+        const line=root.querySelector(`[data-status="${key}"]`);
+        if(line){line.textContent=`${captions[key]}：${ok?'成立':'不成立'}`;line.classList.toggle('is-yes',ok);line.classList.toggle('is-no',!ok);line.setAttribute('title',ok?'':counter[key]());}
+      }
+      const verdict=root.querySelector('[data-verdict]');
+      if(verdict){
+        if(current['4']&&current.B){verdict.textContent=`现在 4 与 B 都成立，5 也${current['5']?'成立':'不成立（请报告程序错误）'}。${current.T?'此框架也满足 T。':'注意：此框架并不满足 T。'}`;}
+        else{verdict.textContent=`现在不能同时使用 4 与 B 的前提。${current['5']?'5 在此框架仍可能独立成立。':'5 在此框架也不成立：'+counter['5']()}`;}
+      }
+    }
+    root.querySelectorAll('[data-edge]').forEach(el=>el.addEventListener('click',()=>{
+      if(!(el instanceof HTMLButtonElement))return;
+      if(!el.dataset.edge)return;
+      const [i,j]=el.dataset.edge.split(',').map(Number);
+      R[i][j]=1-R[i][j];render();
+    }));
+    root.querySelectorAll('[data-preset]').forEach(el=>el.addEventListener('click',()=>{
+      if(!(el instanceof HTMLButtonElement))return;
+      const name=el.dataset.preset as keyof typeof presets;
+      const preset=presets[name];
+      if(preset){R=preset.map(row=>row.slice());render();}
+    }));
+    render();
+  });
+</script>
+
+<style>
+  .frame-lab {margin:2.4rem 0; padding:1.4rem; border:1px solid var(--line, #334155); background:var(--panel-soft,#1e293b); border-radius:18px;}
+  .frame-lab h3 {margin:.25rem 0 .5rem; font-family:Georgia,'Noto Serif SC',serif; font-size:1.3rem;}
+  .frame-lab p {margin:.45rem 0 .9rem;}
+  .frame-lab__eyebrow {font-size:.83rem;font-weight:700;color:var(--accent,#f6c76f);}
+  .frame-lab__presets {display:flex;flex-wrap:wrap;gap:.5rem;margin:1.15rem 0;}
+  .frame-lab button {cursor:pointer; color:var(--text,#f8fafc);background:rgba(148,163,184,.12);border:1px solid var(--line,#334155);border-radius:8px;padding:.42rem .7rem;}
+  .frame-lab button:hover, .frame-lab button:focus-visible {border-color:var(--accent,#f6c76f);}
+  .frame-lab__body {display:grid;grid-template-columns:minmax(220px,1fr) minmax(240px,1.15fr);gap:1.4rem;}
+  .frame-lab__matrix {width:100%; border-collapse:separate;border-spacing:.3rem;max-width:280px;text-align:center;}
+  .frame-lab__matrix caption {text-align:left;font-size:.92rem;margin-bottom:.45rem;color:var(--muted,#cbd5e1);}
+  .frame-lab__matrix th{font-size:.9rem;color:var(--muted,#cbd5e1);}
+  .frame-lab__matrix td {padding:0!important;border:0!important;}
+  .frame-lab__matrix button {width:3.2rem;height:2.6rem;font-size:1.15rem;padding:0;}
+  .frame-lab__matrix button[aria-pressed="true"]{background:rgba(246,199,111,.22);border-color:var(--accent,#f6c76f);color:var(--accent,#f6c76f);}
+  .frame-lab__hint{font-size:.82rem;color:var(--muted,#cbd5e1);}
+  .frame-lab__properties p{margin:.45rem 0;padding:.45rem .65rem;border-left:2px solid var(--line,#334155);font-size:.91rem;}
+  .frame-lab__properties strong{font-weight:700;}
+  .frame-lab__properties .is-yes{color:#a7f3d0;}
+  .frame-lab__properties .is-no{color:#fecaca;}
+  .frame-lab__properties .frame-lab__verdict{border-left:3px solid var(--accent,#f6c76f);line-height:1.65;}
+  .frame-lab details{margin-top:1.1rem;border-top:1px solid var(--line,#334155);padding-top:.8rem;}
+  .frame-lab summary{cursor:pointer;color:var(--link,#93c5fd);font-weight:700;}
+  @media (max-width:680px){.frame-lab{padding:1rem}.frame-lab__body{grid-template-columns:1fr}.frame-lab__matrix button{width:2.75rem}}
+</style>

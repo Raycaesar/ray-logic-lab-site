@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="780" viewBox="0 0 1240 780" role="img" aria-labelledby="title desc">
+  <title id="title">沈有鼎主卦骨架与通行本三十、三十四分篇</title>
+  <desc id="desc">上经由三个主卦锚点和两段散卦组成十五对；下经由五个主卦锚点和四段散卦组成十七对。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#14243c"/>
+    </linearGradient>
+    <style>
+      .title{font:700 34px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .subtitle{font:400 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#b7c7d9}
+      .row-title{font:700 29px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .count{font:700 20px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#61c7cc}
+      .anchor{font:700 19px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#201a0c}
+      .scatter{font:700 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#e6f4f5}
+      .pairs{font:400 14px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#cbd5e1}
+      .formula{font:500 20px ui-monospace,SFMono-Regular,Consolas,monospace;fill:#dbe6f2}
+      .note{font:400 17px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#aebed0}
+    </style>
+  </defs>
+  <rect width="1240" height="780" rx="26" fill="url(#bg)"/>
+  <text x="56" y="64" class="title">十六主卦像梁柱一样分隔二十四个散卦对</text>
+  <text x="56" y="98" class="subtitle">分篇长度由“主卦锚点＋散卦区段”的卦对计数直接产生</text>
+
+  <text x="56" y="162" class="row-title">上经</text>
+  <text x="168" y="162" class="count">15 对 = 30 卦</text>
+  <g transform="translate(56 188)">
+    <rect x="0" y="0" width="150" height="86" rx="14" fill="#d6a84b"/>
+    <text x="75" y="52" text-anchor="middle" class="anchor">乾—坤</text>
+    <rect x="164" y="0" width="285" height="86" rx="14" fill="#174a59"/>
+    <text x="306.5" y="36" text-anchor="middle" class="scatter">4 个散卦对</text>
+    <text x="306.5" y="64" text-anchor="middle" class="pairs">屯蒙 · 需讼 · 师比 · 小畜履</text>
+    <rect x="463" y="0" width="150" height="86" rx="14" fill="#d6a84b"/>
+    <text x="538" y="52" text-anchor="middle" class="anchor">泰—否</text>
+    <rect x="627" y="0" width="405" height="86" rx="14" fill="#174a59"/>
+    <text x="829.5" y="31" text-anchor="middle" class="scatter">8 个散卦对</text>
+    <text x="829.5" y="57" text-anchor="middle" class="pairs">同人大有 · 谦豫 · 随蛊 · 临观</text>
+    <text x="829.5" y="77" text-anchor="middle" class="pairs">噬嗑贲 · 剥复 · 无妄大畜 · 颐大过</text>
+    <rect x="1046" y="0" width="138" height="86" rx="14" fill="#d6a84b"/>
+    <text x="1115" y="52" text-anchor="middle" class="anchor">坎—离</text>
+  </g>
+  <text x="56" y="313" class="formula">1 + 4 + 1 + 8 + 1 = 15 对</text>
+
+  <line x1="56" y1="353" x2="1184" y2="353" stroke="#2d4059"/>
+
+  <text x="56" y="414" class="row-title">下经</text>
+  <text x="168" y="414" class="count">17 对 = 34 卦</text>
+  <g transform="translate(56 440)">
+    <rect x="0" y="0" width="128" height="82" rx="14" fill="#d6a84b"/>
+    <text x="64" y="50" text-anchor="middle" class="anchor">咸—恒</text>
+    <rect x="140" y="0" width="210" height="82" rx="14" fill="#174a59"/>
+    <text x="245" y="34" text-anchor="middle" class="scatter">4 个散对</text>
+    <text x="245" y="60" text-anchor="middle" class="pairs">遁壮 · 晋夷 · 家睽 · 蹇解</text>
+    <rect x="362" y="0" width="128" height="82" rx="14" fill="#d6a84b"/>
+    <text x="426" y="50" text-anchor="middle" class="anchor">损—益</text>
+    <rect x="502" y="0" width="210" height="82" rx="14" fill="#174a59"/>
+    <text x="607" y="34" text-anchor="middle" class="scatter">4 个散对</text>
+    <text x="607" y="60" text-anchor="middle" class="pairs">夬姤 · 萃升 · 困井 · 革鼎</text>
+    <rect x="724" y="0" width="128" height="82" rx="14" fill="#d6a84b"/>
+    <text x="788" y="50" text-anchor="middle" class="anchor">震—艮</text>
+    <rect x="864" y="0" width="132" height="82" rx="14" fill="#174a59"/>
+    <text x="930" y="34" text-anchor="middle" class="scatter">2 个散对</text>
+    <text x="930" y="60" text-anchor="middle" class="pairs">渐妹 · 丰旅</text>
+    <rect x="1008" y="0" width="128" height="82" rx="14" fill="#d6a84b"/>
+    <text x="1072" y="50" text-anchor="middle" class="anchor">巽—兑</text>
+  </g>
+  <g transform="translate(56 540)">
+    <rect x="0" y="0" width="290" height="82" rx="14" fill="#174a59"/>
+    <text x="145" y="34" text-anchor="middle" class="scatter">2 个散卦对</text>
+    <text x="145" y="60" text-anchor="middle" class="pairs">涣—节 · 中孚—小过</text>
+    <rect x="360" y="0" width="205" height="82" rx="14" fill="#d6a84b"/>
+    <text x="462.5" y="50" text-anchor="middle" class="anchor">既济—未济</text>
+    <text x="615" y="50" class="formula">1+4+1+4+1+2+1+2+1 = 17 对</text>
+  </g>
+
+  <g transform="translate(56 672)">
+    <rect x="0" y="0" width="26" height="26" rx="6" fill="#d6a84b"/>
+    <text x="40" y="20" class="note">主卦锚点：8 对，共 16 卦</text>
+    <rect x="345" y="0" width="26" height="26" rx="6" fill="#174a59"/>
+    <text x="385" y="20" class="note">散卦区段：24 对，共 48 卦</text>
+  </g>
+  <text x="56" y="742" class="note">骨架解释区段容量与分篇；它本身尚不唯一决定每个散卦对在区段内的先后和方向。</text>
+</svg>

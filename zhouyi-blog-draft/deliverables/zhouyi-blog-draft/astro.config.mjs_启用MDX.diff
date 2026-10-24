@@ -1,0 +1,11 @@
+--- a/astro.config.mjs
++++ b/astro.config.mjs
+@@
+ import { defineConfig, fontProviders } from 'astro/config';
++import mdx from '@astrojs/mdx';
+ import sitemap from '@astrojs/sitemap';
+@@
+   integrations: [
++    mdx(),
+     sitemap(),
+   ],

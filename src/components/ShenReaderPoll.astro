@@ -1,0 +1,106 @@
+---
+/**
+ * 使用 Cloudflare Pages Functions /api/shen-poll + D1 的站内投票。
+ * 不是身份认证，一台浏览器可重置标识；只能称为“收到的浏览器投票记录”，不是统计抽样。
+ */
+const choices = [
+  ['A', '很惊讶，没想到沈有鼎有这样的贡献'],
+  ['B', '不惊讶，这条推导今天并不难'],
+  ['C', '我以为逻辑史早已记载过了'],
+  ['D', '我还不了解沈有鼎或模态逻辑'],
+];
+---
+<section class="shen-poll" data-shen-poll aria-labelledby="shen-poll-title">
+  <h3 id="shen-poll-title">读者投票：你第一次听到沈有鼎这项证明的反应？</h3>
+  <p>选择一项。提交后会显示该文章收到的投票数量；同一浏览器可以更改自己的选择。</p>
+  <form data-poll-form>
+    <fieldset>
+      <legend>请选择你的反应</legend>
+      {choices.map(([key, label]) => (
+        <label><input type="radio" name="choice" value={key} required /><span><b>{key}.</b> {label}</span></label>
+      ))}
+    </fieldset>
+    <button type="submit" data-submit>提交投票</button>
+    <p data-status role="status" aria-live="polite">连接投票服务后可提交；如无法连接，会显示说明。</p>
+  </form>
+  <div class="shen-poll__results" data-results hidden>
+    <h4>目前的投票分布</h4>
+    {choices.map(([key,label]) => (
+      <div class="shen-poll__result" data-result={key}>
+        <span>{key}. {label}</span>
+        <progress max="100" value="0" aria-label={`${key} 选项比例`}></progress>
+        <output>0 票（0%）</output>
+      </div>
+    ))}
+    <p data-total></p>
+  </div>
+  <small>说明：这是自愿参与的网络投票，不具代表性。随机浏览器标识只用于修改本站这次投票；清除本地存储后会被视为另一位浏览器访问者，不保证“每人一票”。</small>
+</section>
+<script>
+  document.querySelectorAll('[data-shen-poll]').forEach(root => {
+    if (!(root instanceof HTMLElement)) return;
+    const form = root.querySelector('[data-poll-form]');
+    const status = root.querySelector('[data-status]');
+    const results = root.querySelector('[data-results]');
+    const totalLine = root.querySelector('[data-total]');
+    const storageKey='shen-s5-poll-voter-v1';
+    let voterId='';
+    try { voterId=window.localStorage.getItem(storageKey)||''; } catch(_e) {}
+    const show = (message:string) => {if(status) status.textContent=message;};
+    function renderCounts(payload:{counts?:Record<string,number>;total?:number}){
+      const counts = payload.counts || {};
+      const total=Number(payload.total||0);
+      for (const option of ['A','B','C','D']) {
+        const row=root.querySelector(`[data-result="${option}"]`);
+        if(!row)continue;
+        const n=Number(counts[option]||0);
+        const percent=total>0?Math.round(n/total*100):0;
+        const bar=row.querySelector('progress');
+        const output=row.querySelector('output');
+        if(bar)bar.value=percent;
+        if(output)output.textContent=`${n} 票（${percent}%）`;
+      }
+      if(totalLine)totalLine.textContent=`共 ${total} 条有效浏览器投票记录。`;
+      if(results instanceof HTMLElement)results.hidden=false;
+    }
+    async function refresh(){
+      const r=await fetch('/api/shen-poll',{method:'GET',cache:'no-store'});
+      if(!r.ok)throw new Error(`投票服务暂不可用（HTTP ${r.status}）`);
+      renderCounts(await r.json());
+    }
+    refresh().then(()=>show(voterId?'你已在这台浏览器投过票，可以修改。':'请选择一个选项。')).catch(err=>show(`${err.message}。请先配置 Cloudflare D1 投票接口。`));
+    if(!(form instanceof HTMLFormElement))return;
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();
+      const option=new FormData(form).get('choice');
+      if(typeof option!=='string'||!['A','B','C','D'].includes(option)){show('请选择一个选项。');return;}
+      const submit=root.querySelector('[data-submit]');
+      if(submit instanceof HTMLButtonElement)submit.disabled=true;
+      if(!voterId){voterId=crypto.randomUUID(); try{localStorage.setItem(storageKey,voterId)}catch(_e){}}
+      try{
+        const r=await fetch('/api/shen-poll',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({choice:option,voterId}),
+        });
+        const payload=await r.json();
+        if(!r.ok)throw new Error(payload.error||`提交失败（HTTP ${r.status}）`);
+        renderCounts(payload);show('提交成功。这台浏览器可以更改刚才的选择。');
+      }catch(err){show(`未完成投票：${err instanceof Error?err.message:String(err)}`);}
+      finally{if(submit instanceof HTMLButtonElement)submit.disabled=false;}
+    });
+  });
+</script>
+<style>
+  .shen-poll{margin:1.8rem 0;padding:1.35rem;border:1px solid var(--line,#334155);border-radius:16px;background:var(--panel-soft,#1e293b)}
+  .shen-poll h3{font-size:1.15rem;margin:0 0 .4rem}.shen-poll p{margin:.55rem 0 1rem}
+  .shen-poll fieldset{padding:0;margin:0 0 1rem;border:0}.shen-poll legend{font-weight:700;margin-bottom:.6rem}
+  .shen-poll label{display:flex;gap:.75rem;padding:.55rem 0;align-items:flex-start;cursor:pointer}
+  .shen-poll label input{margin-top:.55rem;accent-color:var(--accent,#f6c76f)}
+  .shen-poll button{background:var(--accent,#f6c76f);color:#172033;border:0;font-weight:800;border-radius:8px;padding:.65rem 1.05rem;cursor:pointer}
+  .shen-poll button:disabled{opacity:.55;cursor:wait}
+  .shen-poll__result{display:grid;grid-template-columns:1fr 5rem;gap:.2rem .7rem;margin:1rem 0}
+  .shen-poll__result span{grid-column:1 / -1;font-size:.9rem}.shen-poll__result progress{width:100%;height:14px;accent-color:var(--accent,#f6c76f)}
+  .shen-poll__result output{font-size:.88rem;text-align:right}
+  .shen-poll small{display:block;color:var(--muted,#cbd5e1);font-size:.8rem;margin-top:1rem}
+  [hidden]{display:none!important}
+</style>

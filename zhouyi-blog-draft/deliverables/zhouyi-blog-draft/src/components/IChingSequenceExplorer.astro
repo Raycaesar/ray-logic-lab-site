@@ -1,0 +1,523 @@
+---
+const names = [
+  '乾', '坤', '屯', '蒙', '需', '讼', '师', '比',
+  '小畜', '履', '泰', '否', '同人', '大有', '谦', '豫',
+  '随', '蛊', '临', '观', '噬嗑', '贲', '剥', '复',
+  '无妄', '大畜', '颐', '大过', '坎', '离', '咸', '恒',
+  '遁', '大壮', '晋', '明夷', '家人', '睽', '蹇', '解',
+  '损', '益', '夬', '姤', '萃', '升', '困', '井',
+  '革', '鼎', '震', '艮', '渐', '归妹', '丰', '旅',
+  '巽', '兑', '涣', '节', '中孚', '小过', '既济', '未济',
+];
+
+const codes = [
+  63, 0, 17, 34, 23, 58, 2, 16, 55, 59, 7, 56, 61, 47, 4, 8,
+  25, 38, 3, 48, 41, 37, 32, 1, 57, 39, 33, 30, 18, 45, 28, 14,
+  60, 15, 40, 5, 53, 43, 20, 10, 35, 49, 31, 62, 24, 6, 26, 22,
+  29, 46, 9, 36, 52, 11, 13, 44, 54, 27, 50, 19, 51, 12, 21, 42,
+];
+
+const hexagrams = names.map((name, i) => ({
+  name,
+  code: codes[i],
+  index: i + 1,
+}));
+---
+
+<section
+  class="iching-explorer"
+  id="iching-sequence-explorer"
+  data-hexagrams={JSON.stringify(hexagrams)}
+  aria-labelledby="iching-explorer-title"
+>
+  <div class="explorer-heading">
+    <div>
+      <p class="eyebrow">可计算演示</p>
+      <h3 id="iching-explorer-title">错、综、轨道与秩优先匹配</h3>
+    </div>
+    <p class="explorer-summary" id="iching-summary" aria-live="polite"></p>
+  </div>
+
+  <div class="explorer-controls">
+    <label>
+      <span>选择通行本中的一卦</span>
+      <select id="iching-hexagram-select">
+        {hexagrams.map((hexagram) => (
+          <option value={hexagram.code} selected={hexagram.name === '屯'}>
+            {hexagram.index}. {hexagram.name}
+          </option>
+        ))}
+      </select>
+    </label>
+
+    <label>
+      <span>秩差权重 α：<output id="iching-alpha-value">2.0</output></span>
+      <input id="iching-alpha" type="range" min="0" max="3" step="0.1" value="2" />
+    </label>
+
+    <label>
+      <span>爻变距离权重 β：<output id="iching-beta-value">1.0</output></span>
+      <input id="iching-beta" type="range" min="0.1" max="3" step="0.1" value="1" />
+    </label>
+  </div>
+
+  <div class="orbit-grid" id="iching-orbit" aria-label="所选卦的错综轨道"></div>
+
+  <div class="matching-panel">
+    <div class="matching-title-row">
+      <h4>从所选卦出发的候选边</h4>
+      <p>能量 = α × 权重差 + β × 汉明距离</p>
+    </div>
+    <div class="matching-table-wrap">
+      <table class="matching-table">
+        <thead>
+          <tr>
+            <th scope="col">变换</th>
+            <th scope="col">伙伴</th>
+            <th scope="col">权重</th>
+            <th scope="col">距离</th>
+            <th scope="col">能量</th>
+            <th scope="col">判定</th>
+          </tr>
+        </thead>
+        <tbody id="iching-matching-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const root = document.getElementById('iching-sequence-explorer');
+    if (!root || root.dataset.ready === 'true') return;
+    root.dataset.ready = 'true';
+
+    const hexagrams = JSON.parse(root.dataset.hexagrams || '[]');
+    const byCode = new Map(hexagrams.map((item) => [item.code, item]));
+    const mask = 0b111111;
+
+    const trigram = new Map([
+      [0, { name: '坤', family: '阴族', age: 3, ageName: '父母' }],
+      [1, { name: '震', family: '阳族', age: 2, ageName: '长' }],
+      [2, { name: '坎', family: '阳族', age: 1, ageName: '中' }],
+      [3, { name: '兑', family: '阴族', age: 0, ageName: '少' }],
+      [4, { name: '艮', family: '阳族', age: 0, ageName: '少' }],
+      [5, { name: '离', family: '阴族', age: 1, ageName: '中' }],
+      [6, { name: '巽', family: '阴族', age: 2, ageName: '长' }],
+      [7, { name: '乾', family: '阳族', age: 3, ageName: '父母' }],
+    ]);
+
+    const select = root.querySelector('#iching-hexagram-select');
+    const alphaInput = root.querySelector('#iching-alpha');
+    const betaInput = root.querySelector('#iching-beta');
+    const alphaValue = root.querySelector('#iching-alpha-value');
+    const betaValue = root.querySelector('#iching-beta-value');
+    const orbitRoot = root.querySelector('#iching-orbit');
+    const matchingBody = root.querySelector('#iching-matching-body');
+    const summary = root.querySelector('#iching-summary');
+
+    if (!select || !alphaInput || !betaInput || !alphaValue || !betaValue ||
+        !orbitRoot || !matchingBody || !summary) return;
+
+    const comp = (x) => x ^ mask;
+
+    const rev = (x) => {
+      let y = 0;
+      for (let i = 0; i < 6; i += 1) {
+        y |= ((x >> i) & 1) << (5 - i);
+      }
+      return y;
+    };
+
+    const cr = (x) => comp(rev(x));
+
+    const weight = (x) => {
+      let count = 0;
+      for (let y = x; y !== 0; y >>>= 1) count += y & 1;
+      return count;
+    };
+
+    const distance = (x, y) => weight(x ^ y);
+
+    const bits = (x) => Array.from(
+      { length: 6 },
+      (_, i) => String((x >> i) & 1),
+    ).join('');
+
+    const hexagramLines = (x) => bits(x)
+      .split('')
+      .reverse()
+      .map((bit) => `<span class="hex-line ${bit === '1' ? 'yang' : 'yin'}"></span>`)
+      .join('');
+
+    const dataFor = (x) => {
+      const lower = trigram.get(x & 0b111);
+      const upper = trigram.get((x >> 3) & 0b111);
+      const isMain = lower.age === upper.age;
+      const relation = lower.family === upper.family ? '类合' : '应合';
+      let exchange = '';
+      if (relation === '应合') {
+        exchange = lower.family === '阳族' ? '·得交' : '·失交';
+      }
+      return { lower, upper, isMain, relation, exchange };
+    };
+
+    const transformLabels = (origin, target) => {
+      const labels = [];
+      if (target === origin) labels.push('原卦');
+      if (target === comp(origin)) labels.push('错 c');
+      if (target === rev(origin)) labels.push('综 r');
+      if (target === cr(origin)) labels.push('错综 cr');
+      return labels.join('＝');
+    };
+
+    const render = () => {
+      const x = Number(select.value);
+      const alpha = Number(alphaInput.value);
+      const beta = Number(betaInput.value);
+      const selected = byCode.get(x);
+      const receivedCode = rev(x) === x ? comp(x) : rev(x);
+
+      alphaValue.value = alpha.toFixed(1);
+      betaValue.value = beta.toFixed(1);
+
+      const members = [...new Set([x, comp(x), rev(x), cr(x)])];
+      orbitRoot.innerHTML = members.map((member) => {
+        const item = byCode.get(member);
+        const relation = dataFor(member);
+        const classes = [
+          'orbit-card',
+          member === x ? 'is-selected' : '',
+          member === receivedCode ? 'is-received' : '',
+        ].filter(Boolean).join(' ');
+        return `
+          <article class="${classes}">
+            <div class="orbit-card-topline">
+              <span class="transform-label">${transformLabels(x, member)}</span>
+              <span class="sequence-index">第 ${item.index} 卦</span>
+            </div>
+            <div class="hexagram-identity">
+              <div class="hexagram-lines" aria-label="${item.name}卦卦象">
+                ${hexagramLines(member)}
+              </div>
+              <div>
+                <strong>${item.name}</strong>
+                <code>${bits(member)}</code>
+              </div>
+            </div>
+            <p>权重 ${weight(member)} · ${relation.isMain ? '主卦' : '散卦'} · ${relation.relation}${relation.exchange}</p>
+            <p>下${relation.lower.name}（${relation.lower.ageName}）· 上${relation.upper.name}（${relation.upper.ageName}）</p>
+          </article>
+        `;
+      }).join('');
+
+      const candidatesByPartner = new Map();
+      [
+        { op: '错 c', partner: comp(x) },
+        { op: '综 r', partner: rev(x) },
+        { op: '错综 cr', partner: cr(x) },
+      ].forEach((candidate) => {
+        if (candidate.partner === x) return;
+        const old = candidatesByPartner.get(candidate.partner);
+        if (old) {
+          old.op += `＝${candidate.op}`;
+        } else {
+          candidatesByPartner.set(candidate.partner, { ...candidate });
+        }
+      });
+
+      const candidates = [...candidatesByPartner.values()].map((candidate) => {
+        const w1 = weight(x);
+        const w2 = weight(candidate.partner);
+        const d = distance(x, candidate.partner);
+        const energy = alpha * Math.abs(w1 - w2) + beta * d;
+        return { ...candidate, w1, w2, d, energy };
+      });
+
+      const minimum = Math.min(...candidates.map((candidate) => candidate.energy));
+      matchingBody.innerHTML = candidates.map((candidate) => {
+        const item = byCode.get(candidate.partner);
+        const isReceived = candidate.partner === receivedCode;
+        const isMinimum = Math.abs(candidate.energy - minimum) < 1e-9;
+        const verdict = [
+          isReceived ? '通行本' : '',
+          isMinimum ? '能量最低' : '',
+        ].filter(Boolean).join('；') || '候选';
+        return `
+          <tr class="${isReceived ? 'is-received' : ''}">
+            <th scope="row">${candidate.op}</th>
+            <td>${item.name}</td>
+            <td>${candidate.w1}→${candidate.w2}</td>
+            <td>${candidate.d}</td>
+            <td>${candidate.energy.toFixed(1)}</td>
+            <td>${verdict}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const relation = dataFor(x);
+      const received = byCode.get(receivedCode);
+      summary.textContent = `${selected.name}：下${relation.lower.name}上${relation.upper.name}，` +
+        `${relation.isMain ? '主卦' : '散卦'}，${members.length} 元轨道；` +
+        `通行本配 ${received.name}。`;
+    };
+
+    select.addEventListener('change', render);
+    alphaInput.addEventListener('input', render);
+    betaInput.addEventListener('input', render);
+    render();
+  })();
+</script>
+
+<style>
+  .iching-explorer {
+    --lab-accent: #d6a84b;
+    --lab-accent-soft: rgba(214, 168, 75, 0.14);
+    --lab-cyan: #58c4c8;
+    --lab-cyan-soft: rgba(88, 196, 200, 0.12);
+    margin: 2.25rem 0;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(88, 196, 200, 0.08), transparent 34%),
+      radial-gradient(circle at 0% 100%, rgba(214, 168, 75, 0.08), transparent 30%),
+      rgba(15, 23, 42, 0.52);
+    color: inherit;
+  }
+
+  .explorer-heading,
+  .matching-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.25rem;
+    color: var(--lab-accent);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  h3,
+  h4,
+  p {
+    margin-top: 0;
+  }
+
+  h3 {
+    margin-bottom: 0;
+    font-size: clamp(1.15rem, 3vw, 1.45rem);
+  }
+
+  h4 {
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  .explorer-summary {
+    max-width: 24rem;
+    margin-bottom: 0;
+    color: #cbd5e1;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.84rem;
+    text-align: right;
+  }
+
+  .explorer-controls {
+    display: grid;
+    grid-template-columns: minmax(10rem, 1.2fr) repeat(2, minmax(9rem, 1fr));
+    gap: 0.85rem;
+    margin: 1.25rem 0;
+  }
+
+  .explorer-controls label {
+    display: grid;
+    gap: 0.4rem;
+    color: #cbd5e1;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.78rem;
+  }
+
+  .explorer-controls select {
+    min-height: 2.35rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.55rem;
+    background: #111827;
+    color: #f8fafc;
+  }
+
+  .explorer-controls input[type='range'] {
+    width: 100%;
+    accent-color: var(--lab-accent);
+  }
+
+  .orbit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .orbit-card {
+    min-width: 0;
+    padding: 0.8rem;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 0.75rem;
+    background: rgba(15, 23, 42, 0.72);
+  }
+
+  .orbit-card.is-selected {
+    border-color: var(--lab-accent);
+    background: var(--lab-accent-soft);
+  }
+
+  .orbit-card.is-received {
+    box-shadow: inset 0 -3px 0 var(--lab-cyan);
+  }
+
+  .orbit-card-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: #94a3b8;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.68rem;
+  }
+
+  .transform-label {
+    color: var(--lab-accent);
+  }
+
+  .hexagram-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .hexagram-identity strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+  }
+
+  .hexagram-identity code {
+    color: #cbd5e1;
+    font-size: 0.72rem;
+  }
+
+  .hexagram-lines {
+    display: grid;
+    flex: 0 0 2.7rem;
+    gap: 0.23rem;
+    color: #f8fafc;
+  }
+
+  .hex-line {
+    display: block;
+    width: 2.7rem;
+    height: 0.22rem;
+  }
+
+  .hex-line.yang {
+    background: currentColor;
+  }
+
+  .hex-line.yin {
+    background: linear-gradient(
+      to right,
+      currentColor 0 41%,
+      transparent 41% 59%,
+      currentColor 59% 100%
+    );
+  }
+
+  .orbit-card p {
+    margin-bottom: 0.2rem;
+    color: #cbd5e1;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .matching-panel {
+    margin-top: 1.2rem;
+  }
+
+  .matching-title-row {
+    align-items: baseline;
+    margin-bottom: 0.55rem;
+  }
+
+  .matching-title-row p {
+    margin-bottom: 0;
+    color: #94a3b8;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.72rem;
+  }
+
+  .matching-table-wrap {
+    overflow-x: auto;
+  }
+
+  .matching-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.78rem;
+  }
+
+  .matching-table th,
+  .matching-table td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .matching-table thead th {
+    color: #94a3b8;
+    font-weight: 600;
+  }
+
+  .matching-table tbody tr.is-received {
+    background: var(--lab-cyan-soft);
+  }
+
+  .matching-table tbody th {
+    color: var(--lab-accent);
+  }
+
+  @media (max-width: 760px) {
+    .explorer-heading,
+    .matching-title-row {
+      display: grid;
+    }
+
+    .explorer-summary {
+      max-width: none;
+      text-align: left;
+    }
+
+    .explorer-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .orbit-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 430px) {
+    .orbit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -11,7 +11,7 @@ tags:
   - 中国逻辑史
   - 分析哲学
 series: 中国逻辑史
-draft: false
+draft: true
 featured: false
 translationKey: jin-yuelin-induction-russell-reassessment
 translationStatus: original

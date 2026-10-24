@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="760" viewBox="0 0 1040 760" role="img" aria-labelledby="title desc">
+  <title id="title">八卦的阴阳族与父母长中少坐标</title>
+  <desc id="desc">八卦按阳族和阴族分成两列，按父母、长、中、少分成四个序级；内外卦序级相同时形成十六主卦。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#14243c"/>
+    </linearGradient>
+    <style>
+      .title{font:700 34px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .subtitle{font:400 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#b7c7d9}
+      .head{font:700 22px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .rho{font:700 20px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#d6a84b}
+      .name{font:700 32px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#f8fafc}
+      .glyph{font:400 54px "Noto Sans Symbols 2","Segoe UI Symbol",serif;fill:#f8fafc}
+      .bits{font:500 17px ui-monospace,SFMono-Regular,Consolas,monospace;fill:#cbd5e1}
+      .role{font:400 18px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#b7c7d9}
+      .formula{font:700 23px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#dbe6f2}
+      .note{font:400 17px ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;fill:#aebed0}
+    </style>
+  </defs>
+  <rect width="1040" height="760" rx="26" fill="url(#bg)"/>
+  <text x="54" y="62" class="title">八卦不是八个散点，而是 2 × 4 的有序坐标</text>
+  <text x="54" y="96" class="subtitle">σ 表示阴阳族，ρ 表示父母、长、中、少的序级</text>
+
+  <text x="175" y="148" text-anchor="middle" class="head">序级 ρ</text>
+  <rect x="270" y="118" width="315" height="50" rx="14" fill="#174a59"/>
+  <text x="427.5" y="151" text-anchor="middle" class="head">阳族　σ = ＋</text>
+  <rect x="605" y="118" width="315" height="50" rx="14" fill="#4a2f43"/>
+  <text x="762.5" y="151" text-anchor="middle" class="head">阴族　σ = －</text>
+
+  <g transform="translate(0 185)">
+    <rect x="105" y="0" width="130" height="102" rx="16" fill="#172a44"/>
+    <text x="170" y="43" text-anchor="middle" class="rho">3</text>
+    <text x="170" y="72" text-anchor="middle" class="role">父母</text>
+    <rect x="270" y="0" width="315" height="102" rx="16" fill="#153848" stroke="#2e6170"/>
+    <text x="315" y="64" class="glyph">☰</text>
+    <text x="390" y="46" class="name">乾</text>
+    <text x="390" y="75" class="bits">111 · 父</text>
+    <rect x="605" y="0" width="315" height="102" rx="16" fill="#3b2940" stroke="#68445f"/>
+    <text x="650" y="64" class="glyph">☷</text>
+    <text x="725" y="46" class="name">坤</text>
+    <text x="725" y="75" class="bits">000 · 母</text>
+  </g>
+  <g transform="translate(0 299)">
+    <rect x="105" y="0" width="130" height="102" rx="16" fill="#172a44"/>
+    <text x="170" y="43" text-anchor="middle" class="rho">2</text>
+    <text x="170" y="72" text-anchor="middle" class="role">长</text>
+    <rect x="270" y="0" width="315" height="102" rx="16" fill="#153848" stroke="#2e6170"/>
+    <text x="315" y="64" class="glyph">☳</text>
+    <text x="390" y="46" class="name">震</text>
+    <text x="390" y="75" class="bits">100 · 长男</text>
+    <rect x="605" y="0" width="315" height="102" rx="16" fill="#3b2940" stroke="#68445f"/>
+    <text x="650" y="64" class="glyph">☴</text>
+    <text x="725" y="46" class="name">巽</text>
+    <text x="725" y="75" class="bits">011 · 长女</text>
+  </g>
+  <g transform="translate(0 413)">
+    <rect x="105" y="0" width="130" height="102" rx="16" fill="#172a44"/>
+    <text x="170" y="43" text-anchor="middle" class="rho">1</text>
+    <text x="170" y="72" text-anchor="middle" class="role">中</text>
+    <rect x="270" y="0" width="315" height="102" rx="16" fill="#153848" stroke="#2e6170"/>
+    <text x="315" y="64" class="glyph">☵</text>
+    <text x="390" y="46" class="name">坎</text>
+    <text x="390" y="75" class="bits">010 · 中男</text>
+    <rect x="605" y="0" width="315" height="102" rx="16" fill="#3b2940" stroke="#68445f"/>
+    <text x="650" y="64" class="glyph">☲</text>
+    <text x="725" y="46" class="name">离</text>
+    <text x="725" y="75" class="bits">101 · 中女</text>
+  </g>
+  <g transform="translate(0 527)">
+    <rect x="105" y="0" width="130" height="102" rx="16" fill="#172a44"/>
+    <text x="170" y="43" text-anchor="middle" class="rho">0</text>
+    <text x="170" y="72" text-anchor="middle" class="role">少</text>
+    <rect x="270" y="0" width="315" height="102" rx="16" fill="#153848" stroke="#2e6170"/>
+    <text x="315" y="64" class="glyph">☶</text>
+    <text x="390" y="46" class="name">艮</text>
+    <text x="390" y="75" class="bits">001 · 少男</text>
+    <rect x="605" y="0" width="315" height="102" rx="16" fill="#3b2940" stroke="#68445f"/>
+    <text x="650" y="64" class="glyph">☱</text>
+    <text x="725" y="46" class="name">兑</text>
+    <text x="725" y="75" class="bits">110 · 少女</text>
+  </g>
+
+  <rect x="105" y="662" width="815" height="56" rx="16" fill="#172a44" stroke="#334b65"/>
+  <text x="512.5" y="697" text-anchor="middle" class="formula">主卦条件：ρ（下卦）＝ρ（上卦）　⇒　4 × 4 ＝ 16 卦</text>
+  <text x="512.5" y="744" text-anchor="middle" class="note">同族为类合，异族为应合；内阳外阴为得交，内阴外阳为失交。</text>
+</svg>
