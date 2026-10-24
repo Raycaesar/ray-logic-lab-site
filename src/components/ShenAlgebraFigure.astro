@@ -1,0 +1,565 @@
+---
+interface Props {
+  kind: 'lineage' | 'laws' | 'calculation' | 's4s5';
+}
+
+const { kind } = Astro.props;
+---
+
+{
+  kind === 'lineage' && (
+    <figure class="algebra-figure history-lineage">
+      <div
+        class="history-lineage__track"
+        role="img"
+        aria-label="从库拉托夫斯基的闭包公理，经贝克尔、沈有鼎、汤璪真和麦金西，到麦金西与塔斯基闭包代数表征的时间线"
+      >
+        <div class="history-event">
+          <strong>1922</strong>
+          <span>库拉托夫斯基</span>
+          <small>四条闭包律</small>
+        </div>
+        <div class="history-event">
+          <strong>1930</strong>
+          <span>贝克尔</span>
+          <small>C10、C11、C12</small>
+        </div>
+        <div class="history-event is-highlighted">
+          <strong>1932</strong>
+          <span>刘易斯记录沈有鼎证明</span>
+          <small>C10 + C12 ⊢ C11</small>
+        </div>
+        <div class="history-event">
+          <strong>1938</strong>
+          <span>汤璪真</span>
+          <small>布尔环与点集解释</small>
+        </div>
+        <div class="history-event is-highlighted">
+          <strong>1941</strong>
+          <span>麦金西</span>
+          <small>C10.1 → **a = *a</small>
+        </div>
+        <div class="history-event">
+          <strong>1944–1948</strong>
+          <span>麦金西—塔斯基</span>
+          <small>闭包代数中的 S4 与 S5</small>
+        </div>
+      </div>
+      <figcaption>
+        图 1　同一组形式对象经历了三次“换语言”：从严格蕴涵的句法公理，转入矩阵和拓扑算子，最后成为闭包代数的结构条件。
+      </figcaption>
+    </figure>
+  )
+}
+
+{
+  kind === 'laws' && (
+    <figure class="algebra-figure closure-laws">
+      <div
+        class="closure-laws__diagram"
+        role="img"
+        aria-label="库拉托夫斯基四条闭包律与刘易斯系统中相应公式的对应图"
+      >
+        <div class="diagram-heading">闭包算子 C 的四条律</div>
+        <div class="diagram-heading">刘易斯演算中的对应来源</div>
+
+        <div class="law-node">
+          <span class="law-node__number">I</span>
+          <strong>C(a ∨ b) = Ca ∨ Cb</strong>
+          <small>保持有限并</small>
+        </div>
+        <div class="correspondence-arrow" aria-hidden="true">→</div>
+        <div class="law-source">
+          <strong>◇(p ∨ q) ≡ₛ ◇p ∨ ◇q</strong>
+          <small>S2，命题 19.82</small>
+        </div>
+
+        <div class="law-node">
+          <span class="law-node__number">II</span>
+          <strong>a ≤ Ca</strong>
+          <small>扩张性</small>
+        </div>
+        <div class="correspondence-arrow" aria-hidden="true">→</div>
+        <div class="law-source">
+          <strong>p ≺ ◇p</strong>
+          <small>S1，命题 18.4</small>
+        </div>
+
+        <div class="law-node">
+          <span class="law-node__number">III</span>
+          <strong>C0 = 0</strong>
+          <small>空元素保持</small>
+        </div>
+        <div class="correspondence-arrow" aria-hidden="true">→</div>
+        <div class="law-source">
+          <strong>◇(p · ¬p) ≡ₛ p · ¬p</strong>
+          <small>S4，麦金西定理 7、9</small>
+        </div>
+
+        <div class="law-node is-highlighted">
+          <span class="law-node__number">IV</span>
+          <strong>CCa = Ca</strong>
+          <small>幂等性</small>
+        </div>
+        <div class="correspondence-arrow is-highlighted" aria-hidden="true">→</div>
+        <div class="law-source is-highlighted">
+          <strong>◇◇p ≡ₛ ◇p</strong>
+          <small>C10.1b：沈证明中的关键中间式</small>
+        </div>
+      </div>
+      <figcaption>
+        图 2　这张表是回顾性的对应，不是说刘易斯或沈有鼎当时已经在使用闭包代数。真正关键的是第四行：1932 年证明中的迭代可能性压缩，到 1941 年成为算子幂等律。
+      </figcaption>
+    </figure>
+  )
+}
+
+{
+  kind === 'calculation' && (
+    <figure class="algebra-figure algebra-calculation">
+      <div
+        class="algebra-calculation__flow"
+        role="img"
+        aria-label="沈有鼎句法证明在闭包代数中的三步对应：把 C12 应用于闭包元素，再用闭包幂等性得到 C11"
+      >
+        <div class="calculation-node">
+          <span class="calculation-node__label">C12 / 公理 B</span>
+          <strong>a ≤ I(Ca)</strong>
+          <small>任意元素 a 都位于其闭包的内部</small>
+        </div>
+        <div class="calculation-arrow" aria-hidden="true">
+          <span>代入 a := Ca</span>
+          <b>↓</b>
+        </div>
+        <div class="calculation-node">
+          <span class="calculation-node__label">模态化代入</span>
+          <strong>Ca ≤ I(CCa)</strong>
+          <small>这正对应把 ◇p 代入 C12</small>
+        </div>
+        <div class="calculation-arrow" aria-hidden="true">
+          <span>用 C10.1b：CCa = Ca</span>
+          <b>↓</b>
+        </div>
+        <div class="calculation-node is-result">
+          <span class="calculation-node__label">C11 / 公理 5</span>
+          <strong>Ca ≤ I(Ca)</strong>
+          <small>每个闭元素也都是开元素</small>
+        </div>
+      </div>
+      <figcaption>
+        图 3　沈有鼎证明的代数镜像。句法里是“把 C12 用到 ◇p，再消去 ◇◇”；代数里是“把不等式用到 Ca，再用 CCa = Ca”。
+      </figcaption>
+    </figure>
+  )
+}
+
+{
+  kind === 's4s5' && (
+    <figure class="algebra-figure s4-s5-figure">
+      <div class="s4-s5-grid">
+        <section class="topology-panel" aria-labelledby="s4-panel-title">
+          <h4 id="s4-panel-title">S4：一般闭包代数</h4>
+          <svg
+            viewBox="0 0 360 230"
+            role="img"
+            aria-labelledby="s4-svg-title s4-svg-desc"
+          >
+            <title id="s4-svg-title">一般闭包元素及其内部</title>
+            <desc id="s4-svg-desc">
+              闭包 Ca 是较大的不规则区域，内部 I(Ca) 是其中较小的区域，二者通常不相等。
+            </desc>
+            <path
+              class="set-boundary closure-boundary"
+              d="M46,119 C41,54 103,30 160,50 C213,18 315,49 316,116 C346,170 273,211 210,190 C158,216 63,191 46,119 Z"
+            />
+            <path
+              class="set-boundary interior-boundary"
+              d="M100,122 C95,82 137,69 174,79 C210,61 269,86 263,127 C276,159 225,176 190,161 C150,177 105,159 100,122 Z"
+            />
+            <text x="54" y="72" class="svg-label">Ca（闭元素）</text>
+            <text x="146" y="124" class="svg-label">I(Ca)</text>
+            <text x="92" y="211" class="svg-note">通常只有 I(Ca) ≤ Ca</text>
+          </svg>
+          <p>允许闭元素的内部只是它自身的一部分。</p>
+        </section>
+
+        <section class="topology-panel is-s5" aria-labelledby="s5-panel-title">
+          <h4 id="s5-panel-title">S5：闭元素同时是开元素</h4>
+          <svg
+            viewBox="0 0 360 230"
+            role="img"
+            aria-labelledby="s5-svg-title s5-svg-desc"
+          >
+            <title id="s5-svg-title">闭包元素与其内部重合</title>
+            <desc id="s5-svg-desc">
+              闭包 Ca 与内部 I(Ca) 使用同一条边界，表示二者相等。
+            </desc>
+            <path
+              class="set-boundary closure-boundary"
+              d="M46,119 C41,54 103,30 160,50 C213,18 315,49 316,116 C346,170 273,211 210,190 C158,216 63,191 46,119 Z"
+            />
+            <path
+              class="set-boundary equality-boundary"
+              d="M46,119 C41,54 103,30 160,50 C213,18 315,49 316,116 C346,170 273,211 210,190 C158,216 63,191 46,119 Z"
+            />
+            <text x="92" y="111" class="svg-label">Ca = I(Ca)</text>
+            <text x="83" y="211" class="svg-note">闭元素全部也是开元素</text>
+          </svg>
+          <p>C11 强迫 Ca ≤ I(Ca)，与恒有的 I(Ca) ≤ Ca 合起来即得相等。</p>
+        </section>
+      </div>
+      <figcaption>
+        图 4　麦金西与塔斯基 1948 年表征的直观区别：S4 面向全部闭包代数；S5 面向其中每个闭元素都同时是开元素的那一类。
+      </figcaption>
+    </figure>
+  )
+}
+
+<style>
+  .algebra-figure {
+    margin: 2rem 0;
+    padding: clamp(0.9rem, 3vw, 1.35rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(15, 23, 42, 0.7);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  }
+
+  .algebra-figure figcaption {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .history-lineage__track {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .history-lineage__track::before {
+    position: absolute;
+    top: 2.2rem;
+    right: 3%;
+    left: 3%;
+    height: 2px;
+    background: var(--line);
+    content: '';
+  }
+
+  .history-event {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: auto 1rem auto auto;
+    align-content: start;
+    gap: 0.15rem;
+    min-width: 0;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .history-event::after {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin: 0.28rem auto 0.5rem;
+    border: 2px solid var(--background);
+    border-radius: 999px;
+    background: var(--link);
+    box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.35);
+    content: '';
+    grid-row: 2;
+  }
+
+  .history-event.is-highlighted::after {
+    background: var(--accent);
+    box-shadow: 0 0 0 2px rgba(246, 199, 111, 0.4);
+  }
+
+  .history-event strong {
+    grid-row: 1;
+    color: var(--accent-strong);
+    font-family: system-ui, sans-serif;
+    font-size: 0.92rem;
+  }
+
+  .history-event span {
+    grid-row: 3;
+    color: var(--text);
+    font-weight: 750;
+    line-height: 1.35;
+  }
+
+  .history-event small {
+    grid-row: 4;
+    font-family: system-ui, sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .closure-laws__diagram {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: stretch;
+  }
+
+  .diagram-heading {
+    padding-bottom: 0.5rem;
+    color: var(--accent-strong);
+    font-family: system-ui, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .diagram-heading:first-child {
+    grid-column: 1;
+  }
+
+  .diagram-heading:nth-child(2) {
+    grid-column: 3;
+  }
+
+  .law-node,
+  .law-source {
+    position: relative;
+    display: grid;
+    align-content: center;
+    gap: 0.22rem;
+    min-width: 0;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.58);
+  }
+
+  .law-node.is-highlighted,
+  .law-source.is-highlighted {
+    border-color: rgba(246, 199, 111, 0.65);
+    background: rgba(246, 199, 111, 0.08);
+  }
+
+  .law-node strong,
+  .law-source strong,
+  .calculation-node strong {
+    overflow-wrap: anywhere;
+    color: var(--text);
+    font-family:
+      "STIX Two Math",
+      "Cambria Math",
+      "Times New Roman",
+      serif;
+    font-size: clamp(1.02rem, 3vw, 1.25rem);
+    line-height: 1.35;
+  }
+
+  .law-node small,
+  .law-source small,
+  .calculation-node small {
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .law-node__number {
+    position: absolute;
+    top: 0.42rem;
+    right: 0.48rem;
+    color: var(--accent);
+    font-family: system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  .correspondence-arrow {
+    display: grid;
+    place-items: center;
+    color: var(--link);
+    font-family: system-ui, sans-serif;
+    font-size: 1.35rem;
+  }
+
+  .correspondence-arrow.is-highlighted {
+    color: var(--accent);
+  }
+
+  .algebra-calculation__flow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: center;
+  }
+
+  .calculation-node {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(30, 41, 59, 0.58);
+    text-align: center;
+  }
+
+  .calculation-node.is-result {
+    border-color: rgba(246, 199, 111, 0.68);
+    background: rgba(246, 199, 111, 0.09);
+  }
+
+  .calculation-node__label {
+    color: var(--accent-strong);
+    font-family: system-ui, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .calculation-arrow {
+    display: grid;
+    gap: 0.18rem;
+    justify-items: center;
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  .calculation-arrow b {
+    color: var(--link);
+    font-size: 1.35rem;
+    transform: rotate(-90deg);
+  }
+
+  .s4-s5-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .topology-panel {
+    min-width: 0;
+    padding: 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(30, 41, 59, 0.48);
+  }
+
+  .topology-panel.is-s5 {
+    border-color: rgba(246, 199, 111, 0.54);
+  }
+
+  .topology-panel h4 {
+    margin: 0 0 0.4rem;
+    color: var(--accent-strong);
+    font-family: system-ui, sans-serif;
+    font-size: 0.96rem;
+  }
+
+  .topology-panel svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .topology-panel p {
+    margin: 0;
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .set-boundary {
+    vector-effect: non-scaling-stroke;
+  }
+
+  .closure-boundary {
+    fill: rgba(147, 197, 253, 0.13);
+    stroke: var(--link);
+    stroke-width: 3;
+  }
+
+  .interior-boundary {
+    fill: rgba(246, 199, 111, 0.16);
+    stroke: var(--accent);
+    stroke-width: 2.5;
+  }
+
+  .equality-boundary {
+    fill: rgba(246, 199, 111, 0.11);
+    stroke: var(--accent);
+    stroke-dasharray: 7 5;
+    stroke-width: 2;
+  }
+
+  .svg-label {
+    fill: var(--text);
+    font-family: system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .svg-note {
+    fill: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 15px;
+  }
+
+  @media (max-width: 760px) {
+    .history-lineage__track {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .history-lineage__track::before {
+      display: none;
+    }
+
+    .history-event {
+      grid-template-rows: auto;
+      padding: 0.7rem;
+      border-left: 2px solid var(--line);
+      text-align: left;
+    }
+
+    .history-event::after {
+      display: none;
+    }
+
+    .history-event strong,
+    .history-event span,
+    .history-event small {
+      grid-row: auto;
+    }
+
+    .algebra-calculation__flow {
+      grid-template-columns: 1fr;
+    }
+
+    .calculation-arrow b {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .closure-laws__diagram {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .diagram-heading {
+      display: none;
+    }
+
+    .correspondence-arrow {
+      transform: rotate(90deg);
+    }
+
+    .s4-s5-grid,
+    .history-lineage__track {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

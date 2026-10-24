@@ -1,0 +1,523 @@
+---
+const stages = [
+  {
+    title: '从 C10 得到单向压缩',
+    shortTitle: 'C10 压缩',
+    steps: [
+      {
+        formula: '¬◇¬p ≺ ¬◇¬¬◇¬p',
+        reason: 'C10',
+        note: '从贝克尔的 C10 出发。这里的 ≺ 是刘易斯的严格蕴涵。',
+      },
+      {
+        formula: '¬¬◇¬¬◇¬p ≺ ◇¬p',
+        reason: '反置律与严格等价替换',
+        note: '应用刘易斯命题 12.2，并在定理内部替换严格等价式。',
+      },
+      {
+        formula: '◇¬¬◇¬p ≺ ◇¬p',
+        reason: '双重否定',
+        note: '用命题 12.3 消去外层双重否定。',
+      },
+      {
+        formula: '◇◇¬p ≺ ◇¬p',
+        reason: '双重否定',
+        note: '继续在模态语境内部替换严格等价项。',
+      },
+      {
+        formula: '◇◇¬¬p ≺ ◇¬¬p',
+        reason: '一致替换 [¬p/p]',
+        note: '把上一行中的命题变元统一替换为 ¬p。',
+      },
+      {
+        formula: '◇◇p ≺ ◇¬¬p',
+        reason: '双重否定',
+        note: '把左侧的 ¬¬p 换回 p。',
+      },
+      {
+        formula: '◇◇p ≺ ◇p',
+        reason: '双重否定；C10.1a',
+        note: '得到迭代可能性的单向压缩。本文把它编辑性地记作 C10.1a。',
+      },
+    ],
+  },
+  {
+    title: '由 S1 的自返性得到反向',
+    shortTitle: '反向蕴涵',
+    steps: [
+      {
+        formula: 'p ≺ ◇p',
+        reason: '刘易斯命题 18.4',
+        note: '这不是额外假设，而是 S1 中已经证明的前置定理。完整句法重构相当长。',
+      },
+      {
+        formula: '◇p ≺ ◇◇p',
+        reason: '一致替换 [◇p/p]',
+        note: '把命题 18.4 中的 p 整体换成 ◇p。',
+      },
+    ],
+  },
+  {
+    title: '合成关键严格等价式',
+    shortTitle: 'C10.1b',
+    steps: [
+      {
+        formula: '(◇◇p ≺ ◇p) · (◇p ≺ ◇◇p)',
+        reason: '联立规则 Ad',
+        note: '把两个方向合取起来。',
+      },
+      {
+        formula: '◇◇p ≡ₛ ◇p',
+        reason: '严格等价定义；C10.1b',
+        note: '这是最终替换真正需要的双向结果。刘易斯把单向式和等价式都列在 C10.1 下。',
+      },
+    ],
+  },
+  {
+    title: '把 C12 用到模态化命题上',
+    shortTitle: '代入 C12',
+    steps: [
+      {
+        formula: 'p ≺ ¬◇¬◇p',
+        reason: 'C12',
+        note: 'C12 是后来所谓公理 B 的严格蕴涵形式。',
+      },
+      {
+        formula: '◇p ≺ ¬◇¬◇◇p',
+        reason: '一致替换 [◇p/p]',
+        note: '关键动作：不是把 C12 用在 p 上，而是用在 ◇p 上。于是右侧多出一层 ◇。',
+      },
+    ],
+  },
+  {
+    title: '在嵌套模态中消去多余的一层',
+    shortTitle: '得到 C11',
+    steps: [
+      {
+        formula: '◇p ≺ ¬◇¬◇◇p',
+        reason: '承接上一行',
+        note: '现在只剩下一个障碍：最内层的 ◇◇p。',
+      },
+      {
+        formula: '◇p ≺ ¬◇¬◇p',
+        reason: 'C10.1b 与规则 Sb；C11',
+        note: '在嵌套的模态语境中，以 ◇p 替换严格等价的 ◇◇p。所得公式正是 C11。',
+      },
+    ],
+  },
+];
+
+const steps = stages.flatMap((stage, stageIndex) =>
+  stage.steps.map((step) => ({
+    ...step,
+    stageIndex,
+    stageTitle: stage.title,
+  })),
+);
+---
+
+<section
+  class="proof-explorer"
+  data-shen-proof
+  aria-labelledby="shen-proof-heading"
+>
+  <header class="proof-explorer__header">
+    <p class="proof-explorer__eyebrow">可交互句法证明</p>
+    <h3 id="shen-proof-heading">点击按钮，逐行重走沈有鼎的证明</h3>
+    <p>
+      共 {steps.length} 行，分成 {stages.length} 个阶段。页面在没有 JavaScript 时会显示完整证明；启用脚本后，默认从第一行开始逐步展开。
+    </p>
+  </header>
+
+  <div class="proof-stage-strip" aria-label="证明阶段">
+    {
+      stages.map((stage, index) => (
+        <span
+          class="proof-stage"
+          data-proof-stage-marker={index}
+          data-stage-title={stage.title}
+        >
+          <span class="proof-stage__number">{index + 1}</span>
+          {stage.shortTitle}
+        </span>
+      ))
+    }
+  </div>
+
+  <ol class="proof-steps" data-proof-list>
+    {
+      steps.map((step, index) => (
+        <li
+          class="proof-step"
+          data-proof-step
+          data-stage-index={step.stageIndex}
+        >
+          <span class="proof-step__index" aria-hidden="true">
+            {index + 1}
+          </span>
+          <div class="proof-step__body">
+            <p class="proof-step__stage">{step.stageTitle}</p>
+            <p class="proof-step__formula">{step.formula}</p>
+            <p class="proof-step__reason">依据：{step.reason}</p>
+            <p class="proof-step__note">{step.note}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="proof-controls" aria-label="证明播放控制">
+    <button type="button" data-proof-prev>上一步</button>
+    <button type="button" class="is-primary" data-proof-next>下一步</button>
+    <button type="button" data-proof-toggle aria-pressed="false">显示全部</button>
+    <button type="button" data-proof-reset>重新开始</button>
+  </div>
+
+  <p class="proof-status" data-proof-status aria-live="polite">
+    完整证明共 {steps.length} 行。
+  </p>
+</section>
+
+<script>
+  const explorers = document.querySelectorAll('[data-shen-proof]');
+
+  explorers.forEach((explorer) => {
+    if (!(explorer instanceof HTMLElement)) return;
+    if (explorer.dataset.proofReady === 'true') return;
+
+    const proofSteps = Array.from(
+      explorer.querySelectorAll('[data-proof-step]'),
+    );
+    const stageMarkers = Array.from(
+      explorer.querySelectorAll('[data-proof-stage-marker]'),
+    );
+    const previousButton = explorer.querySelector('[data-proof-prev]');
+    const nextButton = explorer.querySelector('[data-proof-next]');
+    const toggleButton = explorer.querySelector('[data-proof-toggle]');
+    const resetButton = explorer.querySelector('[data-proof-reset]');
+    const status = explorer.querySelector('[data-proof-status]');
+
+    if (
+      !(previousButton instanceof HTMLButtonElement) ||
+      !(nextButton instanceof HTMLButtonElement) ||
+      !(toggleButton instanceof HTMLButtonElement) ||
+      !(resetButton instanceof HTMLButtonElement) ||
+      !(status instanceof HTMLElement) ||
+      proofSteps.length === 0
+    ) {
+      return;
+    }
+
+    let visibleCount = 1;
+    let showingAll = false;
+
+    const render = () => {
+      proofSteps.forEach((step, index) => {
+        if (!(step instanceof HTMLElement)) return;
+        const visible = showingAll || index < visibleCount;
+        step.hidden = !visible;
+        step.classList.toggle(
+          'is-current',
+          !showingAll && index === visibleCount - 1,
+        );
+      });
+
+      const currentStep = proofSteps[Math.max(visibleCount - 1, 0)];
+      const currentStage =
+        currentStep instanceof HTMLElement
+          ? Number(currentStep.dataset.stageIndex ?? 0)
+          : 0;
+
+      stageMarkers.forEach((marker, index) => {
+        if (!(marker instanceof HTMLElement)) return;
+        marker.classList.toggle('is-current', !showingAll && index === currentStage);
+        marker.classList.toggle('is-complete', showingAll || index < currentStage);
+        if (!showingAll && index === currentStage) {
+          marker.setAttribute('aria-current', 'step');
+        } else {
+          marker.removeAttribute('aria-current');
+        }
+      });
+
+      previousButton.disabled = showingAll || visibleCount <= 1;
+      nextButton.disabled = showingAll || visibleCount >= proofSteps.length;
+      toggleButton.setAttribute('aria-pressed', String(showingAll));
+      toggleButton.textContent = showingAll ? '返回逐步模式' : '显示全部';
+
+      if (showingAll) {
+        status.textContent = `已显示全部 ${proofSteps.length} 行。`;
+      } else {
+        const marker = stageMarkers[currentStage];
+        const stageTitle =
+          marker instanceof HTMLElement
+            ? marker.dataset.stageTitle ?? ''
+            : '';
+        status.textContent = `第 ${visibleCount} / ${proofSteps.length} 行 · ${stageTitle}`;
+      }
+    };
+
+    previousButton.addEventListener('click', () => {
+      visibleCount = Math.max(1, visibleCount - 1);
+      render();
+    });
+
+    nextButton.addEventListener('click', () => {
+      visibleCount = Math.min(proofSteps.length, visibleCount + 1);
+      render();
+    });
+
+    toggleButton.addEventListener('click', () => {
+      showingAll = !showingAll;
+      render();
+    });
+
+    resetButton.addEventListener('click', () => {
+      visibleCount = 1;
+      showingAll = false;
+      render();
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
+      explorer.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'nearest',
+      });
+    });
+
+    explorer.dataset.proofReady = 'true';
+    render();
+  });
+</script>
+
+<style>
+  .proof-explorer {
+    margin: 2rem 0;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(147, 197, 253, 0.12),
+        transparent 20rem
+      ),
+      rgba(15, 23, 42, 0.72);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+  }
+
+  .proof-explorer__header h3 {
+    margin: 0.15rem 0 0.6rem;
+    color: var(--text);
+    font-family:
+      Georgia,
+      "Times New Roman",
+      "Noto Serif SC",
+      serif;
+    font-size: clamp(1.3rem, 4vw, 1.75rem);
+  }
+
+  .proof-explorer__header p:last-child {
+    margin-bottom: 0;
+    color: var(--muted);
+  }
+
+  .proof-explorer__eyebrow {
+    margin: 0;
+    color: var(--accent);
+    font-family: system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .proof-stage-strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin: 1.25rem 0;
+  }
+
+  .proof-stage {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 750;
+    line-height: 1.25;
+  }
+
+  .proof-stage.is-current {
+    border-color: rgba(246, 199, 111, 0.7);
+    background: rgba(246, 199, 111, 0.11);
+    color: var(--accent-strong);
+  }
+
+  .proof-stage.is-complete {
+    border-color: rgba(147, 197, 253, 0.4);
+    color: var(--link);
+  }
+
+  .proof-stage__number {
+    display: grid;
+    width: 1.45rem;
+    height: 1.45rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(226, 232, 240, 0.08);
+  }
+
+  .proof-steps {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proof-step {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 0.9rem;
+    border-left: 3px solid rgba(147, 197, 253, 0.42);
+    background: rgba(30, 41, 59, 0.58);
+  }
+
+  .proof-step.is-current {
+    border-left-color: var(--accent);
+    background: rgba(246, 199, 111, 0.08);
+  }
+
+  .proof-step__index {
+    display: grid;
+    width: 1.8rem;
+    height: 1.8rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(147, 197, 253, 0.14);
+    color: var(--link);
+    font-family: system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .proof-step__body p {
+    margin: 0;
+  }
+
+  .proof-step__stage {
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 750;
+  }
+
+  .proof-step__formula {
+    overflow-wrap: anywhere;
+    color: var(--text);
+    font-family:
+      "STIX Two Math",
+      "Cambria Math",
+      "Times New Roman",
+      serif;
+    font-size: clamp(1.16rem, 4vw, 1.46rem);
+    line-height: 1.5;
+  }
+
+  .proof-step__reason {
+    color: var(--accent-strong);
+    font-family: system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 750;
+  }
+
+  .proof-step__note {
+    margin-top: 0.3rem !important;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .proof-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  .proof-controls button {
+    padding: 0.52rem 0.82rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-family: system-ui, sans-serif;
+    font-weight: 750;
+    cursor: pointer;
+  }
+
+  .proof-controls button:hover:not(:disabled),
+  .proof-controls button:focus-visible:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .proof-controls button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .proof-controls button.is-primary {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--background);
+  }
+
+  .proof-controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+  }
+
+  .proof-status {
+    margin: 0.8rem 0 0;
+    color: var(--muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 720px) {
+    .proof-stage-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 460px) {
+    .proof-stage-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-step {
+      grid-template-columns: 1.75rem minmax(0, 1fr);
+      gap: 0.55rem;
+      padding: 0.75rem;
+    }
+
+    .proof-controls button {
+      flex: 1 1 calc(50% - 0.65rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proof-explorer {
+      scroll-behavior: auto;
+    }
+  }
+</style>

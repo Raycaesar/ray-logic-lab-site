@@ -1,6 +1,7 @@
 // @ts-check
 
 import { defineConfig, fontProviders } from 'astro/config';
+import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
@@ -13,6 +14,7 @@ export default defineConfig({
   trailingSlash: 'always',
 
   integrations: [
+    mdx(),
     sitemap(),
   ],
 
