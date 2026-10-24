@@ -641,3 +641,51 @@ a:hover {
 }
 
 /* SUPPORT MODAL END */
+
+
+/* Blog tables: legible spacing and horizontal scrolling on narrow screens. */
+.article-content > table {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0 2rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: .95em;
+  line-height: 1.65;
+}
+.article-content > table th,
+.article-content > table td {
+  min-width: 7rem;
+  padding: .8rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--line);
+}
+.article-content > table th + th,
+.article-content > table th + td,
+.article-content > table td + td {
+  border-left: 1px solid var(--line);
+}
+.article-content > table thead th {
+  background: rgba(148, 163, 184, .12);
+}
+.article-content > table tbody tr:nth-child(even) {
+  background: rgba(148, 163, 184, .045);
+}
+.article-content .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: .35rem .1rem .55rem;
+}
+@media (max-width: 680px) {
+  .article-content > table { font-size: .9em; }
+  .article-content > table th,
+  .article-content > table td { padding: .65rem .75rem; }
+}

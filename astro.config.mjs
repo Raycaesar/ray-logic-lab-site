@@ -7,6 +7,20 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
+// Consistent math support in both Markdown and MDX, so authors can write
+// $...$ and $...$ directly without custom Astro math components.
+const mathOptions = {
+  remarkPlugins: [remarkMath],
+  rehypePlugins: [[rehypeKatex, {
+    throwOnError: false,
+    strict: 'ignore',
+    macros: {
+      '\\strictif': '\\prec',
+      '\\equive': '\\equiv_s',
+    },
+  }]],
+};
+
 export default defineConfig({
   // 部署到 Cloudflare 后，再替换为实际站点地址。
   site: 'https://ray-logic-lab-site.pages.dev',
@@ -14,7 +28,7 @@ export default defineConfig({
   trailingSlash: 'always',
 
   integrations: [
-    mdx(),
+    mdx({ processor: unified(mathOptions) }),
     sitemap(),
   ],
 
@@ -44,13 +58,6 @@ export default defineConfig({
   ],
 
   markdown: {
-    processor: unified({
-      remarkPlugins: [
-        remarkMath,
-      ],
-      rehypePlugins: [
-        rehypeKatex,
-      ],
-    }),
+    processor: unified(mathOptions),
   },
 });
